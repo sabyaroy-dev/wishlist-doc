@@ -1,0 +1,2104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lonigma Wishlist help centre for Shopify merchants.">
+    <title>Lonigma Wishlist Help Centre</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        #klaviyo figure {
+            padding: 48px 56px 34px;
+            border: 1px solid #e4e4e8;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 14px 40px rgba(31, 35, 48, .09);
+        }
+
+        #klaviyo figure img {
+            width: 88%;
+            max-width: 620px;
+            margin: 0 auto;
+            border: 1px solid #ececf0;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: none;
+        }
+
+        #klaviyo figure figcaption {
+            margin: 16px auto 0;
+            max-width: 620px;
+            color: #666a73;
+            font-size: 13px;
+        }
+
+        #klaviyo figure:first-of-type {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        #klaviyo figure:first-of-type img {
+            width: 100%;
+            max-width: none;
+        }
+
+        @media (max-width: 760px) {
+            #klaviyo figure {
+                padding: 22px 18px 18px;
+                border-radius: 12px;
+            }
+
+            #klaviyo figure img {
+                width: 94%;
+            }
+        }
+
+        #plans .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin: 26px 0 44px;
+        }
+
+        #plans .plan-card {
+            position: relative;
+            min-height: 230px;
+            padding: 24px;
+            border: 1px solid #e4e4e8;
+            border-radius: 14px;
+            background: #fff;
+            color: #202124;
+            box-shadow: 0 10px 30px rgba(31, 35, 48, .06);
+        }
+
+        #plans .plan-card.featured {
+            border-color: #7757e8;
+            box-shadow: 0 14px 36px rgba(119, 87, 232, .14);
+        }
+
+        #plans .plan-card h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        #plans .plan-card p {
+            color: #5f636b;
+        }
+
+        #plans .plan-price {
+            margin: 4px 0 14px;
+            color: #202124;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        #plans .plan-price small {
+            color: #6c7078;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        #plans .plan-card ul {
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #plans .plan-card li {
+            position: relative;
+            padding-left: 22px;
+        }
+
+        #plans .plan-card li::before {
+            position: absolute;
+            left: 0;
+            color: #168267;
+            content: "✓";
+            font-weight: 800;
+        }
+
+        .search {
+            position: relative;
+        }
+
+        .search-results {
+            position: absolute;
+            z-index: 30;
+            top: calc(100% + 10px);
+            left: 0;
+            width: min(560px, 78vw);
+            max-height: 420px;
+            overflow-y: auto;
+            border: 1px solid #e4e4e8;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 18px 48px rgba(31, 35, 48, .16);
+        }
+
+        .search-results[hidden] {
+            display: none;
+        }
+
+        .search-result {
+            display: block;
+            padding: 13px 15px;
+            border-bottom: 1px solid #eeeeF1;
+            color: #202124;
+        }
+
+        .search-result:last-child {
+            border-bottom: 0;
+        }
+
+        .search-result:hover,
+        .search-result:focus,
+        .search-result.is-active {
+            outline: 0;
+            background: #f1edff;
+        }
+
+        .search-result strong,
+        .search-result small {
+            display: block;
+        }
+
+        .search-result small {
+            margin-top: 2px;
+            overflow: hidden;
+            color: #6c7078;
+            font-size: 12px;
+            line-height: 1.45;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .search-empty {
+            padding: 16px;
+            color: #6c7078;
+            text-align: center;
+        }
+
+        .menu-toggle,
+        .search-toggle,
+        .sidebar-close,
+        .sidebar-backdrop {
+            display: none;
+        }
+
+        #plans .plan-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 3px 9px;
+            border-radius: 999px;
+            background: #f1edff;
+            color: #6849d1;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        @media (max-width: 760px) {
+            :root {
+                --top: 64px;
+            }
+
+            .topbar {
+                padding: 0 16px;
+            }
+
+            .search {
+                position: absolute;
+                top: calc(100% + 8px);
+                right: 16px;
+                left: 16px;
+                display: none;
+                width: auto;
+                height: 40px;
+                margin: 0;
+                background: var(--surface);
+                box-shadow: 0 12px 30px rgba(31, 35, 48, .14);
+            }
+
+            body.search-open .search {
+                display: flex;
+            }
+
+            .search input {
+                min-width: 0;
+            }
+
+            .search kbd {
+                display: none;
+            }
+
+            .search-results {
+                width: 100%;
+                max-height: min(55vh, 380px);
+            }
+
+            .main {
+                padding-top: calc(var(--top) + 28px);
+            }
+
+            .menu-toggle,
+            .search-toggle {
+                display: grid;
+                flex: 0 0 auto;
+                place-items: center;
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+                border: 1px solid var(--border);
+                border-radius: 9px;
+                background: var(--surface);
+                color: var(--text);
+                font: inherit;
+                font-size: 22px;
+                cursor: pointer;
+            }
+
+            .search-toggle {
+                margin-right: 0;
+                margin-left: auto;
+                font-size: 0;
+            }
+
+            .search-toggle span {
+                position: relative;
+                display: block;
+                width: 21px;
+                height: 21px;
+            }
+
+            .search-toggle span::before {
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 11px;
+                height: 11px;
+                border: 2px solid currentColor;
+                border-radius: 50%;
+                content: "";
+            }
+
+            .search-toggle span::after {
+                position: absolute;
+                right: 1px;
+                bottom: 3px;
+                width: 8px;
+                height: 2px;
+                border-radius: 2px;
+                background: currentColor;
+                content: "";
+                transform: rotate(45deg);
+                transform-origin: right center;
+            }
+
+            .top-actions {
+                margin-left: 10px;
+            }
+
+            .sidebar {
+                position: fixed;
+                z-index: 50;
+                inset: 0 auto 0 0;
+                display: block;
+                width: min(86vw, 330px);
+                margin: 0;
+                padding: 76px 18px 28px;
+                overflow-y: auto;
+                border-right: 1px solid var(--border);
+                border-bottom: 0;
+                background: var(--bg);
+                box-shadow: 18px 0 50px rgba(20, 22, 30, .18);
+                transform: translateX(-105%);
+                transition: transform .24s ease;
+            }
+
+            .sidebar>a {
+                display: flex;
+                width: 100%;
+                margin: 2px 0;
+                border: 0;
+                padding: 10px 12px;
+                white-space: normal;
+            }
+
+            .sidebar>p {
+                display: block;
+                margin: 22px 10px 7px;
+            }
+
+            .sidebar .home-link {
+                display: flex;
+                margin-bottom: 18px !important;
+            }
+
+            .sidebar-close {
+                position: absolute;
+                top: 18px;
+                right: 18px;
+                display: grid;
+                place-items: center;
+                width: 38px;
+                height: 38px;
+                border: 1px solid var(--border);
+                border-radius: 9px;
+                background: var(--surface);
+                color: var(--text);
+                font: inherit;
+                font-size: 23px;
+                cursor: pointer;
+            }
+
+            .sidebar-backdrop {
+                position: fixed;
+                z-index: 49;
+                inset: 0;
+                display: block;
+                background: rgba(17, 18, 24, .48);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .24s ease;
+            }
+
+            body.nav-open {
+                overflow: hidden;
+            }
+
+            body.nav-open .sidebar {
+                transform: translateX(0);
+            }
+
+            body.nav-open .sidebar-backdrop {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            #plans .plan-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #plans .plan-card {
+                min-height: 0;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="documentation-sidebar" aria-expanded="false">☰</button>
+        <a class="brand" href="#introduction">
+            <span class="brand-mark">L</span>
+            <span>Lonigma <strong>Wishlist</strong>
+            </span>
+            <em>Help Centre</em>
+        </a>
+        <button class="search-toggle" type="button" aria-label="Open search" aria-controls="search-results" aria-expanded="false"><span aria-hidden="true"></span></button>
+        <label class="search">
+            <span>⌕</span>
+            <input type="search" placeholder="Search documentation…" aria-label="Search documentation">
+            <kbd>Ctrl K</kbd>
+            <div class="search-results" id="search-results" role="listbox" aria-label="Documentation search results" hidden></div>
+        </label>
+        <nav class="top-actions">
+            <a href="mailto:support@lonigma.com">Contact support</a>
+            <a class="button" href="#install-and-set-up">Get started</a>
+        </nav>
+    </header>
+    <aside class="sidebar" id="documentation-sidebar" aria-label="Documentation navigation">
+        <button class="sidebar-close" type="button" aria-label="Close navigation">×</button>
+        <a class="home-link" href="#introduction">
+            <span>♡</span> Lonigma Documentation</a>
+        <p>GETTING STARTED</p>
+        <a href="#introduction">
+            <span>👋</span>Introduction</a>
+        <a href="#install-and-set-up">
+            <span>◎</span>Install and set up</a>
+        <a href="#theme-setup">
+            <span>▦</span>Add the wishlist to your theme</a>
+        <p>WISHLIST SETTINGS</p>
+        <a href="#display-modes">
+            <span>▣</span>Choose how the wishlist opens</a>
+        <a href="#branding">
+            <span>◉</span>Match it to your brand</a>
+        <a href="#sharing">
+            <span>↗</span>Sharing and privacy</a>
+        <p>GROWTH</p>
+        <a href="#alerts">
+            <span>♢</span>Stock and price alerts</a>
+        <a href="#analytics">
+            <span>▤</span>Analytics and exports</a>
+        <a href="#klaviyo">
+            <span>✉</span>Connect Klaviyo</a>
+        <p>REFERENCE</p>
+        <a href="#plans">
+            <span>◇</span>Plans and billing</a>
+        <a href="#troubleshooting">
+            <span>⚒</span>Troubleshooting and FAQ</a>
+        <a href="#glossary">
+            <span>▱</span>Glossary</a>
+        <a href="#privacy">
+            <span>⌾</span>Data, privacy and uninstalling</a>
+        <div class="help-card">
+            <b>Need a hand?</b>
+            <small>We’re here to help you launch.</small>
+        </div>
+    </aside>
+    <button class="sidebar-backdrop" type="button" aria-label="Close navigation" tabindex="-1"></button>
+    <main class="main">
+        <article class="guide guide-default" id="introduction">
+            <div class="breadcrumb">GETTING STARTED <b>›</b> Introduction</div>
+            <div class="title">
+                <span>👋</span>
+                <h1>Introduction</h1>
+            </div>
+            <p class="lead">This Help Centre is your complete guide to <strong>Lonigma Wishlist</strong> — the
+                all-in-one wishlist app for Shopify. Whether you have just installed it or you're ready to unlock the
+                advanced features, these guides take you through every step.</p>
+            <p>From installation and theme setup to design, sharing, alerts, integrations and analytics, every feature
+                you can use today is documented here — so you can build, launch and scale a wishlist that turns saved
+                items into sales.</p>
+            <dl class="intro-meta">
+                <div>
+                    <dt>Who it's for</dt>
+                    <dd>Shopify store owners and staff</dd>
+                </div>
+                <div>
+                    <dt>Plan required</dt>
+                    <dd>Free to start</dd>
+                </div>
+                <div>
+                    <dt>Time to complete</dt>
+                    <dd>15 minutes for the quick start</dd>
+                </div>
+            </dl>
+            <h2>Why choose Lonigma Wishlist?</h2>
+            <div class="benefit-list">
+                <p><strong>Effortless engagement.</strong> Shoppers save items in one tap from product pages, collection
+                    pages, search results and home-page carousels — no account, no sign-up, no interruption to their
+                    browsing. The heart places itself in your theme, so there is no code to write. Guest wishlists work
+                    on every plan, and the moment a shopper logs in, their saved items follow them to every device.</p>
+                <p><strong>Recover lost sales.</strong> When a shopper moves to remove something from their cart, offer
+                    to save it for later instead of losing it. They can move items between cart and wishlist freely, or
+                    save an entire cart in a single click — keeping their interest alive when they aren't ready to check
+                    out yet. <em>Starter and above.</em></p>
+                <p><strong>Turn intent into purchases.</strong> Alert shoppers automatically when a wishlisted product
+                    comes back in stock or drops in price — the two moments a saved item most often becomes a sale. Send
+                    by email, SMS or WhatsApp, with quiet hours and sending limits so you stay welcome in the inbox.
+                    Connect Klaviyo to add scheduled wishlist reminders and summary digests. <em>Email alerts: Starter
+                        and above · SMS and WhatsApp: Growth and above.</em></p>
+                <p><strong>Data-driven insights.</strong> See exactly which products get saved, which of them convert,
+                    and which sit ignored — top wishlisted products, top converting products, save-for-later leaders,
+                    your most wishlist-active customers, and the revenue your alerts recovered. Use it to prioritise
+                    restocks, plan campaigns, and stop guessing at demand. Export any of it to CSV. <em>Full analytics
+                        and exports: Growth and above.</em></p>
+                <p><strong>Fully customisable.</strong> Match your store's brand natively — colours, button shapes,
+                    icons, layouts, and the exact position of every control on every surface. Start from a style preset
+                    to get close in one click, then fine-tune. Upload your own SVG icons or write scoped custom CSS when
+                    you need pixel control. <em>Custom SVG and custom CSS: Starter and above.</em></p>
+                <p><strong>Built to be shared.</strong> Every wishlist can be shared across seven channels with full
+                    privacy controls, so shoppers send their saved items to the person actually buying. Each shared link
+                    brings a new visitor to your store with a ready-made basket — and campaign tags let you measure
+                    exactly what that traffic is worth.</p>
+            </div>
+            <aside class="callout">
+                <b>Before you start</b>
+                <p>The app embed must be enabled on your published theme. Check it again after publishing a different
+                    theme.</p>
+            </aside>
+            <h2>Installation process</h2>
+            <p>Complete these steps in order to launch a working wishlist on your storefront.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Action</th>
+                            <th>Where</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Install Lonigma Wishlist and approve the requested permissions</td>
+                            <td>Shopify App Store</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Enable the Wishlist Appearance app embed and save the theme</td>
+                            <td>Online Store → Themes → Customize → App embeds</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Add or confirm the product-page wishlist button</td>
+                            <td>Theme editor → Product information</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Create the wishlist page and add the full-page app block</td>
+                            <td>Online Store → Pages and Theme editor</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Choose brand colours, icons, and the display mode</td>
+                            <td>Lonigma Wishlist → Storefront</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Test saving and opening the wishlist in a private window and on mobile</td>
+                            <td>Your storefront</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><a class="inline-link" href="#install-and-set-up">View the complete installation guide and screenshots
+                    →</a></p>
+            <h2>Documentation guide</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Guide</th>
+                            <th>What it covers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Install and set up</td>
+                            <td>Installing, navigation and the first-run checklist</td>
+                        </tr>
+                        <tr>
+                            <td>Add the wishlist to your theme</td>
+                            <td>App embeds, product pages, collections, cart and wishlist page</td>
+                        </tr>
+                        <tr>
+                            <td>Choose how the wishlist opens</td>
+                            <td>Drawer, modal, dedicated page, launcher, naming and sorting</td>
+                        </tr>
+                        <tr>
+                            <td>Match the wishlist to your brand</td>
+                            <td>Presets, colours, shapes, icons, custom SVG and CSS</td>
+                        </tr>
+                        <tr>
+                            <td>Sharing and privacy</td>
+                            <td>Share channels, visibility, shared page and campaign tracking</td>
+                        </tr>
+                        <tr>
+                            <td>Alerts</td>
+                            <td>Providers, templates, quiet hours and delivery monitoring</td>
+                        </tr>
+                        <tr>
+                            <td>Analytics and exports</td>
+                            <td>Metrics, CSV exports, retention and capacity cleanup</td>
+                        </tr>
+                        <tr>
+                            <td>Plans and billing</td>
+                            <td>Plan comparison, allowances, upgrades and downgrades</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>What's included on each plan</h2>
+            <div class="table-wrap">
+                <table class="comparison">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Free</th>
+                            <th>Starter $9.99</th>
+                            <th>Growth $24.99</th>
+                            <th>Scale $49.99</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wishlist for guests and customers</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Hearts on product, collection, search, home</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Drawer / modal / page display</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Brand colours, shapes and built-in icons</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Sharing and privacy controls</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Store-wide campaign tags</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly saved-item allowance</td>
+                            <td>500</td>
+                            <td>3,000</td>
+                            <td>20,000</td>
+                            <td>75,000</td>
+                        </tr>
+                        <tr>
+                            <td>Multiple wishlists per shopper</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Add to cart / move to cart from wishlist</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Save for later from cart</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Custom CSS and custom SVG icons</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Email alerts with your own provider</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Klaviyo core events</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlist CSV export</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Full analytics</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Analytics CSV exports</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>SMS and WhatsApp alerts</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Per-channel campaign tags</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Klaviyo product triggers</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Scheduled S3 exports</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Klaviyo replay and custom mappings</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Priority support</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><strong>Full detail:</strong> <a class="inline-link" href="#plans">Plans and billing →</a></p>
+            <nav class="next">
+                <span>
+                </span>
+                <a href="#install-and-set-up">
+                    <small>NEXT</small>
+                    <b>Install and set up →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="install-and-set-up">
+            <div class="breadcrumb">GETTING STARTED <b>›</b> Install and set up</div>
+            <div class="title">
+                <span>◎</span>
+                <h1>Install and set up</h1>
+            </div>
+            <p class="lead">Go from a fresh install to a working wishlist that shoppers can actually use.</p>
+            <h2>1. Install Lonigma Wishlist</h2>
+            <p>Install the app, review the requested permissions, and open it inside Shopify admin.</p>
+            <figure>
+                <img src="images/shopify-app-install.png"
+                    alt="Two-step Shopify installation showing Add app and Install buttons">
+                <figcaption>Add Lonigma Wishlist from the Shopify App Store, review its permissions, then approve the
+                    installation.</figcaption>
+            </figure>
+            <h2>2. Find your way around</h2>
+            <p>After installation, Lonigma Wishlist opens inside Shopify admin. Find it under <strong>Apps</strong> in
+                the Shopify sidebar. The highlighted app menu gives you direct access to every area you need during
+                setup and day-to-day management.</p>
+            <figure>
+                <img src="images/install-navigation.png" alt="Lonigma Wishlist navigation and setup guide">
+                <figcaption>Lonigma Wishlist inside Shopify admin, with the complete app navigation highlighted.
+                </figcaption>
+            </figure>
+            <p>Start on <strong>Home</strong> to review the action-needed panel and setup guide. Use
+                <strong>Storefront</strong> for appearance and placement, <strong>Analytics</strong> for reports,
+                <strong>Notifications</strong> for alerts, and <strong>Integrations</strong> to connect services such as
+                Klaviyo. The remaining links help you manage customers, saved items, billing, and support.</p>
+            <aside class="callout">
+                <b>Test before launch</b>
+                <p>Open the storefront in a private window, save a product, and confirm its image, name, price, and
+                    variant.</p>
+            </aside>
+            <h2>App navigation</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Section</th>
+                            <th>What you do there</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Home</td>
+                            <td>Setup health check and this month's headline figures</td>
+                        </tr>
+                        <tr>
+                            <td>Storefront</td>
+                            <td>Appearance, placement and sharing</td>
+                        </tr>
+                        <tr>
+                            <td>Analytics</td>
+                            <td>Reports and CSV exports</td>
+                        </tr>
+                        <tr>
+                            <td>Notifications</td>
+                            <td>Back-in-stock and price-drop alerts</td>
+                        </tr>
+                        <tr>
+                            <td>Integrations</td>
+                            <td>Klaviyo connection</td>
+                        </tr>
+                        <tr>
+                            <td>Customers</td>
+                            <td>Browse wishlist owners</td>
+                        </tr>
+                        <tr>
+                            <td>Saved items</td>
+                            <td>Plan usage and cleanup tools</td>
+                        </tr>
+                        <tr>
+                            <td>Billing</td>
+                            <td>Change your plan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Setup health checks</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Check</th>
+                            <th>What it means</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>App embed enabled</td>
+                            <td>The theme app embed is on</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlist button visibility configured</td>
+                            <td>The heart is enabled for product or collection pages</td>
+                        </tr>
+                        <tr>
+                            <td>Storefront connection detected</td>
+                            <td>The app has seen storefront traffic recently</td>
+                        </tr>
+                        <tr>
+                            <td>Customer accounts supported</td>
+                            <td>At least one signed-in shopper has a wishlist</td>
+                        </tr>
+                        <tr>
+                            <td>Guest wishlists supported</td>
+                            <td>At least one guest has a wishlist</td>
+                        </tr>
+                        <tr>
+                            <td>Notification provider healthy or not required</td>
+                            <td>Alerts are off or a provider is connected</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="next">
+                <a href="#introduction">
+                    <small>PREVIOUS</small>
+                    <b>← Introduction</b>
+                </a>
+                <a href="#theme-setup">
+                    <small>NEXT</small>
+                    <b>Theme setup →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="theme-setup">
+            <div class="breadcrumb">GETTING STARTED <b>›</b> Theme setup</div>
+            <div class="title">
+                <span>▦</span>
+                <h1>Add the wishlist to your theme</h1>
+            </div>
+            <p class="lead">Place wishlist controls on product pages, collections, the cart, and a dedicated wishlist
+                page.</p>
+            <h2>Enable the app embed</h2>
+            <p>Go to <b>Online Store → Themes → Customize → App embeds</b>. Turn on Wishlist Appearance and save.</p>
+            <figure>
+                <img src="images/wishlist-app-embeds-v2.png"
+                    alt="Shopify theme editor showing Online Store, Edit theme, and Lonigma Wishlist app embed toggles">
+                <figcaption>The app embed loads the storefront foundation.</figcaption>
+            </figure>
+            <h2>Product pages</h2>
+            <p>Add the Wishlist Product Button block exactly where you want it.</p>
+            <figure>
+                <img src="images/introduction-product-block.png" alt="Wishlist product page app block">
+                <figcaption>Place the product block inside Product information.</figcaption>
+            </figure>
+            <h2>Wishlist page</h2>
+            <p>Create <code>/pages/wishlist</code> and add the Wishlist Full Page app block.</p>
+            <figure>
+                <img src="images/wishlist-page.png" alt="Shopify wishlist page setup">
+                <figcaption>Confirm the wishlist page before publishing.</figcaption>
+            </figure>
+            <h2>Theme placement checklist</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Where</th>
+                            <th>Required?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wishlist Appearance app embed</td>
+                            <td>Theme editor → App embeds</td>
+                            <td>Required</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlist Floating app embed</td>
+                            <td>Theme editor → App embeds</td>
+                            <td>Optional</td>
+                        </tr>
+                        <tr>
+                            <td>Product page heart</td>
+                            <td>App admin or PDP app block</td>
+                            <td>Recommended</td>
+                        </tr>
+                        <tr>
+                            <td>Collection hearts</td>
+                            <td>App admin</td>
+                            <td>Recommended</td>
+                        </tr>
+                        <tr>
+                            <td>Cart actions</td>
+                            <td>App admin or Cart app block</td>
+                            <td>Starter+</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlist page at /pages/wishlist</td>
+                            <td>Online Store → Pages</td>
+                            <td>Required</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Common placement problems</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>What you see</th>
+                            <th>Most likely cause</th>
+                            <th>Fix</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>No hearts anywhere</td>
+                            <td>Wishlist Appearance is off</td>
+                            <td>Enable the app embed</td>
+                        </tr>
+                        <tr>
+                            <td>Product hearts but no collection hearts</td>
+                            <td>Collection surface is off</td>
+                            <td>Enable Collection &amp; browse</td>
+                        </tr>
+                        <tr>
+                            <td>Two product-page hearts</td>
+                            <td>App block and auto-render are both on</td>
+                            <td>Turn off auto-render</td>
+                        </tr>
+                        <tr>
+                            <td>Cart block is empty</td>
+                            <td>Placement is set to Auto</td>
+                            <td>Select App block placement</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlist page is blank</td>
+                            <td>Page handle does not match</td>
+                            <td>Match the configured page path</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="next">
+                <a href="#install-and-set-up">
+                    <small>PREVIOUS</small>
+                    <b>← Install</b>
+                </a>
+                <a href="#display-modes">
+                    <small>NEXT</small>
+                    <b>Display modes →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="display-modes">
+            <div class="breadcrumb">WISHLIST SETTINGS <b>›</b> Display modes</div>
+            <div class="title">
+                <span>▣</span>
+                <h1>Choose how the wishlist opens</h1>
+            </div>
+            <p class="lead">Choose the experience that best fits your theme and your shoppers.</p>
+            <figure>
+                <img src="images/wishlist-display-mode.png" alt="Wishlist display controls">
+                <figcaption>Wishlist display mode and shell settings.</figcaption>
+            </figure>
+            <h2>Side drawer</h2>
+            <p>Recommended for most stores. It keeps shoppers on the current page while giving fast access to saved
+                products.</p>
+            <figure>
+                <img src="images/display-side-drawer.png" alt="Snowboard storefront dimmed behind an open Lonigma Wishlist side drawer">
+                <figcaption>The side drawer keeps the current storefront page visible while shoppers manage saved products.</figcaption>
+            </figure>
+            <h2>Modal</h2>
+            <p>A centred overlay that works well for focused, compact wishlists.</p>
+            <figure>
+                <img src="images/display-modal-purple.png" alt="Snowboard storefront dimmed behind a centered Lonigma Wishlist modal with purple buttons">
+                <figcaption>The modal focuses attention on saved products while the current storefront remains visible behind it.</figcaption>
+            </figure>
+            <h2>Dedicated page</h2>
+            <p>Best for larger lists and content-rich designs. Shared links point to this page.</p>
+            <figure>
+                <img src="images/display-dedicated-page.png" alt="Lonigma Wishlist dedicated page with list navigation, search controls, and product cards with purple actions">
+                <figcaption>The dedicated page gives larger wishlists room for list navigation, search, layout controls, and product actions.</figcaption>
+            </figure>
+            <h2>Launcher and naming</h2>
+            <p>Choose where the launcher appears and rename Wishlist to Favorites or Saved items.</p>
+            <h2>Display mode comparison</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mode</th>
+                            <th>What the shopper sees</th>
+                            <th>Best for</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Side drawer</td>
+                            <td>A panel slides in while the current page stays visible</td>
+                            <td>Most stores and continued browsing</td>
+                        </tr>
+                        <tr>
+                            <td>Modal</td>
+                            <td>A focused pop-up over the current page</td>
+                            <td>Smaller catalogues</td>
+                        </tr>
+                        <tr>
+                            <td>Dedicated page</td>
+                            <td>A full page with search, layouts and bulk actions</td>
+                            <td>Large catalogues and gift registries</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Launcher settings</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Options</th>
+                            <th>Default</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Toast position</td>
+                            <td>Top Right, Top Left, Bottom Right, Bottom Left</td>
+                            <td>Top Right</td>
+                        </tr>
+                        <tr>
+                            <td>Floating launcher position</td>
+                            <td>Top Right, Top Left, Bottom Right, Bottom Left</td>
+                            <td>Bottom Right</td>
+                        </tr>
+                        <tr>
+                            <td>Floating launcher style</td>
+                            <td>Icon only, Icon + label, Label only</td>
+                            <td>Icon only</td>
+                        </tr>
+                        <tr>
+                            <td>Default item sort</td>
+                            <td>Recently added, Name, Price, Manual</td>
+                            <td>Recently added</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="next">
+                <a href="#theme-setup">
+                    <small>PREVIOUS</small>
+                    <b>← Theme setup</b>
+                </a>
+                <a href="#branding">
+                    <small>NEXT</small>
+                    <b>Brand styling →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="branding">
+            <div class="breadcrumb">WISHLIST SETTINGS <b>›</b> Branding</div>
+            <div class="title">
+                <span>◉</span>
+                <h1>Match the wishlist to your brand</h1>
+            </div>
+            <p class="lead">Control colours, presets, button shapes, and icons from Brand &amp; visual style.</p>
+            <figure>
+                <img src="images/brand-visual-style.png" alt="Lonigma brand and visual style controls">
+                <figcaption>Brand settings with a live storefront preview.</figcaption>
+            </figure>
+            <h2>Start with a preset</h2>
+            <p>Choose Minimal, Balanced, Bold, or Custom. Balanced suits most stores.</p>
+            <h2>Set brand colours</h2>
+            <p>Configure button background, text, icon, and link colours.</p>
+            <h2>Choose shapes and icons</h2>
+            <p>Select solid, outline, or text buttons and choose the icon that fits your store.</p>
+            <h2>Advanced customisation</h2>
+            <p>Eligible plans can upload custom SVG icons and add scoped custom CSS.</p>
+            <h2>Style presets</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Preset</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Minimal</td>
+                            <td>Restrained, monochrome accents</td>
+                        </tr>
+                        <tr>
+                            <td>Balanced</td>
+                            <td>Versatile defaults</td>
+                        </tr>
+                        <tr>
+                            <td>Bold</td>
+                            <td>High-contrast, full-colour calls to action</td>
+                        </tr>
+                        <tr>
+                            <td>Custom</td>
+                            <td>Manual control over every style</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Brand colour settings</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>What it colours</th>
+                            <th>Default</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Button background</td>
+                            <td>Primary wishlist buttons</td>
+                            <td><code>#000000</code></td>
+                        </tr>
+                        <tr>
+                            <td>Button text</td>
+                            <td>Text on solid buttons</td>
+                            <td><code>#ffffff</code></td>
+                        </tr>
+                        <tr>
+                            <td>Icon colour</td>
+                            <td>Hearts, share icons and accents</td>
+                            <td><code>#dc2626</code></td>
+                        </tr>
+                        <tr>
+                            <td>Link colour</td>
+                            <td>Wishlist links and secondary actions</td>
+                            <td><code>#2563eb</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Built-in icons</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>When to use it</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Heart</td>
+                            <td>Default with strongest shopper recognition</td>
+                        </tr>
+                        <tr>
+                            <td>Star</td>
+                            <td>General favourites cue</td>
+                        </tr>
+                        <tr>
+                            <td>Plus</td>
+                            <td>Save or add metaphor</td>
+                        </tr>
+                        <tr>
+                            <td>Ribbon</td>
+                            <td>Boutique saved-item feel</td>
+                        </tr>
+                        <tr>
+                            <td>Bookmark</td>
+                            <td>Useful when save-for-later uses another shape</td>
+                        </tr>
+                        <tr>
+                            <td>Pin</td>
+                            <td>Pinterest-adjacent visual language</td>
+                        </tr>
+                        <tr>
+                            <td>Custom SVG</td>
+                            <td>Your uploaded icon — Starter+</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="next">
+                <a href="#display-modes">
+                    <small>PREVIOUS</small>
+                    <b>← Display modes</b>
+                </a>
+                <a href="#sharing">
+                    <small>NEXT</small>
+                    <b>Sharing →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="sharing">
+            <div class="breadcrumb">WISHLIST SETTINGS <b>›</b> Sharing</div>
+            <div class="title">
+                <span>↗</span>
+                <h1>Sharing and privacy</h1>
+            </div>
+            <p class="lead">Let shoppers share wishlists while controlling who can see saved products.</p>
+            <h2>Share channels</h2>
+            <p>Wishlists can be shared through a direct link and supported social or messaging channels.</p>
+            <figure>
+                <img src="images/share-channels.png" alt="Wishlist owner sharing menu with Copy, Email, Native, WhatsApp, Pinterest, Facebook, and X enabled">
+                <figcaption>Choose which sharing methods appear in drawer, modal, dedicated-page, and owner-facing share menus.</figcaption>
+            </figure>
+            <h2>Visibility</h2>
+            <p>Shoppers choose whether a list is private or shareable.</p>
+            <h2>Campaign tracking</h2>
+            <p>Add campaign tags to shared traffic to measure visits and wishlist-influenced revenue.</p>
+            <h2>Share channels</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Channel</th>
+                            <th>What it does</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Copy</td>
+                            <td>Copies the link to the clipboard</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>Opens the shopper's email app</td>
+                        </tr>
+                        <tr>
+                            <td>Native</td>
+                            <td>Uses the phone's built-in share sheet</td>
+                        </tr>
+                        <tr>
+                            <td>WhatsApp</td>
+                            <td>Opens WhatsApp with the link</td>
+                        </tr>
+                        <tr>
+                            <td>Pinterest</td>
+                            <td>Shares to Pinterest</td>
+                        </tr>
+                        <tr>
+                            <td>Facebook</td>
+                            <td>Shares to Facebook</td>
+                        </tr>
+                        <tr>
+                            <td>X</td>
+                            <td>Shares to X</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Visibility options</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Visibility</th>
+                            <th>Who can open the link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Public</td>
+                            <td>Anyone with the link</td>
+                        </tr>
+                        <tr>
+                            <td>Private</td>
+                            <td>Only the owner</td>
+                        </tr>
+                        <tr>
+                            <td>Shared</td>
+                            <td>People with the full link including its secret token</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Guest and customer wishlists</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Guest shopper</th>
+                            <th>Signed-in customer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Can save items</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Survives closing the browser</td>
+                            <td>Yes, on that device</td>
+                            <td>Yes, everywhere</td>
+                        </tr>
+                        <tr>
+                            <td>Follows them to a new device</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Can share the list</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Appears in Customers report</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="next">
+                <a href="#branding">
+                    <small>PREVIOUS</small>
+                    <b>← Branding</b>
+                </a>
+                <a href="#alerts">
+                    <small>NEXT</small>
+                    <b>Alerts →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="alerts">
+            <div class="breadcrumb">GROWTH <b>›</b> Alerts</div>
+            <div class="title">
+                <span>♢</span>
+                <h1>Back-in-stock and price-drop alerts</h1>
+            </div>
+            <p class="lead">Reach shoppers when a saved product is most likely to become a sale.</p>
+            <h2>Connect a provider</h2>
+            <p>Connect a supported provider from Lonigma. Provider charges are managed directly with that service.</p>
+            <h3>Email provider</h3>
+            <figure>
+                <img src="images/alerts-email-provider-sanitized.png" alt="Email alert provider settings using sanitized SMTP example values">
+                <figcaption>Configure the sender identity and SMTP provider, then use Send test to verify connectivity.</figcaption>
+            </figure>
+            <h3>SMS provider</h3>
+            <figure>
+                <img src="images/alerts-sms-provider-sanitized.png" alt="SMS alert provider settings with the phone number and Twilio credentials hidden">
+                <figcaption>Connect Twilio for SMS using a sending number, account SID, and auth token. Credentials are masked in this example.</figcaption>
+            </figure>
+            <h3>WhatsApp provider</h3>
+            <figure>
+                <img src="images/alerts-whatsapp-provider-sanitized.png" alt="WhatsApp alert provider settings with the sender phone number hidden">
+                <figcaption>WhatsApp uses the Twilio credentials configured for SMS and its own enabled sender number.</figcaption>
+            </figure>
+            <h2>Configure delivery</h2>
+            <p>Set templates, sending limits, and quiet hours.</p>
+            <figure>
+                <img src="images/alerts-configure-delivery.png" alt="Lonigma alert template editor for email, SMS, and WhatsApp delivery channels">
+                <figcaption>Edit alert templates by event, channel, and locale, then preview or test the selected message.</figcaption>
+            </figure>
+            <h2>Monitor results</h2>
+            <p>Review delivery status and recovered revenue from the alerts dashboard.</p>
+            <h2>Provider requirements</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>To send</th>
+                            <th>You need</th>
+                            <th>Plan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Email</td>
+                            <td>SMTP or SendGrid account</td>
+                            <td>Starter+</td>
+                        </tr>
+                        <tr>
+                            <td>SMS</td>
+                            <td>Twilio account with a sending number</td>
+                            <td>Growth+</td>
+                        </tr>
+                        <tr>
+                            <td>WhatsApp</td>
+                            <td>Twilio account with WhatsApp enabled</td>
+                            <td>Growth+</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Template variables</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Becomes</th>
+                            <th>Available in</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>{{productName}}</code></td>
+                            <td>Product title</td>
+                            <td>Both alerts</td>
+                        </tr>
+                        <tr>
+                            <td><code>{{productUrl}}</code></td>
+                            <td>Product link</td>
+                            <td>Both alerts</td>
+                        </tr>
+                        <tr>
+                            <td><code>{{oldPrice}}</code></td>
+                            <td>Price before the drop</td>
+                            <td>Price drop only</td>
+                        </tr>
+                        <tr>
+                            <td><code>{{newPrice}}</code></td>
+                            <td>Price after the drop</td>
+                            <td>Price drop only</td>
+                        </tr>
+                        <tr>
+                            <td><code>{{wishlistName}}</code></td>
+                            <td>Shopper's list name</td>
+                            <td>Both alerts</td>
+                        </tr>
+                        <tr>
+                            <td><code>{{unsubscribeUrl}}</code></td>
+                            <td>Unsubscribe link</td>
+                            <td>Both alerts</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Sending limits</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>What it caps</th>
+                            <th>Default</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Shop rate limit per hour</td>
+                            <td>Total successful sends per hour</td>
+                            <td>200</td>
+                        </tr>
+                        <tr>
+                            <td>Recipient rate limit per day</td>
+                            <td>Sends to one person in 24 hours</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Pending lag warning</td>
+                            <td>When a queue warning appears</td>
+                            <td>60 minutes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="next">
+                <a href="#sharing">
+                    <small>PREVIOUS</small>
+                    <b>← Sharing</b>
+                </a>
+                <a href="#analytics">
+                    <small>NEXT</small>
+                    <b>Analytics →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="analytics">
+            <div class="breadcrumb">GROWTH <b>›</b> Analytics</div>
+            <div class="title">
+                <span>▤</span>
+                <h1>Analytics and exports</h1>
+            </div>
+            <p class="lead">See what shoppers save, what converts, and where wishlist activity creates revenue.</p>
+            <h2>Analytics overview</h2>
+            <p>Use the date-range selector to review wishlist activity for a specific reporting window. The Overview tab brings retention, engagement, conversion, revenue, trends, and sharing performance together.</p>
+
+            <h3>Data retention</h3>
+            <p>Choose how long raw customer-level analytics are retained. Aggregate reporting history remains available beyond the selected raw-data period.</p>
+            <figure>
+                <img src="images/analytics-data-retention.png" alt="Analytics data-retention setting showing the current 25-month retention period">
+                <figcaption>The retention control shows the current period and the maximum supported duration.</figcaption>
+            </figure>
+
+            <h3>Engagement and saves by surface</h3>
+            <p>Track active wishlist owners, wishlist additions, total saved-product value, and save-for-later activity. Surface cards show where shoppers saved products, such as the home page or collection pages.</p>
+            <figure>
+                <img src="images/analytics-engagement-saves.png" alt="Wishlist engagement metrics and saves grouped by storefront surface">
+                <figcaption>Engagement metrics summarise wishlist usage and identify the storefront surfaces producing saves.</figcaption>
+            </figure>
+
+            <h3>Conversion and revenue</h3>
+            <p>Measure how wishlist additions progress to cart and purchase, then compare wishlist-attributed revenue and average wishlist value.</p>
+            <figure>
+                <img src="images/analytics-conversion-revenue.png" alt="Wishlist conversion and revenue metric cards">
+                <figcaption>Conversion cards connect saved-product activity with cart movement, purchases, and revenue.</figcaption>
+            </figure>
+
+            <h3>Trend chart</h3>
+            <p>Follow additions, cart moves, purchases, and revenue across the selected date range. Hovering a point reveals the value recorded for that day.</p>
+            <figure>
+                <img src="images/analytics-trend-chart.png" alt="Daily analytics trend chart for wishlist additions, cart moves, purchases, and revenue">
+                <figcaption>The daily trend makes changes in wishlist activity easier to compare over time.</figcaption>
+            </figure>
+
+            <h3>Share funnel</h3>
+            <p>Review how shared wishlists progress from shares to clicks, cart additions, and purchases. Expand inactive channels when you need channel-level detail.</p>
+            <figure>
+                <img src="images/analytics-share-funnel.png" alt="Wishlist sharing funnel from shares through clicks and cart additions to purchases">
+                <figcaption>The share funnel shows whether shared-wishlist traffic is moving toward a purchase.</figcaption>
+            </figure>
+            <h2>Product performance</h2>
+            <p>Compare top-wishlisted products, top-converting products, and save-for-later leaders.</p>
+            <p>Choose a reporting period to compare additions, moves to cart, save-for-later actions, purchases, revenue, and conversion for each product. The top-converting table requires at least five additions before a product qualifies.</p>
+            <figure>
+                <img src="images/analytics-product-performance.png" alt="Products analytics showing top wishlisted, top converting, and top saved-for-later products">
+                <figcaption>Product performance tables reveal which saved products attract interest and which ones progress toward revenue.</figcaption>
+            </figure>
+            <h2>Customer activity</h2>
+            <p>Find active customers and understand how saved products move toward purchase.</p>
+            <p>Use the engagement filters to isolate customers who received alerts, shared a wishlist, moved an item to cart, or completed a purchase. Each row compares additions, cart movement, purchases, revenue, conversion, and engagement signals for the selected period.</p>
+            <figure>
+                <img src="images/analytics-customer-activity-sanitized.png" alt="Customer analytics table with anonymous identifiers and illustrative engagement, conversion, and revenue data">
+                <figcaption>This example uses anonymous identifiers and sample metrics; no customer email addresses or personal details are shown.</figcaption>
+            </figure>
+            <h2>Exports</h2>
+            <p>Export available reports to CSV for analysis and campaign workflows.</p>
+            <p>Create one-time exports or schedule recurring S3 delivery by data kind, frequency, and reporting range. Pending exports remain in the queue; completed exports show their row count, expiry time, and a download action.</p>
+            <figure>
+                <img src="images/analytics-exports-statuses.png" alt="Analytics exports screen with scheduled S3 delivery and Pending and Completed export rows">
+                <figcaption>The export history distinguishes queued work from completed files that are ready to download before they expire.</figcaption>
+            </figure>
+            <h2>Analytics screens</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Screen</th>
+                            <th>Shows</th>
+                            <th>Plan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Home</td>
+                            <td>Setup health and four monthly headline figures</td>
+                            <td>All plans</td>
+                        </tr>
+                        <tr>
+                            <td>Overview</td>
+                            <td>Engagement, conversion, revenue, trends and sharing</td>
+                            <td>Growth+</td>
+                        </tr>
+                        <tr>
+                            <td>Products</td>
+                            <td>Which products get saved and convert</td>
+                            <td>Growth+</td>
+                        </tr>
+                        <tr>
+                            <td>Customers</td>
+                            <td>Most wishlist-active shoppers</td>
+                            <td>Growth+</td>
+                        </tr>
+                        <tr>
+                            <td>Exports</td>
+                            <td>CSV downloads and scheduled deliveries</td>
+                            <td>Starter+</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Analytics history by plan</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plan</th>
+                            <th>Date-range options</th>
+                            <th>Maximum</th>
+                            <th>History kept</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Free</td>
+                            <td>7 / 14 / 30 days</td>
+                            <td>30 days</td>
+                            <td>30 days</td>
+                        </tr>
+                        <tr>
+                            <td>Starter</td>
+                            <td>30 / 60 / 90 days</td>
+                            <td>90 days</td>
+                            <td>90 days</td>
+                        </tr>
+                        <tr>
+                            <td>Growth</td>
+                            <td>90 days / 6 / 13 months</td>
+                            <td>13 months</td>
+                            <td>13 months</td>
+                        </tr>
+                        <tr>
+                            <td>Scale</td>
+                            <td>13 / 18 / 25 months</td>
+                            <td>25 months</td>
+                            <td>Unlimited</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Export status</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pending</td>
+                            <td>Queued</td>
+                        </tr>
+                        <tr>
+                            <td>Running</td>
+                            <td>Being generated</td>
+                        </tr>
+                        <tr>
+                            <td>Completed</td>
+                            <td>Ready to download</td>
+                        </tr>
+                        <tr>
+                            <td>Failed</td>
+                            <td>The reason appears in the row</td>
+                        </tr>
+                        <tr>
+                            <td>Expired</td>
+                            <td>The retention window has passed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="next">
+                <a href="#alerts">
+                    <small>PREVIOUS</small>
+                    <b>← Alerts</b>
+                </a>
+                <a href="#klaviyo">
+                    <small>NEXT</small>
+                    <b>Klaviyo →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="klaviyo">
+            <div class="breadcrumb">GROWTH <b>›</b> Klaviyo</div>
+            <div class="title">
+                <span>✉</span>
+                <h1>Connect Klaviyo</h1>
+            </div>
+            <p class="lead">Send wishlist activity to Klaviyo and build flows around shopper intent.</p>
+            <h2>Klaviyo setup guide</h2>
+            <p>Follow the in-app checklist to create a private API key, enable synchronization, choose the events and triggers you need, and send a test event before building flows.</p>
+            <figure>
+                <img src="images/klaviyo-setup-guide.png" alt="Lonigma Klaviyo setup guide with four connection and verification steps">
+                <figcaption>The setup guide summarises the complete connection process from API key creation through event verification.</figcaption>
+            </figure>
+
+            <h2>Connection and events</h2>
+            <p>Open <b>Integrations → Klaviyo</b>, enable Klaviyo sync, and paste a private API key with event and profile write access. A masked preview confirms that a key is already on file without revealing it.</p>
+            <figure>
+                <img src="images/klaviyo-connection.png" alt="Klaviyo connection panel with synchronization enabled and a masked private API key">
+                <figcaption>Enable synchronization and save a private API key before configuring metrics.</figcaption>
+            </figure>
+
+            <h2>Wishlist events</h2>
+            <p>Choose which shopper actions create Klaviyo metrics. Core events include additions, removals, save for later, moves to cart, shared-link clicks, and wishlist-item purchases.</p>
+            <figure>
+                <img src="images/klaviyo-events.png" alt="Enabled Klaviyo wishlist events including additions, removals, save for later, moves to cart, shares, and purchases">
+                <figcaption>Each enabled event creates a metric on the shopper's Klaviyo profile.</figcaption>
+            </figure>
+
+            <h2>Synced metrics and profile data</h2>
+            <p>Review the metrics and profile properties Lonigma sends to Klaviyo. The integration covers core wishlist activity, product-state triggers, reminders, alert engagement, wishlist item count, item IDs, and primary-wishlist details.</p>
+            <figure>
+                <img src="images/klaviyo-sync-data.png" alt="List of Klaviyo metrics and wishlist profile properties synchronized by Lonigma">
+                <figcaption>The sync summary explains what each Lonigma event creates in Klaviyo and which wishlist properties stay updated.</figcaption>
+            </figure>
+
+            <h2>Product triggers</h2>
+            <p>Enable product-state triggers for back-in-stock, low-stock, and price-drop activity. Set the minimum available stock, low-stock threshold, and minimum percentage decrease so metrics are created only when the conditions match.</p>
+            <figure>
+                <img src="images/klaviyo-triggers.png" alt="Klaviyo product triggers for back in stock, low stock, and price drop with editable thresholds">
+                <figcaption>Trigger thresholds control when wishlisted-product changes create Klaviyo metrics.</figcaption>
+            </figure>
+
+            <h2>Revenue automation</h2>
+            <p>Growth adds engagement metrics for wishlist views, scheduled reminders, summary reminders, and alert delivery. Configure reminder delay and summary cadence, then enable the alert sent, opened, and clicked events you want to use.</p>
+            <figure>
+                <img src="images/klaviyo-revenue.png" alt="Klaviyo revenue automation settings for wishlist views, reminders, summaries, and alert engagement">
+                <figcaption>Set reminder timing and enable the engagement signals needed for revenue-focused campaigns.</figcaption>
+            </figure>
+
+            <h2>Flow setup</h2>
+            <p>Build Klaviyo flows using the matching Lonigma metric as the trigger. Suggested flows cover wishlist welcome, reminders, summaries, back in stock, low stock, price drop, and save-for-later recovery.</p>
+            <figure>
+                <img src="images/klaviyo-flows.png" alt="Suggested Klaviyo flows with their corresponding Lonigma trigger metrics">
+                <figcaption>Each suggested flow identifies the exact metric to select as its Klaviyo trigger.</figcaption>
+            </figure>
+
+            <h2>Advanced operations</h2>
+            <p>Inspect the dead-letter queue and replay failed Klaviyo synchronization jobs when delivery problems occur. When the queue is healthy, the panel confirms that there is nothing to replay.</p>
+            <figure>
+                <img src="images/klaviyo-advanced.png" alt="Klaviyo advanced operations panel showing no failed jobs to replay">
+                <figcaption>Advanced operations provide recovery tools for failed synchronization jobs.</figcaption>
+            </figure>
+
+            <h2>Activity and testing</h2>
+            <p>Use the Activity panel to confirm the last successful sync, last failure, and last test event. The event history records status and time, while <b>Send test event</b> verifies the connection before you launch a flow.</p>
+            <figure>
+                <img src="images/klaviyo-activity.png" alt="Klaviyo activity history with successful events and controls to send a test event or disconnect">
+                <figcaption>Successful test events confirm that Lonigma metrics are reaching the connected Klaviyo account.</figcaption>
+            </figure>
+            <nav class="next">
+                <a href="#analytics">
+                    <small>PREVIOUS</small>
+                    <b>← Analytics</b>
+                </a>
+                <a href="#plans">
+                    <small>NEXT</small>
+                    <b>Plans →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="plans">
+            <div class="breadcrumb">REFERENCE <b>›</b> Plans</div>
+            <div class="title">
+                <span>◇</span>
+                <h1>Plans and billing</h1>
+            </div>
+            <p class="lead">Choose a plan based on the features, analytics, alerts, and capacity your store needs.</p>
+            <h2>Choose or change your plan</h2>
+            <p>Lonigma uses Shopify-hosted billing. Review the selected package, price, trial period, and included capabilities before confirming a change. Shopify handles the approval and recurring charge inside your store admin.</p>
+            <figure>
+                <img src="images/plans-shopify-selection.png" alt="Shopify-hosted Lonigma plan selection showing Free, Starter, Growth, and Scale plans">
+                <figcaption>The plan selector compares monthly pricing and headline benefits while clearly marking the currently confirmed package.</figcaption>
+            </figure>
+
+            <h2>Find the right tier</h2>
+            <p>Start with the capacity your store needs today, then consider the automation, analytics, and export tools required by your workflow.</p>
+            <div class="plan-grid">
+                <section class="plan-card">
+                    <h3>Free</h3>
+                    <div class="plan-price">$0 <small>/ month</small></div>
+                    <p>For stores launching a straightforward wishlist without a trial or recurring charge.</p>
+                    <ul>
+                        <li>Up to 500 monthly wishlist additions</li>
+                        <li>One wishlist per shopper</li>
+                        <li>Guest and logged-in wishlist support</li>
+                        <li>Theme integration</li>
+                    </ul>
+                </section>
+                <section class="plan-card">
+                    <h3>Starter</h3>
+                    <div class="plan-price">$9.99 <small>/ month</small></div>
+                    <p>For growing stores that need multiple lists and stronger storefront conversion tools.</p>
+                    <ul>
+                        <li>Up to 3,000 monthly additions</li>
+                        <li>Up to five wishlists per shopper</li>
+                        <li>Add to cart and move to cart</li>
+                        <li>Seven-day free trial</li>
+                    </ul>
+                </section>
+                <section class="plan-card featured">
+                    <span class="plan-badge">Popular</span>
+                    <h3>Growth</h3>
+                    <div class="plan-price">$24.99 <small>/ month</small></div>
+                    <p>For teams using advanced analytics, campaigns, and multi-channel alert automation.</p>
+                    <ul>
+                        <li>Up to 20,000 monthly additions</li>
+                        <li>Advanced analytics and CSV exports</li>
+                        <li>Email, SMS, and WhatsApp alert paths</li>
+                        <li>Klaviyo Revenue Automation</li>
+                    </ul>
+                </section>
+                <section class="plan-card">
+                    <h3>Scale</h3>
+                    <div class="plan-price">$49.99 <small>/ month</small></div>
+                    <p>For high-volume stores that need the largest allowance and operational export tooling.</p>
+                    <ul>
+                        <li>75,000 additions plus fair-use review</li>
+                        <li>Scheduled S3 exports</li>
+                        <li>Klaviyo replay and advanced operations</li>
+                        <li>Fourteen-day free trial</li>
+                    </ul>
+                </section>
+            </div>
+
+            <aside class="callout">
+                <b>Changing plans</b>
+                <p>Confirm the price and trial shown in the live Shopify plan selector. The screenshot above shows Scale as the selected example; your store may display a different current plan.</p>
+            </aside>
+            <h2>Quick capacity comparison</h2>
+            <div class="table-wrap">
+                <table class="comparison">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Free</th>
+                            <th>Starter</th>
+                            <th>Growth</th>
+                            <th>Scale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Price</td>
+                            <td>$0/mo</td>
+                            <td>$9.99/mo</td>
+                            <td>$24.99/mo</td>
+                            <td>$49.99/mo</td>
+                        </tr>
+                        <tr>
+                            <td>Free trial</td>
+                            <td>None</td>
+                            <td>7 days</td>
+                            <td>7 days</td>
+                            <td>14 days</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly wishlist additions</td>
+                            <td>500</td>
+                            <td>3,000</td>
+                            <td>20,000</td>
+                            <td>75,000 + fair-use review</td>
+                        </tr>
+                        <tr>
+                            <td>Stored saved items</td>
+                            <td>5,000</td>
+                            <td>40,000</td>
+                            <td>250,000</td>
+                            <td>Fair-use review</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlists per shopper</td>
+                            <td>1</td>
+                            <td>Up to 5</td>
+                            <td>Multiple</td>
+                            <td>Multiple</td>
+                        </tr>
+                        <tr>
+                            <td>Analytics history</td>
+                            <td>30 days</td>
+                            <td>90 days</td>
+                            <td>13 months</td>
+                            <td>25 months</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Full feature matrix</h2>
+            <p>Use the full matrix when a decision depends on a specific capability. The first section compares capacity, core wishlist behavior, sharing, analytics, cart actions, customization, and alert availability.</p>
+            <figure>
+                <img src="images/plans-feature-matrix-core.png" alt="Core plan feature matrix comparing Free, Starter, Growth, and Scale">
+                <figcaption>Core features progress from essential wishlist support to advanced analytics, cart tools, custom styling, and multi-channel alerts.</figcaption>
+            </figure>
+            <p>The advanced section covers email delivery, Klaviyo, extensibility, Shopify Flow, manual and scheduled exports, reporting, and support. Items marked planned or pending are not yet generally available.</p>
+            <figure>
+                <img src="images/plans-feature-matrix-advanced.png" alt="Advanced plan feature matrix covering alerts, Klaviyo, exports, extensibility, and support">
+                <figcaption>Review advanced automation and operational features carefully, especially capabilities marked planned or pending.</figcaption>
+            </figure>
+            <h2>Monthly allowance limits</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plan</th>
+                            <th>Included</th>
+                            <th>Grace</th>
+                            <th>At the limit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Free</td>
+                            <td>500</td>
+                            <td>+10%</td>
+                            <td>New saves are blocked</td>
+                        </tr>
+                        <tr>
+                            <td>Starter</td>
+                            <td>3,000</td>
+                            <td>+10%</td>
+                            <td>New saves are blocked</td>
+                        </tr>
+                        <tr>
+                            <td>Growth</td>
+                            <td>20,000</td>
+                            <td>+10%</td>
+                            <td>New saves are blocked</td>
+                        </tr>
+                        <tr>
+                            <td>Scale</td>
+                            <td>75,000</td>
+                            <td>—</td>
+                            <td>No block; fair-use review opens</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="next">
+                <a href="#klaviyo">
+                    <small>PREVIOUS</small>
+                    <b>← Klaviyo</b>
+                </a>
+                <a href="#troubleshooting">
+                    <small>NEXT</small>
+                    <b>Troubleshooting →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="troubleshooting">
+            <div class="breadcrumb">REFERENCE <b>›</b> Troubleshooting</div>
+            <div class="title">
+                <span>⚒</span>
+                <h1>Troubleshooting and FAQ</h1>
+            </div>
+            <p class="lead">Start with the quickest checks for the issues merchants report most often.</p>
+            <h2>Nothing appears</h2>
+            <p>Confirm Wishlist Appearance is enabled on the published theme, then save and refresh.</p>
+            <h2>Hearts are missing</h2>
+            <p>Check visibility settings and test in a private browser window.</p>
+            <h2>Before contacting support</h2>
+            <p>Have your shop domain, affected page URL, screenshot, plan, and test result ready.</p>
+            <nav class="next">
+                <a href="#plans">
+                    <small>PREVIOUS</small>
+                    <b>← Plans</b>
+                </a>
+                <a href="#glossary">
+                    <small>NEXT</small>
+                    <b>Glossary →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="glossary">
+            <div class="breadcrumb">REFERENCE <b>›</b> Glossary</div>
+            <div class="title">
+                <span>▱</span>
+                <h1>Glossary</h1>
+            </div>
+            <p class="lead">Plain-language definitions for terms used throughout Lonigma Wishlist.</p>
+            <h2>App embed</h2>
+            <p>A theme-level switch that loads Lonigma Wishlist on your storefront.</p>
+            <h2>Guest wishlist</h2>
+            <p>A list saved by a shopper who has not signed in.</p>
+            <h2>Display mode</h2>
+            <p>The drawer, modal, or dedicated-page experience used to show a wishlist.</p>
+            <h2>Save for later</h2>
+            <p>Moves a cart item to the wishlist so purchase intent is not lost.</p>
+            <nav class="next">
+                <a href="#troubleshooting">
+                    <small>PREVIOUS</small>
+                    <b>← Troubleshooting</b>
+                </a>
+                <a href="#privacy">
+                    <small>NEXT</small>
+                    <b>Privacy →</b>
+                </a>
+            </nav>
+        </article>
+        <article class="guide" id="privacy">
+            <div class="breadcrumb">REFERENCE <b>›</b> Privacy</div>
+            <div class="title">
+                <span>⌾</span>
+                <h1>Data, privacy and uninstalling</h1>
+            </div>
+            <p class="lead">Understand retention, privacy requests, and what happens when the app is removed.</p>
+            <h2>Customer privacy requests</h2>
+            <p>Use the app’s data tools and support workflow to respond to access or deletion requests.</p>
+            <h2>Before uninstalling</h2>
+            <p>Export any data you need and confirm the retention consequences shown in the app.</p>
+            <h2>Downgrading</h2>
+            <p>Review current plan limits before downgrading.</p>
+            <nav class="next">
+                <a href="#glossary">
+                    <small>PREVIOUS</small>
+                    <b>← Glossary</b>
+                </a>
+                <span>
+                </span>
+            </nav>
+        </article>
+        <footer>
+            <p>Was this helpful? <a href="mailto:support@lonigma.com">Send feedback</a>
+            </p>
+            <small>Last updated August 2026 · Lonigma Wishlist</small>
+        </footer>
+    </main>
+    <aside class="toc">
+        <p>GUIDES</p>
+        <a href="#introduction">Introduction</a>
+        <a href="#install-and-set-up">Install and set up</a>
+        <a href="#theme-setup">Theme setup</a>
+        <a href="#display-modes">Display modes</a>
+        <a href="#branding">Brand styling</a>
+        <a href="#sharing">Sharing</a>
+        <a href="#alerts">Alerts</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#klaviyo">Klaviyo</a>
+        <a href="#plans">Plans</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#glossary">Glossary</a>
+        <a href="#privacy">Privacy</a>
+    </aside>
+    <script src="search.js"></script>
+</body>
+
+</html>
