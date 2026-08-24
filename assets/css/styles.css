@@ -934,7 +934,18 @@ td:first-child {
     }
 
     .top-actions {
-        display: none;
+        display: flex;
+        flex: 0 0 auto;
+        gap: 0;
+        margin-left: 8px;
+    }
+
+    .top-actions .button {
+        padding: 7px 10px;
+        border-radius: 7px;
+        font-size: 12px;
+        line-height: 1.35;
+        white-space: nowrap;
     }
 
     .sidebar {
