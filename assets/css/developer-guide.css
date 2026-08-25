@@ -1,0 +1,332 @@
+:root {
+    --dev-bg: #ffffff;
+    --dev-surface: #f7f7f9;
+    --dev-border: #e4e4e9;
+    --dev-text: #202124;
+    --dev-muted: #686b73;
+    --dev-accent: #7757e8;
+    --dev-accent-soft: #f1edff;
+    --dev-header: 68px;
+    --dev-sidebar: 286px;
+    color-scheme: light dark;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--dev-bg);
+    color: var(--dev-text);
+    font: 15px/1.7 Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+    color: var(--dev-accent);
+}
+
+.dev-header {
+    position: fixed;
+    z-index: 20;
+    inset: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--dev-header);
+    padding: 0 26px;
+    border-bottom: 1px solid var(--dev-border);
+    background: color-mix(in srgb, var(--dev-bg) 94%, transparent);
+    backdrop-filter: blur(14px);
+}
+
+.dev-brand,
+.dev-header-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dev-brand {
+    color: var(--dev-text);
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.dev-brand-mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #8f72ef, #6849d1);
+    color: #fff;
+    font-weight: 850;
+}
+
+.dev-header-links a {
+    padding: 7px 12px;
+    border-radius: 8px;
+    color: var(--dev-muted);
+    text-decoration: none;
+}
+
+.dev-header-links a:last-child {
+    background: var(--dev-accent);
+    color: #fff;
+    font-weight: 700;
+}
+
+.dev-sidebar {
+    position: fixed;
+    inset: var(--dev-header) auto 0 0;
+    width: var(--dev-sidebar);
+    overflow-y: auto;
+    padding: 24px 18px 34px;
+    border-right: 1px solid var(--dev-border);
+    background: var(--dev-bg);
+}
+
+.dev-sidebar strong {
+    display: block;
+    margin: 0 10px 12px;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.dev-sidebar a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 7px;
+    color: var(--dev-muted);
+    font-size: 12px;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+.dev-sidebar a:hover,
+.dev-sidebar a:focus {
+    background: var(--dev-accent-soft);
+    color: var(--dev-accent);
+}
+
+.dev-main {
+    width: min(980px, calc(100% - var(--dev-sidebar) - 90px));
+    margin-left: max(calc(var(--dev-sidebar) + 44px), calc((100% - 980px + var(--dev-sidebar)) / 2));
+    padding: calc(var(--dev-header) + 54px) 0 80px;
+}
+
+.dev-guide > h1 {
+    margin: 0 0 18px;
+    font-size: clamp(36px, 5vw, 54px);
+    line-height: 1.08;
+    letter-spacing: -.04em;
+}
+
+.dev-guide > h1 + p {
+    font-size: 17px;
+}
+
+.dev-guide h2 {
+    scroll-margin-top: calc(var(--dev-header) + 24px);
+    margin: 64px 0 14px;
+    padding-top: 4px;
+    border-top: 1px solid var(--dev-border);
+    font-size: 28px;
+    line-height: 1.3;
+    letter-spacing: -.025em;
+}
+
+.dev-guide h3 {
+    margin: 34px 0 10px;
+    font-size: 20px;
+}
+
+.dev-guide hr {
+    margin: 42px 0;
+    border: 0;
+    border-top: 1px solid var(--dev-border);
+}
+
+.dev-guide code {
+    padding: 2px 5px;
+    border-radius: 5px;
+    background: var(--dev-surface);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: .9em;
+}
+
+.dev-guide pre {
+    margin: 18px 0 28px;
+    overflow-x: auto;
+    border: 1px solid #303038;
+    border-radius: 12px;
+    padding: 18px 20px;
+    background: #17171b;
+    color: #f5f3ff;
+    box-shadow: 0 12px 30px rgba(20, 20, 28, .12);
+}
+
+.dev-guide pre code {
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.dev-guide table {
+    display: block;
+    width: 100%;
+    margin: 18px 0 32px;
+    overflow-x: auto;
+    border: 1px solid var(--dev-border);
+    border-radius: 11px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--dev-bg);
+    font-size: 13px;
+}
+
+.dev-guide thead,
+.dev-guide tbody {
+    display: table;
+    width: 100%;
+    min-width: 680px;
+    table-layout: auto;
+}
+
+.dev-guide th,
+.dev-guide td {
+    padding: 11px 13px;
+    border-right: 1px solid var(--dev-border);
+    border-bottom: 1px solid var(--dev-border);
+    text-align: left;
+    vertical-align: top;
+}
+
+.dev-guide th {
+    background: var(--dev-surface);
+}
+
+.dev-guide th:last-child,
+.dev-guide td:last-child {
+    border-right: 0;
+}
+
+.dev-guide tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.dev-guide blockquote {
+    margin: 24px 0;
+    padding: 16px 20px;
+    border-left: 3px solid var(--dev-accent);
+    border-radius: 6px;
+    background: var(--dev-accent-soft);
+}
+
+.dev-guide li {
+    margin: 5px 0;
+}
+
+.dev-guide > p:first-of-type strong:first-child {
+    color: var(--dev-accent);
+}
+
+.dev-mobile-nav {
+    display: none;
+}
+
+.dev-footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--dev-border);
+    color: var(--dev-muted);
+    text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dev-bg: #17171a;
+        --dev-surface: #222226;
+        --dev-border: #323237;
+        --dev-text: #f2f2f3;
+        --dev-muted: #b0b1b7;
+        --dev-accent: #a88ff3;
+        --dev-accent-soft: #2d2840;
+    }
+}
+
+@media (max-width: 900px) {
+    .dev-sidebar {
+        display: none;
+    }
+
+    .dev-main {
+        width: min(100% - 40px, 820px);
+        margin: 0 auto;
+    }
+
+    .dev-mobile-nav {
+        display: block;
+        margin: 0 0 36px;
+        border: 1px solid var(--dev-border);
+        border-radius: 10px;
+        padding: 12px 14px;
+        background: var(--dev-surface);
+    }
+
+    .dev-mobile-nav summary {
+        cursor: pointer;
+        font-weight: 750;
+    }
+
+    .dev-mobile-nav nav {
+        columns: 2;
+        margin-top: 12px;
+    }
+
+    .dev-mobile-nav a {
+        display: block;
+        padding: 4px 0;
+        color: var(--dev-muted);
+        font-size: 12px;
+        text-decoration: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .dev-header {
+        padding: 0 14px;
+    }
+
+    .dev-brand span:last-child,
+    .dev-header-links a:first-child {
+        display: none;
+    }
+
+    .dev-header-links a {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+
+    .dev-main {
+        width: auto;
+        padding: calc(var(--dev-header) + 34px) 18px 60px;
+    }
+
+    .dev-guide h2 {
+        margin-top: 48px;
+        font-size: 24px;
+    }
+
+    .dev-mobile-nav nav {
+        columns: 1;
+    }
+}
