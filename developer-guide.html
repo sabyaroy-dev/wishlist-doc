@@ -358,12 +358,11 @@ make env-destroy
 <p><code>make env-destroy</code> deletes containers and volumes, including the local database. Do not use it unless you intend to reset local data.</p>
 <hr />
 <h2 id="shopify-cli-and-app-configs">6. Shopify CLI And App Configs</h2>
-<p>Shopify app config files live under <code>src/</code>:</p>
+<p>Shopify app config files live under <code>src/</code>. The filenames below are neutral examples and should be replaced with the appropriate local configuration:</p>
 <ul>
-<li><code>src/shopify.app.wishlist-shakh.toml</code></li>
-<li><code>src/shopify.app.wishlist-stg.toml</code></li>
-<li><code>src/shopify.app.lonigma-wishlist-sabya.toml</code></li>
-<li><code>src/shopify.app.sm-wishlist.toml</code></li>
+<li><code>src/shopify.app.demo-development.toml</code></li>
+<li><code>src/shopify.app.demo-staging.toml</code></li>
+<li><code>src/shopify.app.demo-production.toml</code></li>
 </ul>
 <p>Use Shopify CLI from <code>src/</code>:</p>
 <pre><code class="language-bash">cd src
@@ -386,7 +385,7 @@ yarn dev
 yarn deploy
 </code></pre>
 <p>For hosted App Pricing plan selection, staging needs:</p>
-<pre><code class="language-bash">SHOPIFY_APP_HANDLE=&quot;wishlist-stg&quot;
+<pre><code class="language-bash">SHOPIFY_APP_HANDLE=&quot;demo-wishlist-app&quot;
 </code></pre>
 <p>If <code>SHOPIFY_APP_HANDLE</code> is missing and the selected TOML does not define a <code>handle</code>, <code>/app/subscription</code> cannot build the hosted pricing URL.</p>
 <hr />
