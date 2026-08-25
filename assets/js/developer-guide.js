@@ -50,6 +50,34 @@
         'developer-workflow-checklist': 'Use the final end-to-end checklist to scope work, implement safely, run evidence-based verification, and document results.'
     };
 
+    const sectionDetails = {
+        'project-overview': ['How the admin app, storefront runtime, theme extension, workers, and data layer fit together.', 'Which authentication model protects each application surface.', 'The architectural boundaries developers must preserve when adding features.'],
+        'repository-layout': ['Where routes, services, database code, extensions, tests, scripts, and documentation live.', 'Which directories are generated and which should be edited directly.', 'How to locate the smallest responsible module before starting a change.'],
+        'prerequisites': ['Required Node, Yarn, Docker, Shopify CLI, database, and operating-system tooling.', 'Access needed for Shopify development stores and external providers.', 'Version and environment checks that prevent inconsistent local builds.'],
+        'first-time-setup': ['Repository cloning, dependency installation, and environment-file preparation.', 'Database creation, migration, seed, and generated-client steps.', 'The first verification commands to confirm the application is ready.'],
+        'local-infrastructure': ['How the local database and supporting services are started and stopped.', 'Health checks, ports, container state, and persistent development data.', 'Safe reset and recovery steps when local services become inconsistent.'],
+        'shopify-cli-and-app-configs': ['The purpose of each Shopify app configuration file.', 'How to select the correct development or production application context.', 'Commands and safeguards for keeping URLs, scopes, and redirect settings aligned.'],
+        'local-development-tunnel': ['Why Shopify requires a public HTTPS endpoint during local development.', 'How tunnel URLs connect to app, callback, webhook, and proxy configuration.', 'Common tunnel failures and the checks needed after a URL changes.'],
+        'database-and-prisma': ['Schema ownership, Prisma client generation, and migration workflow.', 'How to inspect data without bypassing application rules.', 'Recovery procedures and compatibility expectations for persisted merchant data.'],
+        'admin-app-development': ['Authenticated route loaders, actions, services, and embedded-admin navigation.', 'How Shopify session context and merchant identity flow through requests.', 'UI, validation, error handling, and test expectations for admin features.'],
+        'storefront-app-proxy-apis': ['Signed proxy request validation and shop/customer context.', 'Stable endpoint paths, request payloads, status codes, and response contracts.', 'Security and backward-compatibility rules for storefront consumers.'],
+        'storefront-ui-and-theme-app-extension': ['Theme blocks, app embeds, storefront assets, and runtime responsibilities.', 'How wishlist controls initialize across product, collection, cart, and shared-list surfaces.', 'Build, preview, theme compatibility, accessibility, and browser QA requirements.'],
+        'appearance-tokens-and-metafields': ['How merchant settings become normalized storefront design tokens.', 'Metafield namespaces, persistence behavior, defaults, and compatibility handling.', 'Safe CSS-variable and icon customization without leaking styles into the theme.'],
+        'webhooks-and-privacy': ['Webhook authenticity, idempotency, retries, and event ordering.', 'Application uninstall and Shopify privacy-request processing.', 'Data minimization, deletion, logging, and operational evidence requirements.'],
+        'background-workers': ['Worker entry points, schedules, queues, and job ownership.', 'Retry, idempotency, locking, batching, and failure-isolation behavior.', 'How to run jobs locally and investigate failed or delayed processing.'],
+        'app-pricing-and-partner-api-client-setup': ['Partner API client creation and the credentials required for pricing work.', 'How Shopify-hosted plan configuration maps to application plan identifiers.', 'Readiness checks and evidence needed before billing tests or release.'],
+        'plan-gates-and-entitlements': ['Where plan capabilities are defined and resolved for a shop.', 'Why server-side enforcement is required even when controls are hidden in the UI.', 'How to test upgrades, downgrades, limits, trials, and public pricing claims.'],
+        'notifications-klaviyo-and-alerts': ['Provider credentials, templates, triggers, quiet hours, and sending limits.', 'Klaviyo metrics, profile properties, revenue-automation events, and replay operations.', 'Consent, deduplication, failure handling, and delivery-testing expectations.'],
+        'analytics-and-exports': ['Event collection, aggregation, retention, and reporting boundaries.', 'Product performance, customer activity, conversion, revenue, and alert attribution.', 'Manual CSV, scheduled S3 delivery, privacy controls, and export verification.'],
+        'testing-commands': ['Which focused tests to run for services, routes, database changes, and storefront code.', 'When lint, type checks, production builds, and broader regression suites are required.', 'How to interpret failures and record meaningful verification evidence.'],
+        'browser-e2e-and-storefront-qa': ['Storefront scenarios covering guests, customers, devices, themes, and display modes.', 'Theme-editor setup, app-embed validation, proxy behavior, and interaction checks.', 'Evidence capture and release-signoff expectations for browser testing.'],
+        'deployment-and-release': ['Pre-release checks for code, database, app configuration, extensions, and workers.', 'Deployment ordering, migration safety, smoke tests, and rollback preparation.', 'Post-release monitoring and documentation required for a defensible release.'],
+        'security-and-privacy-checklist': ['Authentication and authorization checks for admin, proxy, webhook, and worker surfaces.', 'Secrets, logs, customer identifiers, provider credentials, and least-privilege access.', 'Privacy deletion, retention, incident prevention, and release-review requirements.'],
+        'common-troubleshooting': ['Symptoms and causes for setup, build, tunnel, CLI, database, and authentication failures.', 'Storefront, theme-extension, provider, analytics, and background-job diagnostics.', 'A repeatable process for isolating configuration problems from code defects.'],
+        'ai-agent-development-rules': ['Repository policies and instruction sources that AI coding agents must read first.', 'Scope, compatibility, safety, testing, and documentation boundaries for generated changes.', 'How agents should report verification, assumptions, deferred work, and known limits.'],
+        'developer-workflow-checklist': ['How to understand the affected surface and confirm compatibility requirements.', 'The expected implementation, focused testing, build, browser QA, and documentation sequence.', 'What must be included in the final change summary before work is considered complete.']
+    };
+
     const sourceNodes = [...guide.children];
     const pages = [];
     const overview = document.createElement('section');
@@ -68,9 +96,19 @@
             currentPage.setAttribute('aria-labelledby', `${id}-title`);
             node.id = `${id}-title`;
             currentPage.append(node);
-            const summary = document.createElement('p');
+            const summary = document.createElement('div');
+            const summaryText = document.createElement('p');
+            const detailsTitle = document.createElement('strong');
+            const detailsList = document.createElement('ul');
             summary.className = 'section-summary';
-            summary.textContent = descriptions[id] || 'Technical guidance, implementation details, and verification steps for this part of the application.';
+            summaryText.textContent = descriptions[id] || 'Technical guidance, implementation details, and verification steps for this part of the application.';
+            detailsTitle.textContent = 'What this section covers';
+            (sectionDetails[id] || []).forEach((detail) => {
+                const item = document.createElement('li');
+                item.textContent = detail;
+                detailsList.append(item);
+            });
+            summary.append(summaryText, detailsTitle, detailsList);
             currentPage.append(summary);
             pages.push(currentPage);
         } else {

@@ -78,10 +78,14 @@ a { color: var(--dev-accent-strong); text-underline-offset: 3px; }
 .dev-page.is-active { display: block; animation: open-page .28s ease-out both; }
 .dev-page > h2 { margin-top: 0; padding-top: 0; border-top: 0; }
 .section-summary {
-    margin: -2px 0 30px !important; padding: 16px 18px; border: 1px solid var(--dev-border);
+    margin: -2px 0 34px !important; padding: 20px 22px; border: 1px solid var(--dev-border);
     border-radius: 10px; background: var(--dev-panel); color: var(--dev-muted);
     box-shadow: 0 8px 24px rgba(44,35,79,.045); font-size: 14px;
 }
+.section-summary p { margin: 0 0 16px; color: var(--dev-text); font-size: 15px; line-height: 1.7; }
+.section-summary strong { display: block; margin-bottom: 8px; color: var(--dev-accent-strong); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+.section-summary ul { margin: 0; padding-left: 20px; }
+.section-summary li { margin: 6px 0; }
 .dev-guide h2 {
     scroll-margin-top: calc(var(--dev-header) + 28px); margin: 76px 0 18px; padding-top: 28px;
     border-top: 1px solid var(--dev-border); font-size: clamp(25px,3vw,32px);
