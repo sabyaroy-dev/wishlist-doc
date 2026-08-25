@@ -58,7 +58,7 @@ a { color: var(--dev-accent-strong); text-underline-offset: 3px; }
     padding: calc(var(--dev-header) + 28px) 0 92px;
 }
 .guide-label {
-    display: inline-flex; margin-bottom: 18px; padding: 5px 10px; border: 1px solid #dfd7ff;
+    display: inline-flex; margin-bottom: 30px; padding: 5px 10px; border: 1px solid #dfd7ff;
     border-radius: 999px; background: var(--dev-accent-soft); color: var(--dev-accent-strong);
     font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
 }
