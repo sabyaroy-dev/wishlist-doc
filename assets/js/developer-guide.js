@@ -79,6 +79,16 @@
     };
 
     const sectionVisuals = {
+        'first-time-setup': {
+            src: 'assets/images/shopify-app-install.png',
+            alt: 'Shopify App Store add-app screen and Shopify Admin installation approval screen for Lonigma Wishlist',
+            caption: 'After configuring the development app, install it on the selected Shopify development store and review the requested access before approval.'
+        },
+        'admin-app-development': {
+            src: 'assets/images/install-navigation.png',
+            alt: 'Lonigma Wishlist embedded application navigation inside Shopify Admin',
+            caption: 'The embedded admin application runs inside Shopify Admin and exposes merchant workflows through the application navigation shown here.'
+        },
         'storefront-ui-and-theme-app-extension': {
             src: 'assets/images/wishlist-app-embeds-v2.png',
             alt: 'Shopify theme editor showing the Lonigma Wishlist Appearance and Floating app embeds',
