@@ -1033,16 +1033,19 @@
             <h2>Connect a provider</h2>
             <p>Connect a supported provider from Lonigma. Provider charges are managed directly with that service.</p>
             <h3>Email provider</h3>
+            <p><strong>Where to get it:</strong> Follow the <a class="inline-link" href="https://www.twilio.com/docs/sendgrid/for-developers/sending-email/integrating-with-the-smtp-api" target="_blank" rel="noopener noreferrer">SendGrid SMTP setup guide</a>, or use the SMTP host, port, username, and password supplied by your preferred email provider.</p>
             <figure>
                 <img src="assets/images/alerts-email-provider-sanitized.png" alt="Email alert provider settings using sanitized SMTP example values">
                 <figcaption>Configure the sender identity and SMTP provider, then use Send test to verify connectivity.</figcaption>
             </figure>
             <h3>SMS provider</h3>
+            <p><strong>Where to get it:</strong> Find the Account SID and Auth Token in your <a class="inline-link" href="https://www.twilio.com/docs/usage/requests-to-twilio#using-your-account-sid-and-auth-token" target="_blank" rel="noopener noreferrer">Twilio Account Dashboard</a>, then <a class="inline-link" href="https://www.twilio.com/docs/numbers-and-senders/add-numbers-and-senders" target="_blank" rel="noopener noreferrer">add a sending number</a>.</p>
             <figure>
                 <img src="assets/images/alerts-sms-provider-sanitized.png" alt="SMS alert provider settings with the phone number and Twilio credentials hidden">
                 <figcaption>Connect Twilio for SMS using a sending number, account SID, and auth token. Credentials are masked in this example.</figcaption>
             </figure>
             <h3>WhatsApp provider</h3>
+            <p><strong>Where to get it:</strong> Use Twilio's <a class="inline-link" href="https://www.twilio.com/docs/whatsapp/self-sign-up" target="_blank" rel="noopener noreferrer">WhatsApp sender registration guide</a> to connect and verify a business phone number.</p>
             <figure>
                 <img src="assets/images/alerts-whatsapp-provider-sanitized.png" alt="WhatsApp alert provider settings with the sender phone number hidden">
                 <figcaption>WhatsApp uses the Twilio credentials configured for SMS and its own enabled sender number.</figcaption>
