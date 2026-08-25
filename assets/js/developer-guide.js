@@ -78,6 +78,39 @@
         'developer-workflow-checklist': ['How to understand the affected surface and confirm compatibility requirements.', 'The expected implementation, focused testing, build, browser QA, and documentation sequence.', 'What must be included in the final change summary before work is considered complete.']
     };
 
+    const sectionVisuals = {
+        'storefront-ui-and-theme-app-extension': {
+            src: 'assets/images/wishlist-app-embeds-v2.png',
+            alt: 'Shopify theme editor showing the Lonigma Wishlist Appearance and Floating app embeds',
+            caption: 'Theme app embeds provide the storefront runtime entry points for wishlist appearance and the floating launcher.'
+        },
+        'appearance-tokens-and-metafields': {
+            src: 'assets/images/brand-visual-style.png',
+            alt: 'Lonigma Wishlist visual style and branding controls',
+            caption: 'Merchant-facing visual controls are normalized into appearance tokens before they are delivered to the storefront.'
+        },
+        'app-pricing-and-partner-api-client-setup': {
+            src: 'assets/images/plans-shopify-selection.png',
+            alt: 'Shopify-hosted Lonigma Wishlist plan selection interface',
+            caption: 'The application plan identifiers and entitlement rules must remain aligned with Shopify-hosted plan configuration.'
+        },
+        'notifications-klaviyo-and-alerts': {
+            src: 'assets/images/klaviyo-connection.png',
+            alt: 'Lonigma Wishlist Klaviyo connection and event configuration',
+            caption: 'Klaviyo connection settings control synchronization while enabled events create metrics on shopper profiles.'
+        },
+        'analytics-and-exports': {
+            src: 'assets/images/analytics-engagement-saves.png',
+            alt: 'Lonigma Wishlist engagement and saves analytics dashboard',
+            caption: 'Analytics aggregates wishlist engagement by owner, addition, value, storefront surface, and conversion behavior.'
+        },
+        'browser-e2e-and-storefront-qa': {
+            src: 'assets/images/display-side-drawer.png',
+            alt: 'Wishlist side drawer open on a Shopify storefront product grid',
+            caption: 'Browser QA should validate the complete shopper experience, including overlays, product actions, responsive layout, and background-page state.'
+        }
+    };
+
     const sourceNodes = [...guide.children];
     const pages = [];
     const overview = document.createElement('section');
@@ -110,6 +143,21 @@
             });
             summary.append(summaryText, detailsTitle, detailsList);
             currentPage.append(summary);
+
+            const visual = sectionVisuals[id];
+            if (visual) {
+                const figure = document.createElement('figure');
+                const image = document.createElement('img');
+                const caption = document.createElement('figcaption');
+                figure.className = 'section-visual';
+                image.src = visual.src;
+                image.alt = visual.alt;
+                image.loading = 'lazy';
+                image.decoding = 'async';
+                caption.textContent = visual.caption;
+                figure.append(image, caption);
+                currentPage.append(figure);
+            }
             pages.push(currentPage);
         } else {
             currentPage.append(node);
