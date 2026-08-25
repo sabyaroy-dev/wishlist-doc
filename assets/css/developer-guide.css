@@ -169,7 +169,7 @@ a { color: var(--dev-accent-strong); text-underline-offset: 3px; }
 .code-copy:hover, .code-copy:focus-visible { border-color: #8e74ef; color: #fff; outline: none; }
 .code-copy.is-copied { border-color: #4fc38b; color: #70e3a9; }
 .dev-guide pre { margin: 0; overflow: auto; padding: 20px 22px; background: transparent; color: #e9e9f1; tab-size: 4; }
-.dev-guide pre code { padding: 0; border: 0; background: transparent; color: inherit; font-size: 13px; line-height: 1.7; white-space: pre; }
+.dev-guide pre code { padding: 0; border: 0 !important; background: transparent !important; color: inherit; font-size: 13px; line-height: 1.7; white-space: pre; }
 .dev-guide table {
     display: block; width: 100%; margin: 20px 0 34px; overflow-x: auto;
     border: 1px solid var(--dev-border); border-radius: 13px; border-collapse: separate;
