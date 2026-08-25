@@ -110,9 +110,15 @@ a {
 }
 
 .dev-sidebar a:hover,
-.dev-sidebar a:focus {
+.dev-sidebar a:focus,
+.dev-sidebar a.is-active {
     background: var(--dev-accent-soft);
     color: var(--dev-accent);
+}
+
+.dev-sidebar a.is-active {
+    box-shadow: inset 3px 0 0 var(--dev-accent);
+    font-weight: 700;
 }
 
 .dev-main {
@@ -298,6 +304,11 @@ a {
         color: var(--dev-muted);
         font-size: 12px;
         text-decoration: none;
+    }
+
+    .dev-mobile-nav a.is-active {
+        color: var(--dev-accent);
+        font-weight: 750;
     }
 }
 
