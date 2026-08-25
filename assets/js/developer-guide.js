@@ -126,6 +126,42 @@
 
     const links = [...document.querySelectorAll('.dev-sidebar a[href^="#"], .dev-mobile-nav a[href^="#"]')];
     const pageById = new Map(pages.map((page) => [page.id, page]));
+
+    const pageTitle = (page) => page.classList.contains('dev-home')
+        ? 'Guide Overview'
+        : page.querySelector('h2')?.textContent.replace(/^\d+\.\s*/, '') || 'Developer Guide';
+
+    pages.forEach((page, index) => {
+        const pager = document.createElement('nav');
+        pager.className = 'section-pager';
+        pager.setAttribute('aria-label', 'Section navigation');
+
+        const makePagerItem = (target, direction) => {
+            if (!target) {
+                const empty = document.createElement('span');
+                empty.className = `pager-link pager-${direction} is-disabled`;
+                empty.setAttribute('aria-hidden', 'true');
+                return empty;
+            }
+
+            const link = document.createElement('a');
+            const label = document.createElement('small');
+            const title = document.createElement('strong');
+            link.className = `pager-link pager-${direction}`;
+            link.href = `#${target.id}`;
+            label.textContent = direction === 'previous' ? '← Previous section' : 'Next section →';
+            title.textContent = pageTitle(target);
+            link.append(label, title);
+            return link;
+        };
+
+        pager.append(
+            makePagerItem(pages[index - 1], 'previous'),
+            makePagerItem(pages[index + 1], 'next')
+        );
+        page.append(pager);
+    });
+
     const showPage = (requestedId) => {
         const id = pageById.has(requestedId) ? requestedId : 'guide-overview';
         pages.forEach((page) => page.classList.toggle('is-active', page.id === id));
