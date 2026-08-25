@@ -1,4 +1,44 @@
 (() => {
+    const root = document.documentElement;
+    const themeToggle = document.querySelector('.theme-toggle');
+    let savedTheme;
+
+    try {
+        savedTheme = localStorage.getItem('developer-guide-theme');
+    } catch {
+        savedTheme = null;
+    }
+
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+        root.dataset.theme = savedTheme;
+    }
+
+    const currentTheme = () => root.dataset.theme || (
+        window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    );
+
+    const updateThemeButton = () => {
+        if (!themeToggle) return;
+        const dark = currentTheme() === 'dark';
+        themeToggle.querySelector('span').textContent = dark ? '☀' : '☾';
+        themeToggle.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
+    };
+
+    themeToggle?.addEventListener('click', () => {
+        const nextTheme = currentTheme() === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = nextTheme;
+        try {
+            localStorage.setItem('developer-guide-theme', nextTheme);
+        } catch {
+            // The selected theme still applies for this page view.
+        }
+        updateThemeButton();
+    });
+
+    updateThemeButton();
+    document.body.classList.add('page-opening');
+    window.setTimeout(() => document.body.classList.remove('page-opening'), 700);
+
     const sectionLinks = [...document.querySelectorAll(
         '.dev-sidebar a[href^="#"], .dev-mobile-nav a[href^="#"]'
     )];
@@ -18,8 +58,6 @@
             }
         });
 
-        const desktopLink = document.querySelector(`.dev-sidebar a[href="#${CSS.escape(id)}"]`);
-        desktopLink?.scrollIntoView({ block: 'nearest' });
     };
 
     const updateActiveSection = () => {
