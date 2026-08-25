@@ -55,7 +55,7 @@ a { color: var(--dev-accent-strong); text-underline-offset: 3px; }
 .dev-main {
     width: min(1040px, calc(100% - var(--dev-sidebar) - 104px));
     margin-left: max(calc(var(--dev-sidebar) + 52px), calc((100% - 1040px + var(--dev-sidebar)) / 2));
-    padding: calc(var(--dev-header) + 64px) 0 92px;
+    padding: calc(var(--dev-header) + 28px) 0 92px;
 }
 .guide-label {
     display: inline-flex; margin-bottom: 18px; padding: 5px 10px; border: 1px solid #dfd7ff;
@@ -203,7 +203,7 @@ html[data-theme="dark"] .dev-guide blockquote { border-color: #443965; color: #d
     .dev-brand > span:last-child, .secondary-link { display: none; }
     .dev-logo { width: 36px; height: 36px; }
     .header-actions a { padding: 8px 11px; font-size: 11px; }
-    .dev-main { width: auto; padding: calc(var(--dev-header) + 32px) 16px 56px; }
+    .dev-main { width: auto; padding: calc(var(--dev-header) + 18px) 16px 56px; }
     .dev-home > h1 { font-size: 32px; }
     .guide-overview { grid-template-columns: repeat(2, 1fr); }
     .guide-overview div:nth-child(2) { border-right: 0; }
