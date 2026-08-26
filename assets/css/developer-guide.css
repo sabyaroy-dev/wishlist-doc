@@ -213,6 +213,8 @@ html[data-theme="dark"] .dev-guide code { border-color: #393544; background: #25
 html[data-theme="dark"] .dev-guide tbody tr:hover { background: #1d1b25; }
 html[data-theme="dark"] .dev-guide blockquote { border-color: #443965; color: #d8cfff; }
 @media (max-width: 1000px) {
+    .dev-header { justify-content: flex-start; gap: 10px; }
+    .header-actions { margin-left: auto; }
     .dev-menu-toggle {
         display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px;
         padding: 0; border: 1px solid var(--dev-border); border-radius: 9px;
