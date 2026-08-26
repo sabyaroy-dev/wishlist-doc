@@ -131,6 +131,8 @@ a { color: var(--dev-accent-strong); text-underline-offset: 3px; }
     box-shadow: 0 12px 30px rgba(84,60,160,.1); outline: none;
 }
 .pager-link small { margin-bottom: 5px; color: var(--dev-accent); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.pager-previous small::before { content: "←"; margin-right: 6px; font-size: 13px; }
+.pager-next small::after { content: "→"; margin-left: 6px; font-size: 13px; }
 .pager-link strong { overflow: hidden; font-size: 14px; line-height: 1.35; text-overflow: ellipsis; }
 .pager-next { align-items: flex-end; text-align: right; }
 .pager-link.is-disabled { visibility: hidden; pointer-events: none; }

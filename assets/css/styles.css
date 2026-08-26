@@ -679,6 +679,18 @@ td:first-child {
         letter-spacing: .06em
     }
 
+    .next>a:first-child small::before {
+        content: "←";
+        margin-right: 6px;
+        font-size: 13px
+    }
+
+    .next>a:last-child small::after {
+        content: "→";
+        margin-left: 6px;
+        font-size: 13px
+    }
+
     .next b {
         display: none
     }

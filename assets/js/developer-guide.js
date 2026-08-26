@@ -237,7 +237,7 @@
             const title = document.createElement('strong');
             link.className = `pager-link pager-${direction}`;
             link.href = `#${target.id}`;
-            label.textContent = direction === 'previous' ? '← Previous section' : 'Next section →';
+            label.textContent = direction === 'previous' ? 'Previous section' : 'Next section';
             title.textContent = pageTitle(target);
             link.append(label, title);
             return link;
