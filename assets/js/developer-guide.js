@@ -2,6 +2,8 @@
     const root = document.documentElement;
     const themeToggle = document.querySelector('.theme-toggle');
     const guide = document.querySelector('.dev-guide');
+    const main = document.querySelector('.dev-main');
+    const mobileNav = document.querySelector('.dev-mobile-nav');
     let savedTheme = null;
     try { savedTheme = localStorage.getItem('developer-guide-theme'); } catch {}
     if (savedTheme === 'light' || savedTheme === 'dark') root.dataset.theme = savedTheme;
@@ -21,6 +23,10 @@
     });
     updateThemeButton();
     if (!guide) return;
+
+    if (main && mobileNav) {
+        main.prepend(mobileNav);
+    }
 
     const descriptions = {
         'project-overview': 'Understand the application surfaces, runtimes, authentication boundaries, and core technology choices before changing the codebase.',
@@ -229,7 +235,7 @@
             link.classList.toggle('is-active', active);
             if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
         });
-        document.querySelector('.dev-mobile-nav')?.removeAttribute('open');
+        mobileNav?.removeAttribute('open');
         document.title = id === 'guide-overview' ? 'Lonigma Wishlist Developer Guide' : `${pageById.get(id).querySelector('h2')?.textContent || 'Developer Guide'} | Lonigma Wishlist`;
         window.scrollTo(0, 0);
     };
