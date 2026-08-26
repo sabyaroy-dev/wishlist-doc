@@ -662,11 +662,30 @@ td:first-child {
     }
 
     .next {
-        grid-template-columns: 1fr
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 38px;
+        padding-top: 18px
+    }
+
+    .next a {
+        justify-content: center;
+        min-height: 46px;
+        padding: 10px 12px
+    }
+
+    .next small {
+        font-size: 9px;
+        letter-spacing: .06em
+    }
+
+    .next b {
+        display: none
     }
 
     .next a:last-child {
-        text-align: left
+        align-items: flex-end;
+        text-align: right
     }
 }
 
