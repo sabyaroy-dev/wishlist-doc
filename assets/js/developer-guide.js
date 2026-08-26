@@ -107,7 +107,8 @@
         'notifications-klaviyo-and-alerts': {
             src: 'assets/images/klaviyo-connection.png',
             alt: 'Lonigma Wishlist Klaviyo connection and event configuration',
-            caption: 'Klaviyo connection settings control synchronization while enabled events create metrics on shopper profiles.'
+            caption: 'Klaviyo connection settings control synchronization while enabled events create metrics on shopper profiles.',
+            compact: true
         },
         'analytics-and-exports': {
             src: 'assets/images/analytics-engagement-saves.png',
@@ -159,7 +160,7 @@
                 const figure = document.createElement('figure');
                 const image = document.createElement('img');
                 const caption = document.createElement('figcaption');
-                figure.className = 'section-visual';
+                figure.className = `section-visual${visual.compact ? ' is-compact' : ''}`;
                 image.src = visual.src;
                 image.alt = visual.alt;
                 image.loading = 'lazy';
