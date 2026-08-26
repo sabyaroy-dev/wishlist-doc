@@ -1,293 +1,313 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Complete developer runbook for Lonigma Wishlist, including local setup, architecture, APIs, testing, security, and deployment.">
-  <title>Lonigma Wishlist Developer Guide</title>
-  <link rel="stylesheet" href="assets/css/developer-guide.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Complete developer runbook for Lonigma Wishlist, including local setup, architecture, APIs, testing, security, and deployment.">
+    <title>Lonigma Wishlist Developer Guide</title>
+    <link rel="stylesheet" href="assets/css/developer-guide.css">
 </head>
+
 <body>
-  <header class="dev-header">
-    <a class="dev-brand" href="developer-guide.html" aria-label="Lonigma Wishlist Developer Guide home"><span class="dev-logo">L</span><span>Lonigma Wishlist <small>Developer Guide</small></span></a>
-    <nav class="header-actions" aria-label="Guide actions"><button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Change theme"><span aria-hidden="true">☾</span></button><a class="secondary-link" href="index.html#introduction">Merchant Help Centre</a><a class="primary-link" href="#first-time-setup">Start setup</a></nav>
-  </header>
-  <aside class="dev-sidebar" aria-label="Developer guide navigation">
-    <p class="nav-label">Developer runbook</p>
-    <a href="#project-overview">Project Overview</a>
-<a href="#repository-layout">Repository Layout</a>
-<a href="#prerequisites">Prerequisites</a>
-<a href="#first-time-setup">First-Time Setup</a>
-<a href="#local-infrastructure">Local Infrastructure</a>
-<a href="#shopify-cli-and-app-configs">Shopify CLI And App Configs</a>
-<a href="#local-development-tunnel">Local Development Tunnel</a>
-<a href="#database-and-prisma">Database And Prisma</a>
-<a href="#admin-app-development">Admin App Development</a>
-<a href="#storefront-app-proxy-apis">Storefront App Proxy APIs</a>
-<a href="#storefront-ui-and-theme-app-extension">Storefront UI And Theme App Extension</a>
-<a href="#appearance-tokens-and-metafields">Appearance Tokens And Metafields</a>
-<a href="#webhooks-and-privacy">Webhooks And Privacy</a>
-<a href="#background-workers">Background Workers</a>
-<a href="#app-pricing-and-partner-api-client-setup">App Pricing And Partner API Client Setup</a>
-<a href="#plan-gates-and-entitlements">Plan Gates And Entitlements</a>
-<a href="#notifications-klaviyo-and-alerts">Notifications, Klaviyo, And Alerts</a>
-<a href="#analytics-and-exports">Analytics And Exports</a>
-<a href="#testing-commands">Testing Commands</a>
-<a href="#browser-e2e-and-storefront-qa">Browser E2E And Storefront QA</a>
-<a href="#deployment-and-release">Deployment And Release</a>
-<a href="#security-and-privacy-checklist">Security And Privacy Checklist</a>
-<a href="#common-troubleshooting">Common Troubleshooting</a>
-<a href="#ai-agent-development-rules">AI-Agent Development Rules</a>
-<a href="#developer-workflow-checklist">Developer Workflow Checklist</a>
-  </aside>
-  <details class="dev-mobile-nav"><summary>Browse developer guide</summary><nav><a href="#project-overview">Project Overview</a>
-<a href="#repository-layout">Repository Layout</a>
-<a href="#prerequisites">Prerequisites</a>
-<a href="#first-time-setup">First-Time Setup</a>
-<a href="#local-infrastructure">Local Infrastructure</a>
-<a href="#shopify-cli-and-app-configs">Shopify CLI And App Configs</a>
-<a href="#local-development-tunnel">Local Development Tunnel</a>
-<a href="#database-and-prisma">Database And Prisma</a>
-<a href="#admin-app-development">Admin App Development</a>
-<a href="#storefront-app-proxy-apis">Storefront App Proxy APIs</a>
-<a href="#storefront-ui-and-theme-app-extension">Storefront UI And Theme App Extension</a>
-<a href="#appearance-tokens-and-metafields">Appearance Tokens And Metafields</a>
-<a href="#webhooks-and-privacy">Webhooks And Privacy</a>
-<a href="#background-workers">Background Workers</a>
-<a href="#app-pricing-and-partner-api-client-setup">App Pricing And Partner API Client Setup</a>
-<a href="#plan-gates-and-entitlements">Plan Gates And Entitlements</a>
-<a href="#notifications-klaviyo-and-alerts">Notifications, Klaviyo, And Alerts</a>
-<a href="#analytics-and-exports">Analytics And Exports</a>
-<a href="#testing-commands">Testing Commands</a>
-<a href="#browser-e2e-and-storefront-qa">Browser E2E And Storefront QA</a>
-<a href="#deployment-and-release">Deployment And Release</a>
-<a href="#security-and-privacy-checklist">Security And Privacy Checklist</a>
-<a href="#common-troubleshooting">Common Troubleshooting</a>
-<a href="#ai-agent-development-rules">AI-Agent Development Rules</a>
-<a href="#developer-workflow-checklist">Developer Workflow Checklist</a></nav></details>
-  <main class="dev-main">
-    <div class="guide-label">Engineering documentation</div>
-    <article class="dev-guide">
-<h1 id="lonigma-wishlist-developer-guide">Lonigma Wishlist Developer Guide</h1>
-<div class="guide-overview" aria-label="Guide overview">
-<div><strong>25</strong><span>Detailed sections</span></div>
-<div><strong>89</strong><span>Code examples</span></div>
-<div><strong>15</strong><span>Reference tables</span></div>
-<div><strong>Full</strong><span>Developer runbook</span></div>
-</div>
-<p><strong>Status:</strong> Full developer runbook for this repository.</p>
-<p><strong>Audience:</strong> developers, QA engineers, release owners, and AI coding agents working on the Lonigma Wishlist Shopify app.</p>
-<p><strong>Repository root:</strong> <code>shopify-wishlist/</code></p>
-<p><strong>Main app root:</strong> <code>src/</code></p>
-<p>This guide documents how to set up, run, modify, test, verify, and troubleshoot this project. It also includes the Shopify Partner API client setup needed for App Pricing readiness.</p>
-<p>Related docs:</p>
-<ul>
-<li><code>README.md</code> - base environment setup</li>
-<li><code>DEVELOPER.md</code> - storefront runtime, worker, E2E, and tunnel details</li>
-<li><code>AGENTS.md</code> - coding-agent policy and repository-specific AI rules</li>
-<li><code>.ai/AI_POLICY.md</code> - binding implementation policy</li>
-<li><code>doc/qa/README.md</code> - QA document index</li>
-<li><code>doc/qa/manual-test-cases.md</code> - manual QA execution</li>
-<li><code>doc/qa/release-checklist.md</code> - release sign-off checklist</li>
-<li><code>doc/qa/shopify-app-pricing-testing.md</code> - App Pricing testing model and evidence</li>
-<li><code>doc/qa/shopify-app-pricing-plan-setup.md</code> - Partner Dashboard plan setup</li>
-</ul>
-<hr />
-<h2 id="project-overview">1. Project Overview</h2>
-<p>Lonigma Wishlist is a production Shopify app with these major surfaces:</p>
-<table>
-<thead>
-<tr>
-<th>Surface</th>
-<th>Location</th>
-<th>Runtime</th>
-<th>Auth model</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Embedded admin app</td>
-<td><code>src/app/routes/app.*</code></td>
-<td>React Router v7, Polaris</td>
-<td>Shopify admin session</td>
-</tr>
-<tr>
-<td>Storefront app proxy APIs</td>
-<td><code>src/app/routes/frontend.api.*</code></td>
-<td>React Router server routes</td>
-<td>Shopify app-proxy HMAC / public storefront context</td>
-</tr>
-<tr>
-<td>Shared wishlist page</td>
-<td><code>src/app/routes/frontend.shared.$id.tsx</code></td>
-<td>React Router route</td>
-<td>Public signed/share token flow</td>
-</tr>
-<tr>
-<td>Webhooks</td>
-<td><code>src/app/routes/webhooks.*</code></td>
-<td>React Router action routes</td>
-<td>Shopify webhook HMAC</td>
-</tr>
-<tr>
-<td>Storefront UI source</td>
-<td><code>src/extensions/wishlist-storefront/</code></td>
-<td>Lit 3, Vite</td>
-<td>Browser storefront</td>
-</tr>
-<tr>
-<td>Theme App Extension</td>
-<td><code>src/extensions/wishlist/</code></td>
-<td>Liquid, generated JS/CSS assets</td>
-<td>Shopify theme runtime</td>
-</tr>
-<tr>
-<td>Database</td>
-<td><code>src/prisma/schema.prisma</code></td>
-<td>Prisma + PostgreSQL</td>
-<td>Shop-isolated rows</td>
-</tr>
-<tr>
-<td>Background workers</td>
-<td><code>src/scripts/run-*.ts</code></td>
-<td>Node + tsx</td>
-<td>Server environment</td>
-</tr>
-</tbody>
-</table>
-<p>The app supports wishlist creation, guest and customer identity, PDP/PLP hearts, drawer/modal/page wishlist shells, shared wishlists, save-for-later, cart wishlist actions, analytics, exports, Klaviyo integration, notifications, plan gates, and Shopify App Pricing sync.</p>
-<hr />
-<h2 id="repository-layout">2. Repository Layout</h2>
-<p>Important paths:</p>
-<table>
-<thead>
-<tr>
-<th>Path</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>src/app/</code></td>
-<td>React Router application, routes, services, models, Shopify server setup.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/</code></td>
-<td>Admin, API, app-proxy, shared page, auth, and webhook route modules.</td>
-</tr>
-<tr>
-<td><code>src/app/services/</code></td>
-<td>Business logic, integrations, workers, entitlements, analytics, validation, enforcement checks.</td>
-</tr>
-<tr>
-<td><code>src/app/models/</code></td>
-<td>Prisma-backed model helpers.</td>
-</tr>
-<tr>
-<td><code>src/prisma/schema.prisma</code></td>
-<td>Database schema.</td>
-</tr>
-<tr>
-<td><code>src/prisma/migrations/</code></td>
-<td>Prisma migrations.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist-storefront/</code></td>
-<td>Source for Lit storefront components and Vite build.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/</code></td>
-<td>Shopify Theme App Extension shipped to Shopify.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/assets/</code></td>
-<td>Generated storefront bundles consumed by the TAE.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/blocks/</code></td>
-<td>Liquid app blocks and app embed.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/locales/</code></td>
-<td>Theme extension locale strings.</td>
-</tr>
-<tr>
-<td><code>scripts/</code></td>
-<td>Root-level support scripts, including Partner API readiness.</td>
-</tr>
-<tr>
-<td><code>doc/qa/</code></td>
-<td>QA runbooks, reports, release checklists, and billing test docs.</td>
-</tr>
-<tr>
-<td><code>.ai/skills/</code></td>
-<td>Canonical project-local AI skills.</td>
-</tr>
-</tbody>
-</table>
-<p>Root-level files primarily orchestrate development. App commands usually run from <code>src/</code>.</p>
-<hr />
-<h2 id="prerequisites">3. Prerequisites</h2>
-<p>Supported developer environments:</p>
-<ul>
-<li>macOS</li>
-<li>Linux</li>
-<li>Windows 11 with WSL2 Ubuntu</li>
-</ul>
-<p>Required tools:</p>
-<ul>
-<li>Docker with Compose v2</li>
-<li>Node <code>&gt;=20.10</code></li>
-<li>Yarn classic <code>1.22.22</code> through Corepack</li>
-<li>GNU/BSD <code>make</code></li>
-<li>Shopify CLI</li>
-<li>Google Chrome for browser E2E</li>
-<li>Access to a Shopify Partner organization and development store</li>
-</ul>
-<p>Recommended Node/Yarn setup:</p>
-<pre><code class="language-bash">corepack enable
+    <header class="dev-header">
+        <a class="dev-brand" href="developer-guide.html" aria-label="Lonigma Wishlist Developer Guide home"><span
+                class="dev-logo">L</span><span>Lonigma Wishlist <small>Developer Guide</small></span></a>
+        <nav class="header-actions" aria-label="Guide actions"><button class="theme-toggle" type="button"
+                aria-label="Switch to dark theme" title="Change theme"><span aria-hidden="true">☾</span></button><a
+                class="secondary-link" href="index.html#introduction">Merchant Help Centre</a><a class="primary-link"
+                href="#first-time-setup">Start setup</a></nav>
+    </header>
+    <aside class="dev-sidebar" aria-label="Developer guide navigation">
+        <p class="nav-label">Developer runbook</p>
+        <a href="#project-overview">Project Overview</a>
+        <a href="#repository-layout">Repository Layout</a>
+        <a href="#prerequisites">Prerequisites</a>
+        <a href="#first-time-setup">First-Time Setup</a>
+        <a href="#local-infrastructure">Local Infrastructure</a>
+        <a href="#shopify-cli-and-app-configs">Shopify CLI And App Configs</a>
+        <a href="#local-development-tunnel">Local Development Tunnel</a>
+        <a href="#database-and-prisma">Database And Prisma</a>
+        <a href="#admin-app-development">Admin App Development</a>
+        <a href="#storefront-app-proxy-apis">Storefront App Proxy APIs</a>
+        <a href="#storefront-ui-and-theme-app-extension">Storefront UI And Theme App Extension</a>
+        <a href="#appearance-tokens-and-metafields">Appearance Tokens And Metafields</a>
+        <a href="#webhooks-and-privacy">Webhooks And Privacy</a>
+        <a href="#background-workers">Background Workers</a>
+        <a href="#app-pricing-and-partner-api-client-setup">App Pricing And Partner API Client Setup</a>
+        <a href="#plan-gates-and-entitlements">Plan Gates And Entitlements</a>
+        <a href="#notifications-klaviyo-and-alerts">Notifications, Klaviyo, And Alerts</a>
+        <a href="#analytics-and-exports">Analytics And Exports</a>
+        <a href="#testing-commands">Testing Commands</a>
+        <a href="#browser-e2e-and-storefront-qa">Browser E2E And Storefront QA</a>
+        <a href="#deployment-and-release">Deployment And Release</a>
+        <a href="#security-and-privacy-checklist">Security And Privacy Checklist</a>
+        <a href="#common-troubleshooting">Common Troubleshooting</a>
+        <a href="#ai-agent-development-rules">AI-Agent Development Rules</a>
+        <a href="#developer-workflow-checklist">Developer Workflow Checklist</a>
+    </aside>
+    <details class="dev-mobile-nav">
+        <summary>Browse developer guide</summary>
+        <nav><a href="#project-overview">Project Overview</a>
+            <a href="#repository-layout">Repository Layout</a>
+            <a href="#prerequisites">Prerequisites</a>
+            <a href="#first-time-setup">First-Time Setup</a>
+            <a href="#local-infrastructure">Local Infrastructure</a>
+            <a href="#shopify-cli-and-app-configs">Shopify CLI And App Configs</a>
+            <a href="#local-development-tunnel">Local Development Tunnel</a>
+            <a href="#database-and-prisma">Database And Prisma</a>
+            <a href="#admin-app-development">Admin App Development</a>
+            <a href="#storefront-app-proxy-apis">Storefront App Proxy APIs</a>
+            <a href="#storefront-ui-and-theme-app-extension">Storefront UI And Theme App Extension</a>
+            <a href="#appearance-tokens-and-metafields">Appearance Tokens And Metafields</a>
+            <a href="#webhooks-and-privacy">Webhooks And Privacy</a>
+            <a href="#background-workers">Background Workers</a>
+            <a href="#app-pricing-and-partner-api-client-setup">App Pricing And Partner API Client Setup</a>
+            <a href="#plan-gates-and-entitlements">Plan Gates And Entitlements</a>
+            <a href="#notifications-klaviyo-and-alerts">Notifications, Klaviyo, And Alerts</a>
+            <a href="#analytics-and-exports">Analytics And Exports</a>
+            <a href="#testing-commands">Testing Commands</a>
+            <a href="#browser-e2e-and-storefront-qa">Browser E2E And Storefront QA</a>
+            <a href="#deployment-and-release">Deployment And Release</a>
+            <a href="#security-and-privacy-checklist">Security And Privacy Checklist</a>
+            <a href="#common-troubleshooting">Common Troubleshooting</a>
+            <a href="#ai-agent-development-rules">AI-Agent Development Rules</a>
+            <a href="#developer-workflow-checklist">Developer Workflow Checklist</a>
+        </nav>
+    </details>
+    <main class="dev-main">
+        <div class="guide-label">Engineering documentation</div>
+        <article class="dev-guide">
+            <h1 id="lonigma-wishlist-developer-guide">Lonigma Wishlist Developer Guide</h1>
+            <div class="guide-overview" aria-label="Guide overview">
+                <div><strong>25</strong><span>Detailed sections</span></div>
+                <div><strong>89</strong><span>Code examples</span></div>
+                <div><strong>15</strong><span>Reference tables</span></div>
+                <div><strong>Full</strong><span>Developer runbook</span></div>
+            </div>
+            <p><strong>Status:</strong> Full developer runbook for this repository.</p>
+            <p><strong>Audience:</strong> developers, QA engineers, release owners, and AI coding agents working on the
+                Lonigma Wishlist Shopify app.</p>
+            <p><strong>Repository root:</strong> <code>shopify-wishlist/</code></p>
+            <p><strong>Main app root:</strong> <code>src/</code></p>
+            <p>This guide documents how to set up, run, modify, test, verify, and troubleshoot this project. It also
+                includes the Shopify Partner API client setup needed for App Pricing readiness.</p>
+            <p>Related docs:</p>
+            <ul>
+                <li><code>README.md</code> - base environment setup</li>
+                <li><code>DEVELOPER.md</code> - storefront runtime, worker, E2E, and tunnel details</li>
+                <li><code>AGENTS.md</code> - coding-agent policy and repository-specific AI rules</li>
+                <li><code>.ai/AI_POLICY.md</code> - binding implementation policy</li>
+                <li><code>doc/qa/README.md</code> - QA document index</li>
+                <li><code>doc/qa/manual-test-cases.md</code> - manual QA execution</li>
+                <li><code>doc/qa/release-checklist.md</code> - release sign-off checklist</li>
+                <li><code>doc/qa/shopify-app-pricing-testing.md</code> - App Pricing testing model and evidence</li>
+                <li><code>doc/qa/shopify-app-pricing-plan-setup.md</code> - Partner Dashboard plan setup</li>
+            </ul>
+            <hr />
+            <h2 id="project-overview">1. Project Overview</h2>
+            <p>Lonigma Wishlist is a production Shopify app with these major surfaces:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Surface</th>
+                        <th>Location</th>
+                        <th>Runtime</th>
+                        <th>Auth model</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Embedded admin app</td>
+                        <td><code>src/app/routes/app.*</code></td>
+                        <td>React Router v7, Polaris</td>
+                        <td>Shopify admin session</td>
+                    </tr>
+                    <tr>
+                        <td>Storefront app proxy APIs</td>
+                        <td><code>src/app/routes/frontend.api.*</code></td>
+                        <td>React Router server routes</td>
+                        <td>Shopify app-proxy HMAC / public storefront context</td>
+                    </tr>
+                    <tr>
+                        <td>Shared wishlist page</td>
+                        <td><code>src/app/routes/frontend.shared.$id.tsx</code></td>
+                        <td>React Router route</td>
+                        <td>Public signed/share token flow</td>
+                    </tr>
+                    <tr>
+                        <td>Webhooks</td>
+                        <td><code>src/app/routes/webhooks.*</code></td>
+                        <td>React Router action routes</td>
+                        <td>Shopify webhook HMAC</td>
+                    </tr>
+                    <tr>
+                        <td>Storefront UI source</td>
+                        <td><code>src/extensions/wishlist-storefront/</code></td>
+                        <td>Lit 3, Vite</td>
+                        <td>Browser storefront</td>
+                    </tr>
+                    <tr>
+                        <td>Theme App Extension</td>
+                        <td><code>src/extensions/wishlist/</code></td>
+                        <td>Liquid, generated JS/CSS assets</td>
+                        <td>Shopify theme runtime</td>
+                    </tr>
+                    <tr>
+                        <td>Database</td>
+                        <td><code>src/prisma/schema.prisma</code></td>
+                        <td>Prisma + PostgreSQL</td>
+                        <td>Shop-isolated rows</td>
+                    </tr>
+                    <tr>
+                        <td>Background workers</td>
+                        <td><code>src/scripts/run-*.ts</code></td>
+                        <td>Node + tsx</td>
+                        <td>Server environment</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The app supports wishlist creation, guest and customer identity, PDP/PLP hearts, drawer/modal/page
+                wishlist shells, shared wishlists, save-for-later, cart wishlist actions, analytics, exports, Klaviyo
+                integration, notifications, plan gates, and Shopify App Pricing sync.</p>
+            <hr />
+            <h2 id="repository-layout">2. Repository Layout</h2>
+            <p>Important paths:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>src/app/</code></td>
+                        <td>React Router application, routes, services, models, Shopify server setup.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/</code></td>
+                        <td>Admin, API, app-proxy, shared page, auth, and webhook route modules.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/services/</code></td>
+                        <td>Business logic, integrations, workers, entitlements, analytics, validation, enforcement
+                            checks.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/models/</code></td>
+                        <td>Prisma-backed model helpers.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/prisma/schema.prisma</code></td>
+                        <td>Database schema.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/prisma/migrations/</code></td>
+                        <td>Prisma migrations.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist-storefront/</code></td>
+                        <td>Source for Lit storefront components and Vite build.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/</code></td>
+                        <td>Shopify Theme App Extension shipped to Shopify.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/assets/</code></td>
+                        <td>Generated storefront bundles consumed by the TAE.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/blocks/</code></td>
+                        <td>Liquid app blocks and app embed.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/locales/</code></td>
+                        <td>Theme extension locale strings.</td>
+                    </tr>
+                    <tr>
+                        <td><code>scripts/</code></td>
+                        <td>Root-level support scripts, including Partner API readiness.</td>
+                    </tr>
+                    <tr>
+                        <td><code>doc/qa/</code></td>
+                        <td>QA runbooks, reports, release checklists, and billing test docs.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.ai/skills/</code></td>
+                        <td>Canonical project-local AI skills.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Root-level files primarily orchestrate development. App commands usually run from <code>src/</code>.</p>
+            <hr />
+            <h2 id="prerequisites">3. Prerequisites</h2>
+            <p>Supported developer environments:</p>
+            <ul>
+                <li>macOS</li>
+                <li>Linux</li>
+                <li>Windows 11 with WSL2 Ubuntu</li>
+            </ul>
+            <p>Required tools:</p>
+            <ul>
+                <li>Docker with Compose v2</li>
+                <li>Node <code>&gt;=20.10</code></li>
+                <li>Yarn classic <code>1.22.22</code> through Corepack</li>
+                <li>GNU/BSD <code>make</code></li>
+                <li>Shopify CLI</li>
+                <li>Google Chrome for browser E2E</li>
+                <li>Access to a Shopify Partner organization and development store</li>
+            </ul>
+            <p>Recommended Node/Yarn setup:</p>
+            <pre><code class="language-bash">corepack enable
 corepack prepare yarn@1.22.22 --activate
 </code></pre>
-<p>Use <code>python3</code> for scripts and shell commands in this repository. Do not use the <code>python</code> command name.</p>
-<p>Windows + WSL2 rules:</p>
-<ul>
-<li>keep the repo under the Linux filesystem, for example <code>~/shopify-wishlist</code></li>
-<li>do not work from <code>/mnt/c</code></li>
-<li>run Node, Yarn, Make, Shopify CLI, and Docker commands inside Ubuntu</li>
-<li>use Windows Chrome only for browser-driving flows that need a signed-in browser</li>
-</ul>
-<hr />
-<h2 id="first-time-setup">4. First-Time Setup</h2>
-<p>Clone the repository:</p>
-<pre><code class="language-bash">git clone git@github.com:lonigma/shopify-wishlist.git shopify-wishlist
+            <p>Use <code>python3</code> for scripts and shell commands in this repository. Do not use the
+                <code>python</code> command name.
+            </p>
+            <p>Windows + WSL2 rules:</p>
+            <ul>
+                <li>keep the repo under the Linux filesystem, for example <code>~/shopify-wishlist</code></li>
+                <li>do not work from <code>/mnt/c</code></li>
+                <li>run Node, Yarn, Make, Shopify CLI, and Docker commands inside Ubuntu</li>
+                <li>use Windows Chrome only for browser-driving flows that need a signed-in browser</li>
+            </ul>
+            <hr />
+            <h2 id="first-time-setup">4. First-Time Setup</h2>
+            <p>Clone the repository:</p>
+            <pre><code class="language-bash">git clone git@github.com:lonigma/shopify-wishlist.git shopify-wishlist
 cd shopify-wishlist
 </code></pre>
-<p>Create the root <code>.env</code> from <code>example.env</code> if present and set the Docker Compose values:</p>
-<pre><code class="language-dotenv">COMPOSE_PROJECT_NAME=shopify-wishlist
+            <p>Create the root <code>.env</code> from <code>example.env</code> if present and set the Docker Compose
+                values:</p>
+            <pre><code class="language-dotenv">COMPOSE_PROJECT_NAME=shopify-wishlist
 HOST_PORT_POSTGRES=50001
 HOST_PORT_MAILPIT_SMTP=1025
 HOST_PORT_MAILPIT_WEB=8025
 HOST_PORT_MINIO=9000
 HOST_PORT_MINIO_CONSOLE=9001
 </code></pre>
-<p>Start local infrastructure:</p>
-<pre><code class="language-bash">make env-up
+            <p>Start local infrastructure:</p>
+            <pre><code class="language-bash">make env-up
 </code></pre>
-<p>Install app dependencies:</p>
-<pre><code class="language-bash">cd src
+            <p>Install app dependencies:</p>
+            <pre><code class="language-bash">cd src
 yarn install
 </code></pre>
-<p>Create the app <code>.env</code>:</p>
-<pre><code class="language-bash">cd src
+            <p>Create the app <code>.env</code>:</p>
+            <pre><code class="language-bash">cd src
 cp example.env .env
 </code></pre>
-<p>Populate Shopify app variables:</p>
-<pre><code class="language-bash">cd src
+            <p>Populate Shopify app variables:</p>
+            <pre><code class="language-bash">cd src
 shopify app env show
 </code></pre>
-<p>At minimum, ensure <code>src/.env</code> has the Shopify API key, secret, scopes, app URL, and database URL required by the selected Shopify app config.</p>
-<p>Example local <code>src/.env</code> shape:</p>
-<pre><code class="language-dotenv">SHOPIFY_API_KEY=replace-with-app-api-key
+            <p>At minimum, ensure <code>src/.env</code> has the Shopify API key, secret, scopes, app URL, and database
+                URL required by the selected Shopify app config.</p>
+            <p>Example local <code>src/.env</code> shape:</p>
+            <pre><code class="language-dotenv">SHOPIFY_API_KEY=replace-with-app-api-key
 SHOPIFY_API_SECRET=replace-with-app-secret
 SCOPES=read_products,write_products,read_customers,write_customers
 SHOPIFY_APP_URL=https://your-current-tunnel.trycloudflare.com
@@ -303,135 +323,146 @@ S3_ACCESS_KEY_ID=minioadmin
 S3_SECRET_ACCESS_KEY=minioadmin
 S3_BUCKET=wishlist-exports-dev
 </code></pre>
-<p>Keep real secrets in ignored local files or the deployment platform's secret store. Do not commit <code>.env</code>.</p>
-<p>Run Prisma setup:</p>
-<pre><code class="language-bash">make migrate
+            <p>Keep real secrets in ignored local files or the deployment platform's secret store. Do not commit
+                <code>.env</code>.
+            </p>
+            <p>Run Prisma setup:</p>
+            <pre><code class="language-bash">make migrate
 </code></pre>
-<p>Optional local MinIO bucket setup for exports:</p>
-<pre><code class="language-bash">make minio-bucket-init
+            <p>Optional local MinIO bucket setup for exports:</p>
+            <pre><code class="language-bash">make minio-bucket-init
 </code></pre>
-<hr />
-<h2 id="local-infrastructure">5. Local Infrastructure</h2>
-<p><code>compose.yml</code> starts:</p>
-<table>
-<thead>
-<tr>
-<th>Service</th>
-<th>Default local endpoint</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>PostgreSQL</td>
-<td><code>127.0.0.1:50001</code> by root <code>.env</code> example</td>
-<td>App database.</td>
-</tr>
-<tr>
-<td>Mailpit SMTP</td>
-<td><code>127.0.0.1:1025</code></td>
-<td>Local email capture.</td>
-</tr>
-<tr>
-<td>Mailpit UI</td>
-<td><code>http://127.0.0.1:8025</code></td>
-<td>Inspect sent emails.</td>
-</tr>
-<tr>
-<td>MinIO API</td>
-<td><code>http://127.0.0.1:9000</code></td>
-<td>S3-compatible local export storage.</td>
-</tr>
-<tr>
-<td>MinIO console</td>
-<td><code>http://127.0.0.1:9001</code></td>
-<td>Inspect local buckets and objects.</td>
-</tr>
-</tbody>
-</table>
-<p>Common commands from the repository root:</p>
-<pre><code class="language-bash">make env-up
+            <hr />
+            <h2 id="local-infrastructure">5. Local Infrastructure</h2>
+            <p><code>compose.yml</code> starts:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Default local endpoint</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PostgreSQL</td>
+                        <td><code>127.0.0.1:50001</code> by root <code>.env</code> example</td>
+                        <td>App database.</td>
+                    </tr>
+                    <tr>
+                        <td>Mailpit SMTP</td>
+                        <td><code>127.0.0.1:1025</code></td>
+                        <td>Local email capture.</td>
+                    </tr>
+                    <tr>
+                        <td>Mailpit UI</td>
+                        <td><code>http://127.0.0.1:8025</code></td>
+                        <td>Inspect sent emails.</td>
+                    </tr>
+                    <tr>
+                        <td>MinIO API</td>
+                        <td><code>http://127.0.0.1:9000</code></td>
+                        <td>S3-compatible local export storage.</td>
+                    </tr>
+                    <tr>
+                        <td>MinIO console</td>
+                        <td><code>http://127.0.0.1:9001</code></td>
+                        <td>Inspect local buckets and objects.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Common commands from the repository root:</p>
+            <pre><code class="language-bash">make env-up
 make env-stop
 make env-config
 make env-destroy
 </code></pre>
-<p><code>make env-destroy</code> deletes containers and volumes, including the local database. Do not use it unless you intend to reset local data.</p>
-<hr />
-<h2 id="shopify-cli-and-app-configs">6. Shopify CLI And App Configs</h2>
-<p>Shopify app config files live under <code>src/</code>. The filenames below are neutral examples and should be replaced with the appropriate local configuration:</p>
-<ul>
-<li><code>src/shopify.app.demo-development.toml</code></li>
-<li><code>src/shopify.app.demo-staging.toml</code></li>
-<li><code>src/shopify.app.demo-production.toml</code></li>
-</ul>
-<p>Use Shopify CLI from <code>src/</code>:</p>
-<pre><code class="language-bash">cd src
+            <p><code>make env-destroy</code> deletes containers and volumes, including the local database. Do not use it
+                unless you intend to reset local data.</p>
+            <hr />
+            <h2 id="shopify-cli-and-app-configs">6. Shopify CLI And App Configs</h2>
+            <p>Shopify app config files live under <code>src/</code>. The filenames below are neutral examples and
+                should be replaced with the appropriate local configuration:</p>
+            <ul>
+                <li><code>src/shopify.app.demo-development.toml</code></li>
+                <li><code>src/shopify.app.demo-staging.toml</code></li>
+                <li><code>src/shopify.app.demo-production.toml</code></li>
+            </ul>
+            <p>Use Shopify CLI from <code>src/</code>:</p>
+            <pre><code class="language-bash">cd src
 yarn shopify app config use
 yarn shopify app config link
 yarn shopify app env show
 </code></pre>
-<p>Start app development:</p>
-<pre><code class="language-bash">make shopify-app-dev
+            <p>Start app development:</p>
+            <pre><code class="language-bash">make shopify-app-dev
 </code></pre>
-<p>Equivalent direct command:</p>
-<pre><code class="language-bash">cd src
+            <p>Equivalent direct command:</p>
+            <pre><code class="language-bash">cd src
 yarn dev
 </code></pre>
-<p>Deploy:</p>
-<pre><code class="language-bash">make shopify-app-deploy
+            <p>Deploy:</p>
+            <pre><code class="language-bash">make shopify-app-deploy
 </code></pre>
-<p>Equivalent direct command:</p>
-<pre><code class="language-bash">cd src
+            <p>Equivalent direct command:</p>
+            <pre><code class="language-bash">cd src
 yarn deploy
 </code></pre>
-<p>For hosted App Pricing plan selection, staging needs:</p>
-<pre><code class="language-bash">SHOPIFY_APP_HANDLE=&quot;demo-wishlist-app&quot;
+            <p>For hosted App Pricing plan selection, staging needs:</p>
+            <pre><code class="language-bash">SHOPIFY_APP_HANDLE=&quot;demo-wishlist-app&quot;
 </code></pre>
-<p>If <code>SHOPIFY_APP_HANDLE</code> is missing and the selected TOML does not define a <code>handle</code>, <code>/app/subscription</code> cannot build the hosted pricing URL.</p>
-<hr />
-<h2 id="local-development-tunnel">7. Local Development Tunnel</h2>
-<p>The default <code>yarn dev</code> flow uses Shopify CLI's Cloudflare quick tunnel. The tunnel URL changes after restarts, and Shopify may cache the previous embedded app URL in an already-open admin tab.</p>
-<p>Daily workaround with quick tunnels:</p>
-<ol>
-<li>Start <code>cd src &amp;&amp; yarn dev</code>.</li>
-<li>Let Shopify CLI update the app URLs.</li>
-<li>If the embedded admin iframe is blank after a restart, close the stale admin tab.</li>
-<li>Reopen the app from the Partners Dashboard or the merchant apps list.</li>
-</ol>
-<p>Planned named tunnel flow:</p>
-<pre><code class="language-bash">cd src
+            <p>If <code>SHOPIFY_APP_HANDLE</code> is missing and the selected TOML does not define a
+                <code>handle</code>, <code>/app/subscription</code> cannot build the hosted pricing URL.
+            </p>
+            <hr />
+            <h2 id="local-development-tunnel">7. Local Development Tunnel</h2>
+            <p>The default <code>yarn dev</code> flow uses Shopify CLI's Cloudflare quick tunnel. The tunnel URL changes
+                after restarts, and Shopify may cache the previous embedded app URL in an already-open admin tab.</p>
+            <p>Daily workaround with quick tunnels:</p>
+            <ol>
+                <li>Start <code>cd src &amp;&amp; yarn dev</code>.</li>
+                <li>Let Shopify CLI update the app URLs.</li>
+                <li>If the embedded admin iframe is blank after a restart, close the stale admin tab.</li>
+                <li>Reopen the app from the Partners Dashboard or the merchant apps list.</li>
+            </ol>
+            <p>Planned named tunnel flow:</p>
+            <pre><code class="language-bash">cd src
 yarn dev --tunnel-url=https://&lt;your-handle&gt;-wishlist.dev.&lt;lonigma-domain&gt;:3000
 </code></pre>
-<p>Run Cloudflare Tunnel separately:</p>
-<pre><code class="language-bash">cloudflared tunnel run &lt;your-handle&gt;-wishlist-dev
+            <p>Run Cloudflare Tunnel separately:</p>
+            <pre><code class="language-bash">cloudflared tunnel run &lt;your-handle&gt;-wishlist-dev
 </code></pre>
-<p>The <code>:3000</code> suffix in Shopify CLI's <code>--tunnel-url</code> is the local port the CLI binds to, not the public HTTPS port.</p>
-<hr />
-<h2 id="database-and-prisma">8. Database And Prisma</h2>
-<p>The Prisma schema is <code>src/prisma/schema.prisma</code>. The app uses PostgreSQL through <code>SHOPIFY_DATABASE_URL</code>.</p>
-<p>Safe migration apply:</p>
-<pre><code class="language-bash">make migrate
+            <p>The <code>:3000</code> suffix in Shopify CLI's <code>--tunnel-url</code> is the local port the CLI binds
+                to, not the public HTTPS port.</p>
+            <hr />
+            <h2 id="database-and-prisma">8. Database And Prisma</h2>
+            <p>The Prisma schema is <code>src/prisma/schema.prisma</code>. The app uses PostgreSQL through
+                <code>SHOPIFY_DATABASE_URL</code>.
+            </p>
+            <p>Safe migration apply:</p>
+            <pre><code class="language-bash">make migrate
 </code></pre>
-<p>Granular commands:</p>
-<pre><code class="language-bash">make prisma-generate
+            <p>Granular commands:</p>
+            <pre><code class="language-bash">make prisma-generate
 make prisma-migrate-deploy
 </code></pre>
-<p>Create a development migration after editing <code>schema.prisma</code>:</p>
-<pre><code class="language-bash">make prisma-migrate-dev name=&quot;add_some_table&quot;
+            <p>Create a development migration after editing <code>schema.prisma</code>:</p>
+            <pre><code class="language-bash">make prisma-migrate-dev name=&quot;add_some_table&quot;
 </code></pre>
-<p>Direct commands from <code>src/</code>:</p>
-<pre><code class="language-bash">yarn prisma generate
+            <p>Direct commands from <code>src/</code>:</p>
+            <pre><code class="language-bash">yarn prisma generate
 yarn prisma migrate deploy
 </code></pre>
-<p>Database rules:</p>
-<ul>
-<li>keep data shop-isolated by <code>shop</code></li>
-<li>make schema changes backward-safe unless an approved pre-production spec explicitly says no migration path is required</li>
-<li>do not delete or rewrite migrations without explicit approval</li>
-<li>preserve idempotency for webhook and worker retry paths</li>
-</ul>
-<p>Example shop-scoped Prisma service pattern:</p>
-<pre><code class="language-ts">import db from &quot;../db.server&quot;;
+            <p>Database rules:</p>
+            <ul>
+                <li>keep data shop-isolated by <code>shop</code></li>
+                <li>make schema changes backward-safe unless an approved pre-production spec explicitly says no
+                    migration path is required</li>
+                <li>do not delete or rewrite migrations without explicit approval</li>
+                <li>preserve idempotency for webhook and worker retry paths</li>
+            </ul>
+            <p>Example shop-scoped Prisma service pattern:</p>
+            <pre><code class="language-ts">import db from &quot;../db.server&quot;;
 
 export async function getWishlistForShop(input: {
   shop: string;
@@ -450,8 +481,8 @@ export async function getWishlistForShop(input: {
   });
 }
 </code></pre>
-<p>Example idempotent create pattern:</p>
-<pre><code class="language-ts">import db from &quot;../db.server&quot;;
+            <p>Example idempotent create pattern:</p>
+            <pre><code class="language-ts">import db from &quot;../db.server&quot;;
 
 export async function reserveSavedItemUsage(input: {
   shop: string;
@@ -461,7 +492,7 @@ export async function reserveSavedItemUsage(input: {
 }) {
   return db.savedItemUsageLedger.upsert({
     where: {
-      shop_operationId: {
+      saved_item_usage_ledger_shop_operation_unique: {
         shop: input.shop,
         operationId: input.operationId,
       },
@@ -476,71 +507,75 @@ export async function reserveSavedItemUsage(input: {
   });
 }
 </code></pre>
-<p>Use the actual compound unique field name generated by Prisma for the model you touch. Check <code>node_modules/.prisma/client/index.d.ts</code> or existing services before copying an <code>upsert</code> shape.</p>
-<hr />
-<h2 id="admin-app-development">9. Admin App Development</h2>
-<p>Admin routes live in <code>src/app/routes/app.*</code>.</p>
-<p>Key routes:</p>
-<table>
-<thead>
-<tr>
-<th>Route file</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>src/app/routes/app._index.tsx</code></td>
-<td>Admin home/dashboard entry.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.storefront.tsx</code></td>
-<td>Storefront configuration.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.pricing.tsx</code></td>
-<td>Pricing/admin plan presentation.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.subscription.tsx</code></td>
-<td>Shopify hosted App Pricing selection and sync.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.analytics*.tsx</code></td>
-<td>Analytics screens and export flows.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.notifications*.tsx</code></td>
-<td>Notification setup, templates, and activity.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.integrations.klaviyo.tsx</code></td>
-<td>Klaviyo configuration.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.saved-items.tsx</code></td>
-<td>Saved item management.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.customers.tsx</code></td>
-<td>Customer-related admin surface.</td>
-</tr>
-<tr>
-<td><code>src/app/routes/app.help.tsx</code></td>
-<td>Help and setup guidance.</td>
-</tr>
-</tbody>
-</table>
-<p>Admin UI rules:</p>
-<ul>
-<li>follow Shopify Polaris patterns</li>
-<li>validate all action inputs server-side</li>
-<li>keep merchant-facing plan claims aligned with <code>doc/feature-readiness-matrix.md</code></li>
-<li>do not claim a feature is implemented until code, gates, tests, and required verification are complete</li>
-<li>for Polaris changes, apply <code>.ai/AI_POLICY.md</code> section 14</li>
-</ul>
-<p>Example admin route loader/action pattern:</p>
-<pre><code class="language-tsx">import { json, type ActionFunctionArgs, type LoaderFunctionArgs } from &quot;@remix-run/node&quot;;
+            <p>Use the actual compound unique field name generated by Prisma for the model you touch. Check
+                <code>node_modules/.prisma/client/index.d.ts</code> or existing services before copying an
+                <code>upsert</code> shape.
+            </p>
+            <hr />
+            <h2 id="admin-app-development">9. Admin App Development</h2>
+            <p>Admin routes live in <code>src/app/routes/app.*</code>.</p>
+            <p>Key routes:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Route file</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>src/app/routes/app._index.tsx</code></td>
+                        <td>Admin home/dashboard entry.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.storefront.tsx</code></td>
+                        <td>Storefront configuration.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.pricing.tsx</code></td>
+                        <td>Pricing/admin plan presentation.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.subscription.tsx</code></td>
+                        <td>Shopify hosted App Pricing selection and sync.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.analytics*.tsx</code></td>
+                        <td>Analytics screens and export flows.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.notifications*.tsx</code></td>
+                        <td>Notification setup, templates, and activity.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.integrations.klaviyo.tsx</code></td>
+                        <td>Klaviyo configuration.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.saved-items.tsx</code></td>
+                        <td>Saved item management.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.customers.tsx</code></td>
+                        <td>Customer-related admin surface.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/app/routes/app.help.tsx</code></td>
+                        <td>Help and setup guidance.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Admin UI rules:</p>
+            <ul>
+                <li>follow Shopify Polaris patterns</li>
+                <li>validate all action inputs server-side</li>
+                <li>keep merchant-facing plan claims aligned with <code>doc/feature-readiness-matrix.md</code></li>
+                <li>do not claim a feature is implemented until code, gates, tests, and required verification are
+                    complete</li>
+                <li>for Polaris changes, apply <code>.ai/AI_POLICY.md</code> section 14</li>
+            </ul>
+            <p>Example admin route loader/action pattern:</p>
+            <pre><code class="language-tsx">import { json, type ActionFunctionArgs, type LoaderFunctionArgs } from &quot;@remix-run/node&quot;;
 import { Form, useLoaderData } from &quot;@remix-run/react&quot;;
 import { authenticate } from &quot;../shopify.server&quot;;
 import { getSettings, saveSettings } from &quot;../services/settings.server&quot;;
@@ -576,85 +611,90 @@ export default function StorefrontSettingsRoute() {
   );
 }
 </code></pre>
-<p>Prefer the project's existing Polaris components and route helpers over this minimal HTML when editing real admin screens. The important pattern is admin authentication, shop-scoped service calls, and server-side validation.</p>
-<hr />
-<h2 id="storefront-app-proxy-apis">10. Storefront App Proxy APIs</h2>
-<p>Storefront APIs live in <code>src/app/routes/frontend.api.*</code>.</p>
-<p>Important routes:</p>
-<table>
-<thead>
-<tr>
-<th>Route file</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>frontend.api.lists.tsx</code></td>
-<td>Create/list wishlists.</td>
-</tr>
-<tr>
-<td><code>frontend.api.lists.$listId.items.tsx</code></td>
-<td>Wishlist item operations.</td>
-</tr>
-<tr>
-<td><code>frontend.api.lists.$listId.membership.tsx</code></td>
-<td>Wishlist membership operations.</td>
-</tr>
-<tr>
-<td><code>frontend.api.items.memberships.tsx</code></td>
-<td>Product/list membership hydration.</td>
-</tr>
-<tr>
-<td><code>frontend.api.product-details.tsx</code></td>
-<td>Product detail lookup for storefront UI.</td>
-</tr>
-<tr>
-<td><code>frontend.api.save-for-later.tsx</code></td>
-<td>Save-for-later cart flow.</td>
-</tr>
-<tr>
-<td><code>frontend.api.wishlist-cart-event.tsx</code></td>
-<td>Cart event tracking/auth.</td>
-</tr>
-<tr>
-<td><code>frontend.api.wishlist-view-event.tsx</code></td>
-<td>Wishlist view tracking.</td>
-</tr>
-<tr>
-<td><code>frontend.api.share-event.tsx</code></td>
-<td>Share funnel event tracking.</td>
-</tr>
-<tr>
-<td><code>frontend.api.shared.$wishlistId.tsx</code></td>
-<td>Shared wishlist data.</td>
-</tr>
-<tr>
-<td><code>frontend.api.notifications.subscription.tsx</code></td>
-<td>Notification opt-in and alert preferences.</td>
-</tr>
-<tr>
-<td><code>frontend.api.alerts.track-open.tsx</code></td>
-<td>Alert open tracking.</td>
-</tr>
-<tr>
-<td><code>frontend.api.alerts.track-click.tsx</code></td>
-<td>Alert click tracking.</td>
-</tr>
-</tbody>
-</table>
-<p>Rules:</p>
-<ul>
-<li>app proxy routes are public and must not assume admin authentication</li>
-<li>validate Shopify app-proxy signatures/HMACs where required</li>
-<li>never expose admin tokens or Partner API tokens</li>
-<li>normalize and validate inputs before database writes</li>
-<li>preserve guest/customer identity boundaries</li>
-<li>keep responses minimal and safe for storefront consumption</li>
-</ul>
-<p>For storefront, Theme App Extension, app-proxy, metafield, or compliance changes, apply <code>.ai/AI_POLICY.md</code> section 15 and <code>doc/dev-guideline/shopify-storefront-tae-guideline.md</code>.</p>
-<p>Example app-proxy route shape:</p>
-<pre><code class="language-tsx">import { json, type ActionFunctionArgs } from &quot;@remix-run/node&quot;;
+            <p>Prefer the project's existing Polaris components and route helpers over this minimal HTML when editing
+                real admin screens. The important pattern is admin authentication, shop-scoped service calls, and
+                server-side validation.</p>
+            <hr />
+            <h2 id="storefront-app-proxy-apis">10. Storefront App Proxy APIs</h2>
+            <p>Storefront APIs live in <code>src/app/routes/frontend.api.*</code>.</p>
+            <p>Important routes:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Route file</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>frontend.api.lists.tsx</code></td>
+                        <td>Create/list wishlists.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.lists.$listId.items.tsx</code></td>
+                        <td>Wishlist item operations.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.lists.$listId.membership.tsx</code></td>
+                        <td>Wishlist membership operations.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.items.memberships.tsx</code></td>
+                        <td>Product/list membership hydration.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.product-details.tsx</code></td>
+                        <td>Product detail lookup for storefront UI.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.save-for-later.tsx</code></td>
+                        <td>Save-for-later cart flow.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.wishlist-cart-event.tsx</code></td>
+                        <td>Cart event tracking/auth.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.wishlist-view-event.tsx</code></td>
+                        <td>Wishlist view tracking.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.share-event.tsx</code></td>
+                        <td>Share funnel event tracking.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.shared.$wishlistId.tsx</code></td>
+                        <td>Shared wishlist data.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.notifications.subscription.tsx</code></td>
+                        <td>Notification opt-in and alert preferences.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.alerts.track-open.tsx</code></td>
+                        <td>Alert open tracking.</td>
+                    </tr>
+                    <tr>
+                        <td><code>frontend.api.alerts.track-click.tsx</code></td>
+                        <td>Alert click tracking.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Rules:</p>
+            <ul>
+                <li>app proxy routes are public and must not assume admin authentication</li>
+                <li>validate Shopify app-proxy signatures/HMACs where required</li>
+                <li>never expose admin tokens or Partner API tokens</li>
+                <li>normalize and validate inputs before database writes</li>
+                <li>preserve guest/customer identity boundaries</li>
+                <li>keep responses minimal and safe for storefront consumption</li>
+            </ul>
+            <p>For storefront, Theme App Extension, app-proxy, metafield, or compliance changes, apply
+                <code>.ai/AI_POLICY.md</code> section 15 and
+                <code>doc/dev-guideline/shopify-storefront-tae-guideline.md</code>.
+            </p>
+            <p>Example app-proxy route shape:</p>
+            <pre><code class="language-tsx">import { json, type ActionFunctionArgs } from &quot;@remix-run/node&quot;;
 import { requireStorefrontRequestIdentity } from &quot;../utils/request-identity.server&quot;;
 import { addItemToWishlist } from &quot;../services/storefront-wishlist.server&quot;;
 
@@ -680,123 +720,134 @@ export async function action({ request }: ActionFunctionArgs) {
   return json({ item: result });
 }
 </code></pre>
-<p>Match the real helper names in the current route before implementing. This snippet shows the expected boundary: authenticate the storefront request, validate JSON, then call a shop-scoped service.</p>
-<hr />
-<h2 id="storefront-ui-and-theme-app-extension">11. Storefront UI And Theme App Extension</h2>
-<p>The storefront source is <code>src/extensions/wishlist-storefront/</code>. It is built with Lit 3 and Vite, then emitted into the Theme App Extension at <code>src/extensions/wishlist/assets/</code>.</p>
-<p>Build:</p>
-<pre><code class="language-bash">cd src/extensions/wishlist-storefront
+            <p>Match the real helper names in the current route before implementing. This snippet shows the expected
+                boundary: authenticate the storefront request, validate JSON, then call a shop-scoped service.</p>
+            <hr />
+            <h2 id="storefront-ui-and-theme-app-extension">11. Storefront UI And Theme App Extension</h2>
+            <p>The storefront source is <code>src/extensions/wishlist-storefront/</code>. It is built with Lit 3 and
+                Vite, then emitted into the Theme App Extension at <code>src/extensions/wishlist/assets/</code>.</p>
+            <p>Build:</p>
+            <pre><code class="language-bash">cd src/extensions/wishlist-storefront
 yarn build
 </code></pre>
-<p>From app root:</p>
-<pre><code class="language-bash">cd src
+            <p>From app root:</p>
+            <pre><code class="language-bash">cd src
 yarn build:storefront
 </code></pre>
-<p>Runtime bundle model:</p>
-<table>
-<thead>
-<tr>
-<th>Bundle</th>
-<th>Source</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>wishlist-core.js</code></td>
-<td><code>src/extensions/wishlist-storefront/src/main.ts</code></td>
-<td>PDP/PLP heart and core bootstrap.</td>
-</tr>
-<tr>
-<td><code>wishlist-shell.js</code></td>
-<td><code>src/extensions/wishlist-storefront/src/shell-entry.ts</code></td>
-<td>Drawer, modal, page, shared shell.</td>
-</tr>
-<tr>
-<td><code>wishlist-lit.js</code></td>
-<td>Vite chunk</td>
-<td>Shared Lit runtime.</td>
-</tr>
-<tr>
-<td><code>wishlist.css</code></td>
-<td><code>src/extensions/wishlist-storefront/src/styles/wishlist.css</code></td>
-<td>Shared storefront stylesheet.</td>
-</tr>
-</tbody>
-</table>
-<p>Theme App Extension files:</p>
-<table>
-<thead>
-<tr>
-<th>Path</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>src/extensions/wishlist/blocks/lonigma_wl_appearance.liquid</code></td>
-<td>App embed and CSS token bridge.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/blocks/lonigma_wishlist_product_page_button.liquid</code></td>
-<td>PDP wishlist button block.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/blocks/lonigma_wishlist_floating_wishlist.liquid</code></td>
-<td>Floating launcher block.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/blocks/lonigma_wishlist_cart_button.liquid</code></td>
-<td>Cart wishlist controls.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/blocks/lonigma_wishlist_full_page.liquid</code></td>
-<td>Full-page wishlist block.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/blocks/lonigma_wishlist_shared_page.liquid</code></td>
-<td>Shared wishlist block.</td>
-</tr>
-<tr>
-<td><code>src/extensions/wishlist/locales/en.default.json</code></td>
-<td>Source locale keys.</td>
-</tr>
-</tbody>
-</table>
-<p>The extension directory itself ships only Shopify-approved Theme App Extension directories:</p>
-<pre><code class="language-text">src/extensions/wishlist/
+            <p>Runtime bundle model:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bundle</th>
+                        <th>Source</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>wishlist-core.js</code></td>
+                        <td><code>src/extensions/wishlist-storefront/src/main.ts</code></td>
+                        <td>PDP/PLP heart and core bootstrap.</td>
+                    </tr>
+                    <tr>
+                        <td><code>wishlist-shell.js</code></td>
+                        <td><code>src/extensions/wishlist-storefront/src/shell-entry.ts</code></td>
+                        <td>Drawer, modal, page, shared shell.</td>
+                    </tr>
+                    <tr>
+                        <td><code>wishlist-lit.js</code></td>
+                        <td>Vite chunk</td>
+                        <td>Shared Lit runtime.</td>
+                    </tr>
+                    <tr>
+                        <td><code>wishlist.css</code></td>
+                        <td><code>src/extensions/wishlist-storefront/src/styles/wishlist.css</code></td>
+                        <td>Shared storefront stylesheet.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Theme App Extension files:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Path</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>src/extensions/wishlist/blocks/lonigma_wl_appearance.liquid</code></td>
+                        <td>App embed and CSS token bridge.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/blocks/lonigma_wishlist_product_page_button.liquid</code></td>
+                        <td>PDP wishlist button block.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/blocks/lonigma_wishlist_floating_wishlist.liquid</code></td>
+                        <td>Floating launcher block.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/blocks/lonigma_wishlist_cart_button.liquid</code></td>
+                        <td>Cart wishlist controls.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/blocks/lonigma_wishlist_full_page.liquid</code></td>
+                        <td>Full-page wishlist block.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/blocks/lonigma_wishlist_shared_page.liquid</code></td>
+                        <td>Shared wishlist block.</td>
+                    </tr>
+                    <tr>
+                        <td><code>src/extensions/wishlist/locales/en.default.json</code></td>
+                        <td>Source locale keys.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The extension directory itself ships only Shopify-approved Theme App Extension directories:</p>
+            <pre><code class="language-text">src/extensions/wishlist/
   assets/      generated JS/CSS chunks written by Vite
   blocks/      Liquid app blocks and app embed
   locales/     en.default.json plus translations
   snippets/    Liquid-only shared fragments
 </code></pre>
-<p>Do not add TypeScript, tests, Vite inputs, or build-only files inside <code>src/extensions/wishlist/</code>. Those belong in <code>src/extensions/wishlist-storefront/</code>.</p>
-<p>Storefront development rules:</p>
-<ul>
-<li>use Light DOM for Lit components so merchant theme tokens cascade</li>
-<li>keep styles in <code>src/extensions/wishlist-storefront/src/styles/wishlist.css</code></li>
-<li>use CSS custom properties from the appearance token system</li>
-<li>do not reintroduce the old Alpine implementation or Shadow DOM approach</li>
-<li>do not treat archived design handoff folders as binding source of truth</li>
-<li>read current code before changing PDP/PLP heart, drawer, modal, page, cart save-for-later, shared page, alerts, or admin storefront tabs</li>
-<li>add or update component tests for meaningful UI behavior</li>
-<li>run browser verification for storefront changes before release claims</li>
-</ul>
-<p>Theme App Extension development rules:</p>
-<ul>
-<li>do not hand-edit generated files in <code>src/extensions/wishlist/assets/</code></li>
-<li>edit storefront JS/CSS in <code>src/extensions/wishlist-storefront/</code>, then run <code>yarn build</code></li>
-<li>edit Liquid block placement, schema, locale wiring, and metafield reads in <code>src/extensions/wishlist/blocks/</code></li>
-<li>every runtime-rendered string must be passed to the Lit component through attributes or <code>data-l10n</code></li>
-<li>add new translation keys to <code>en.default.json</code> and mirror them into every locale file</li>
-<li>set <code>data-lonigma-wl</code> on root elements that need token styling</li>
-<li>use <code>| json</code> for strings embedded into JSON attributes or script islands</li>
-<li>use <code>| escape</code> for plain HTML attributes</li>
-<li>never pipe merchant text through <code>| t</code></li>
-<li>keep app embed behavior storefront-wide and lightweight</li>
-</ul>
-<p>Example Light DOM Lit component:</p>
-<pre><code class="language-ts">import { LitElement, html } from &quot;lit&quot;;
+            <p>Do not add TypeScript, tests, Vite inputs, or build-only files inside
+                <code>src/extensions/wishlist/</code>. Those belong in <code>src/extensions/wishlist-storefront/</code>.
+            </p>
+            <p>Storefront development rules:</p>
+            <ul>
+                <li>use Light DOM for Lit components so merchant theme tokens cascade</li>
+                <li>keep styles in <code>src/extensions/wishlist-storefront/src/styles/wishlist.css</code></li>
+                <li>use CSS custom properties from the appearance token system</li>
+                <li>do not reintroduce the old Alpine implementation or Shadow DOM approach</li>
+                <li>do not treat archived design handoff folders as binding source of truth</li>
+                <li>read current code before changing PDP/PLP heart, drawer, modal, page, cart save-for-later, shared
+                    page, alerts, or admin storefront tabs</li>
+                <li>add or update component tests for meaningful UI behavior</li>
+                <li>run browser verification for storefront changes before release claims</li>
+            </ul>
+            <p>Theme App Extension development rules:</p>
+            <ul>
+                <li>do not hand-edit generated files in <code>src/extensions/wishlist/assets/</code></li>
+                <li>edit storefront JS/CSS in <code>src/extensions/wishlist-storefront/</code>, then run
+                    <code>yarn build</code>
+                </li>
+                <li>edit Liquid block placement, schema, locale wiring, and metafield reads in
+                    <code>src/extensions/wishlist/blocks/</code>
+                </li>
+                <li>every runtime-rendered string must be passed to the Lit component through attributes or
+                    <code>data-l10n</code>
+                </li>
+                <li>add new translation keys to <code>en.default.json</code> and mirror them into every locale file</li>
+                <li>set <code>data-lonigma-wl</code> on root elements that need token styling</li>
+                <li>use <code>| json</code> for strings embedded into JSON attributes or script islands</li>
+                <li>use <code>| escape</code> for plain HTML attributes</li>
+                <li>never pipe merchant text through <code>| t</code></li>
+                <li>keep app embed behavior storefront-wide and lightweight</li>
+            </ul>
+            <p>Example Light DOM Lit component:</p>
+            <pre><code class="language-ts">import { LitElement, html } from &quot;lit&quot;;
 import { customElement, property } from &quot;lit/decorators.js&quot;;
 
 @customElement(&quot;lonigma-wl-empty-state&quot;)
@@ -818,8 +869,8 @@ export class LonigmaWlEmptyStateElement extends LitElement {
   }
 }
 </code></pre>
-<p>Example CSS token usage:</p>
-<pre><code class="language-css">.wl-empty-state {
+            <p>Example CSS token usage:</p>
+            <pre><code class="language-css">.wl-empty-state {
   color: var(--wl-color-text, #202223);
   background: var(--wl-color-surface, #ffffff);
   border: 1px solid var(--wl-color-border, #d9d9d9);
@@ -832,8 +883,8 @@ export class LonigmaWlEmptyStateElement extends LitElement {
   line-height: 1.4;
 }
 </code></pre>
-<p>Example Liquid block asset loading pattern:</p>
-<pre><code class="language-liquid">{{ 'wishlist.css' | asset_url | stylesheet_tag }}
+            <p>Example Liquid block asset loading pattern:</p>
+            <pre><code class="language-liquid">{{ 'wishlist.css' | asset_url | stylesheet_tag }}
 &lt;script src=&quot;{{ 'wishlist-core-loader.js' | asset_url }}&quot; defer&gt;&lt;/script&gt;
 
 &lt;div
@@ -842,9 +893,9 @@ export class LonigmaWlEmptyStateElement extends LitElement {
   data-product-id=&quot;{{ product.id }}&quot;
 &gt;&lt;/div&gt;
 </code></pre>
-<p>Use existing blocks as the source of truth for exact attributes, locale payloads, and asset names.</p>
-<p>Example complete PDP block pattern:</p>
-<pre><code class="language-liquid">{% assign variant = product.selected_or_first_available_variant %}
+            <p>Use existing blocks as the source of truth for exact attributes, locale payloads, and asset names.</p>
+            <p>Example complete PDP block pattern:</p>
+            <pre><code class="language-liquid">{% assign variant = product.selected_or_first_available_variant %}
 {%- assign default_list_name = shop.metafields.lonigma_wishlist.default_list_name | default: 'Favorites' -%}
 
 {%- unless shop.metafields.lonigma_wishlist.show_add_to_wishlist_on_pdp == 'false' -%}
@@ -895,9 +946,12 @@ export class LonigmaWlEmptyStateElement extends LitElement {
 }
 {% endschema %}
 </code></pre>
-<p>When merchant-provided text can be blank, branch explicitly instead of chaining <code>| default: 'translation.key' | t</code>. Liquid will translate the merchant text itself if it flows into <code>| t</code>, producing <code>Translation missing</code>.</p>
-<p>Safer label pattern:</p>
-<pre><code class="language-liquid">label=&quot;
+            <p>When merchant-provided text can be blank, branch explicitly instead of chaining
+                <code>| default: 'translation.key' | t</code>. Liquid will translate the merchant text itself if it
+                flows into <code>| t</code>, producing <code>Translation missing</code>.
+            </p>
+            <p>Safer label pattern:</p>
+            <pre><code class="language-liquid">label=&quot;
   {%- if block.settings.button_text != blank -%}
     {{ block.settings.button_text | escape }}
   {%- else -%}
@@ -905,8 +959,8 @@ export class LonigmaWlEmptyStateElement extends LitElement {
   {%- endif -%}
 &quot;
 </code></pre>
-<p>Example app block schema settings:</p>
-<pre><code class="language-liquid">{% schema %}
+            <p>Example app block schema settings:</p>
+            <pre><code class="language-liquid">{% schema %}
 {
   &quot;name&quot;: &quot;Lonigma Wishlist Full Page&quot;,
   &quot;target&quot;: &quot;section&quot;,
@@ -934,18 +988,22 @@ export class LonigmaWlEmptyStateElement extends LitElement {
 }
 {% endschema %}
 </code></pre>
-<p>Use <code>wishlist-core-loader.js</code> for heart/core surfaces and <code>wishlist-shell-loader.js</code> for shell/page/cart/shared surfaces when the existing blocks do so.</p>
-<p>Example <code>data-l10n</code> payload:</p>
-<pre><code class="language-liquid">data-l10n='{
+            <p>Use <code>wishlist-core-loader.js</code> for heart/core surfaces and
+                <code>wishlist-shell-loader.js</code> for shell/page/cart/shared surfaces when the existing blocks do
+                so.
+            </p>
+            <p>Example <code>data-l10n</code> payload:</p>
+            <pre><code class="language-liquid">data-l10n='{
   &quot;drawer.title&quot;: {{ &quot;wishlist.drawer.title&quot; | t | json }},
   &quot;drawer.close&quot;: {{ &quot;wishlist.drawer.close&quot; | t | json }},
   &quot;item.remove&quot;: {{ &quot;wishlist.item.remove&quot; | t | json }},
   &quot;share.copy&quot;: {{ &quot;wishlist.share.copy&quot; | t | json }}
 }'
 </code></pre>
-<p>The Lit <code>LocalizedLitElement</code> parses this once on <code>connectedCallback</code>. Include every string the component might render later from client-side state.</p>
-<p>Example locale key addition:</p>
-<pre><code class="language-json">{
+            <p>The Lit <code>LocalizedLitElement</code> parses this once on <code>connectedCallback</code>. Include
+                every string the component might render later from client-side state.</p>
+            <p>Example locale key addition:</p>
+            <pre><code class="language-json">{
   &quot;wishlist&quot;: {
     &quot;toast&quot;: {
       &quot;saved&quot;: &quot;Saved to wishlist&quot;,
@@ -958,8 +1016,8 @@ export class LonigmaWlEmptyStateElement extends LitElement {
   }
 }
 </code></pre>
-<p>After adding a key to <code>src/extensions/wishlist/locales/en.default.json</code>, mirror it into:</p>
-<pre><code class="language-text">ar.json
+            <p>After adding a key to <code>src/extensions/wishlist/locales/en.default.json</code>, mirror it into:</p>
+            <pre><code class="language-text">ar.json
 de.json
 es.json
 fr.json
@@ -970,8 +1028,8 @@ ko.json
 pt-BR.json
 zh-CN.json
 </code></pre>
-<p>Example app embed context island:</p>
-<pre><code class="language-liquid">&lt;script type=&quot;application/json&quot; data-lonigma-wl-context&gt;
+            <p>Example app embed context island:</p>
+            <pre><code class="language-liquid">&lt;script type=&quot;application/json&quot; data-lonigma-wl-context&gt;
 {
   &quot;shop&quot;: {{ shop.permanent_domain | json }},
   &quot;template&quot;: {{ template.name | json }},
@@ -989,45 +1047,51 @@ zh-CN.json
 }
 &lt;/script&gt;
 </code></pre>
-<p>Keep context JSON compact, valid, and free of secrets. Use metafields and Liquid objects only; the TAE cannot read server-side <code>Setting</code> rows directly.</p>
-<p>Example shared snippet include:</p>
-<pre><code class="language-liquid">{% render 'lonigma-wl-share-icon', channel: 'email', label: 'Email' %}
+            <p>Keep context JSON compact, valid, and free of secrets. Use metafields and Liquid objects only; the TAE
+                cannot read server-side <code>Setting</code> rows directly.</p>
+            <p>Example shared snippet include:</p>
+            <pre><code class="language-liquid">{% render 'lonigma-wl-share-icon', channel: 'email', label: 'Email' %}
 </code></pre>
-<p>Use snippets only for repeated Liquid fragments. Do not put JS source or component templates in snippets.</p>
-<p>Extension build and validation:</p>
-<pre><code class="language-bash">cd src/extensions/wishlist-storefront
+            <p>Use snippets only for repeated Liquid fragments. Do not put JS source or component templates in snippets.
+            </p>
+            <p>Extension build and validation:</p>
+            <pre><code class="language-bash">cd src/extensions/wishlist-storefront
 yarn build
 </code></pre>
-<pre><code class="language-bash">cd src
+            <pre><code class="language-bash">cd src
 yarn build:storefront
 yarn test:components
 yarn test:locale-coverage
 </code></pre>
-<p>Before deploying extension changes:</p>
-<pre><code class="language-bash">cd src
+            <p>Before deploying extension changes:</p>
+            <pre><code class="language-bash">cd src
 yarn deploy
 </code></pre>
-<p>If the Shopify AI Toolkit is available, validate Theme App Extension Liquid with Shopify's theme validator before release. Treat validator findings as blockers unless they are documented false positives.</p>
-<hr />
-<h2 id="appearance-tokens-and-metafields">12. Appearance Tokens And Metafields</h2>
-<p>The app embed <code>lonigma_wl_appearance.liquid</code> emits a low-specificity token stylesheet from merchant-owned metafields in namespace:</p>
-<pre><code class="language-text">lonigma_wishlist
+            <p>If the Shopify AI Toolkit is available, validate Theme App Extension Liquid with Shopify's theme
+                validator before release. Treat validator findings as blockers unless they are documented false
+                positives.</p>
+            <hr />
+            <h2 id="appearance-tokens-and-metafields">12. Appearance Tokens And Metafields</h2>
+            <p>The app embed <code>lonigma_wl_appearance.liquid</code> emits a low-specificity token stylesheet from
+                merchant-owned metafields in namespace:</p>
+            <pre><code class="language-text">lonigma_wishlist
 </code></pre>
-<p>The app uses merchant-owned metafields because Liquid needs theme-side reads. App-reserved namespaces such as <code>$app:*</code> are not readable by merchant themes.</p>
-<p>Appearance writes flow through <code>applyAppearanceUpdate</code> in:</p>
-<pre><code class="language-text">src/app/services/appearance-tokens.server.ts
+            <p>The app uses merchant-owned metafields because Liquid needs theme-side reads. App-reserved namespaces
+                such as <code>$app:*</code> are not readable by merchant themes.</p>
+            <p>Appearance writes flow through <code>applyAppearanceUpdate</code> in:</p>
+            <pre><code class="language-text">src/app/services/appearance-tokens.server.ts
 </code></pre>
-<p>The saga:</p>
-<ol>
-<li>validates inputs, contrast, custom CSS, and SVG icons</li>
-<li>persists the <code>Setting</code> row in Postgres</li>
-<li>mirrors storefront-readable values to Shopify metafields</li>
-<li>compensates successful metafield writes if a later write fails</li>
-<li>rolls back the local <code>Setting</code> row if the external write fails</li>
-</ol>
-<p>Do not report admin save success while Postgres and Shopify metafields disagree.</p>
-<p>Example token read in Liquid:</p>
-<pre><code class="language-liquid">{% assign wishlist_noun = shop.metafields.lonigma_wishlist.wishlist_noun.value | default: 'Wishlist' %}
+            <p>The saga:</p>
+            <ol>
+                <li>validates inputs, contrast, custom CSS, and SVG icons</li>
+                <li>persists the <code>Setting</code> row in Postgres</li>
+                <li>mirrors storefront-readable values to Shopify metafields</li>
+                <li>compensates successful metafield writes if a later write fails</li>
+                <li>rolls back the local <code>Setting</code> row if the external write fails</li>
+            </ol>
+            <p>Do not report admin save success while Postgres and Shopify metafields disagree.</p>
+            <p>Example token read in Liquid:</p>
+            <pre><code class="language-liquid">{% assign wishlist_noun = shop.metafields.lonigma_wishlist.wishlist_noun.value | default: 'Wishlist' %}
 
 &lt;style data-lonigma-wl-tokens&gt;
   :where(lonigma-wl, [data-lonigma-wl]) {
@@ -1036,8 +1100,8 @@ yarn deploy
   }
 &lt;/style&gt;
 </code></pre>
-<p>Example server-side update call shape:</p>
-<pre><code class="language-ts">await applyAppearanceUpdate({
+            <p>Example server-side update call shape:</p>
+            <pre><code class="language-ts">await applyAppearanceUpdate({
   shop,
   admin,
   input: {
@@ -1048,69 +1112,70 @@ yarn deploy
   },
 });
 </code></pre>
-<p>Validate contrast, SVG, and custom CSS before writing metafields. Do not bypass the saga for convenience updates.</p>
-<hr />
-<h2 id="webhooks-and-privacy">13. Webhooks And Privacy</h2>
-<p>Webhook routes live in <code>src/app/routes/webhooks.*</code>.</p>
-<p>Important webhooks:</p>
-<table>
-<thead>
-<tr>
-<th>Route file</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>webhooks.app.uninstalled.tsx</code></td>
-<td>App uninstall cleanup.</td>
-</tr>
-<tr>
-<td><code>webhooks.app_subscriptions.update.tsx</code></td>
-<td>Subscription update audit path.</td>
-</tr>
-<tr>
-<td><code>webhooks.shop.update.tsx</code></td>
-<td>Shop metadata updates.</td>
-</tr>
-<tr>
-<td><code>webhooks.orders.create.tsx</code></td>
-<td>Purchase attribution and wishlist item purchase events.</td>
-</tr>
-<tr>
-<td><code>webhooks.products.update.tsx</code></td>
-<td>Product update-driven notifications.</td>
-</tr>
-<tr>
-<td><code>webhooks.customers.data_request.tsx</code></td>
-<td>Shopify privacy data request.</td>
-</tr>
-<tr>
-<td><code>webhooks.customers.redact.tsx</code></td>
-<td>Customer PII redact.</td>
-</tr>
-<tr>
-<td><code>webhooks.shop.redact.tsx</code></td>
-<td>Shop redact and cleanup.</td>
-</tr>
-</tbody>
-</table>
-<p>Webhook rules:</p>
-<ul>
-<li>verify Shopify webhook HMAC through the app framework</li>
-<li>keep handlers idempotent</li>
-<li>assume retries and out-of-order delivery</li>
-<li>never log sensitive payload fields unless redacted</li>
-<li>preserve privacy handlers and cleanup behavior</li>
-<li>keep shop isolation for every data read/write</li>
-</ul>
-<p>Privacy reference docs:</p>
-<ul>
-<li><code>doc/privacy-compliance.md</code></li>
-<li><code>doc/how-to-receive-privacy-webhooks.md</code></li>
-</ul>
-<p>Example webhook route pattern:</p>
-<pre><code class="language-tsx">import type { ActionFunctionArgs } from &quot;@remix-run/node&quot;;
+            <p>Validate contrast, SVG, and custom CSS before writing metafields. Do not bypass the saga for convenience
+                updates.</p>
+            <hr />
+            <h2 id="webhooks-and-privacy">13. Webhooks And Privacy</h2>
+            <p>Webhook routes live in <code>src/app/routes/webhooks.*</code>.</p>
+            <p>Important webhooks:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Route file</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>webhooks.app.uninstalled.tsx</code></td>
+                        <td>App uninstall cleanup.</td>
+                    </tr>
+                    <tr>
+                        <td><code>webhooks.app_subscriptions.update.tsx</code></td>
+                        <td>Subscription update audit path.</td>
+                    </tr>
+                    <tr>
+                        <td><code>webhooks.shop.update.tsx</code></td>
+                        <td>Shop metadata updates.</td>
+                    </tr>
+                    <tr>
+                        <td><code>webhooks.orders.create.tsx</code></td>
+                        <td>Purchase attribution and wishlist item purchase events.</td>
+                    </tr>
+                    <tr>
+                        <td><code>webhooks.products.update.tsx</code></td>
+                        <td>Product update-driven notifications.</td>
+                    </tr>
+                    <tr>
+                        <td><code>webhooks.customers.data_request.tsx</code></td>
+                        <td>Shopify privacy data request.</td>
+                    </tr>
+                    <tr>
+                        <td><code>webhooks.customers.redact.tsx</code></td>
+                        <td>Customer PII redact.</td>
+                    </tr>
+                    <tr>
+                        <td><code>webhooks.shop.redact.tsx</code></td>
+                        <td>Shop redact and cleanup.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Webhook rules:</p>
+            <ul>
+                <li>verify Shopify webhook HMAC through the app framework</li>
+                <li>keep handlers idempotent</li>
+                <li>assume retries and out-of-order delivery</li>
+                <li>never log sensitive payload fields unless redacted</li>
+                <li>preserve privacy handlers and cleanup behavior</li>
+                <li>keep shop isolation for every data read/write</li>
+            </ul>
+            <p>Privacy reference docs:</p>
+            <ul>
+                <li><code>doc/privacy-compliance.md</code></li>
+                <li><code>doc/how-to-receive-privacy-webhooks.md</code></li>
+            </ul>
+            <p>Example webhook route pattern:</p>
+            <pre><code class="language-tsx">import type { ActionFunctionArgs } from &quot;@remix-run/node&quot;;
 import { authenticate } from &quot;../shopify.server&quot;;
 import { handleCustomerRedact } from &quot;../services/customers-redact.server&quot;;
 
@@ -1130,8 +1195,8 @@ export async function action({ request }: ActionFunctionArgs) {
   return new Response();
 }
 </code></pre>
-<p>Example idempotency pattern for retry-prone webhook work:</p>
-<pre><code class="language-ts">await db.webhookEvent.upsert({
+            <p>Example idempotency pattern for retry-prone webhook work:</p>
+            <pre><code class="language-ts">await db.webhookEvent.upsert({
   where: {
     shop_topic_resourceId: {
       shop,
@@ -1150,63 +1215,64 @@ export async function action({ request }: ActionFunctionArgs) {
   },
 });
 </code></pre>
-<p>Use the actual model names available in <code>schema.prisma</code>; this example shows the shape, not a guaranteed existing table.</p>
-<hr />
-<h2 id="background-workers">14. Background Workers</h2>
-<p>Worker scripts run from <code>src/</code>.</p>
-<table>
-<thead>
-<tr>
-<th>Worker</th>
-<th>Command</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Notifications</td>
-<td><code>yarn worker:notifications</code></td>
-<td>Sends alert jobs and reconciles stale alert work.</td>
-</tr>
-<tr>
-<td>Rollup</td>
-<td><code>yarn worker:rollup</code></td>
-<td>Aggregates analytics events into rollups.</td>
-</tr>
-<tr>
-<td>Klaviyo</td>
-<td><code>yarn worker:klaviyo</code></td>
-<td>Drains Klaviyo sync jobs.</td>
-</tr>
-<tr>
-<td>Export</td>
-<td><code>yarn worker:export</code></td>
-<td>Processes CSV export jobs and cleanup.</td>
-</tr>
-<tr>
-<td>Wishlist lifecycle</td>
-<td><code>yarn worker:wishlist-lifecycle</code></td>
-<td>Deletes inactive wishlists for shops with expiry enabled.</td>
-</tr>
-<tr>
-<td>Wishlist reminder</td>
-<td><code>yarn worker:wishlist-reminder</code></td>
-<td>Runs Klaviyo wishlist reminder jobs.</td>
-</tr>
-<tr>
-<td>App Pricing sync</td>
-<td><code>yarn worker:app-pricing-sync</code></td>
-<td>Refreshes Shopify App Pricing state.</td>
-</tr>
-<tr>
-<td>Supervisor</td>
-<td><code>yarn worker:supervisor</code></td>
-<td>Runs selected production workers as child processes.</td>
-</tr>
-</tbody>
-</table>
-<p>Root Makefile helpers:</p>
-<pre><code class="language-bash">make shopify-app-worker-notifications
+            <p>Use the actual model names available in <code>schema.prisma</code>; this example shows the shape, not a
+                guaranteed existing table.</p>
+            <hr />
+            <h2 id="background-workers">14. Background Workers</h2>
+            <p>Worker scripts run from <code>src/</code>.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Worker</th>
+                        <th>Command</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Notifications</td>
+                        <td><code>yarn worker:notifications</code></td>
+                        <td>Sends alert jobs and reconciles stale alert work.</td>
+                    </tr>
+                    <tr>
+                        <td>Rollup</td>
+                        <td><code>yarn worker:rollup</code></td>
+                        <td>Aggregates analytics events into rollups.</td>
+                    </tr>
+                    <tr>
+                        <td>Klaviyo</td>
+                        <td><code>yarn worker:klaviyo</code></td>
+                        <td>Drains Klaviyo sync jobs.</td>
+                    </tr>
+                    <tr>
+                        <td>Export</td>
+                        <td><code>yarn worker:export</code></td>
+                        <td>Processes CSV export jobs and cleanup.</td>
+                    </tr>
+                    <tr>
+                        <td>Wishlist lifecycle</td>
+                        <td><code>yarn worker:wishlist-lifecycle</code></td>
+                        <td>Deletes inactive wishlists for shops with expiry enabled.</td>
+                    </tr>
+                    <tr>
+                        <td>Wishlist reminder</td>
+                        <td><code>yarn worker:wishlist-reminder</code></td>
+                        <td>Runs Klaviyo wishlist reminder jobs.</td>
+                    </tr>
+                    <tr>
+                        <td>App Pricing sync</td>
+                        <td><code>yarn worker:app-pricing-sync</code></td>
+                        <td>Refreshes Shopify App Pricing state.</td>
+                    </tr>
+                    <tr>
+                        <td>Supervisor</td>
+                        <td><code>yarn worker:supervisor</code></td>
+                        <td>Runs selected production workers as child processes.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Root Makefile helpers:</p>
+            <pre><code class="language-bash">make shopify-app-worker-notifications
 make shopify-app-worker-rollup
 make shopify-app-worker-klaviyo
 make shopify-app-worker-export
@@ -1214,8 +1280,8 @@ make shopify-app-worker-wishlist-lifecycle
 make shopify-app-worker-wishlist-reminder
 make shopify-app-worker-supervisor
 </code></pre>
-<p>Recommended production worker supervisor variables:</p>
-<pre><code class="language-bash">WORKER_PROCESSES=notifications,export,klaviyo,rollup,wishlist-lifecycle
+            <p>Recommended production worker supervisor variables:</p>
+            <pre><code class="language-bash">WORKER_PROCESSES=notifications,export,klaviyo,rollup,wishlist-lifecycle
 WORKER_HEALTH_DEGRADED_STATUS=200
 NOTIFICATION_WORKER_INTERVAL_MS=60000
 EXPORT_WORKER_INTERVAL_MS=30000
@@ -1223,9 +1289,10 @@ KLAVIYO_WORKER_INTERVAL_MS=60000
 ROLLUP_WORKER_INTERVAL_MS=300000
 WISHLIST_LIFECYCLE_WORKER_INTERVAL_MS=86400000
 </code></pre>
-<p>Use <code>/livez</code> for platform healthchecks and <code>/healthz</code> for monitoring worker state.</p>
-<p>Example <code>--once</code> worker runner shape:</p>
-<pre><code class="language-ts">import { runNotificationWorkerOnce } from &quot;../app/services/notifications.server&quot;;
+            <p>Use <code>/livez</code> for platform healthchecks and <code>/healthz</code> for monitoring worker state.
+            </p>
+            <p>Example <code>--once</code> worker runner shape:</p>
+            <pre><code class="language-ts">import { runNotificationWorkerOnce } from &quot;../app/services/notifications.server&quot;;
 
 const once = process.argv.includes(&quot;--once&quot;);
 const intervalMs = Number(process.env.NOTIFICATION_WORKER_INTERVAL_MS ?? 60_000);
@@ -1247,72 +1314,77 @@ if (once) {
   }, intervalMs);
 }
 </code></pre>
-<p>Worker implementations should claim jobs atomically, mark terminal failures explicitly, and avoid shop-scoped environment variables for global production workers.</p>
-<hr />
-<h2 id="app-pricing-and-partner-api-client-setup">15. App Pricing And Partner API Client Setup</h2>
-<p>This project uses Shopify App Pricing as the source of truth for staging and production entitlements. The Partner API client is needed for live billing verification and App Pricing sync.</p>
-<p>Use these related docs together:</p>
-<ul>
-<li><code>doc/qa/shopify-app-pricing-testing.md</code></li>
-<li><code>doc/qa/shopify-app-pricing-plan-setup.md</code></li>
-</ul>
-<p>Official docs:</p>
-<ul>
-<li>Partner API: <code>https://shopify.dev/docs/api/partner/2026-07</code></li>
-<li>App Pricing: <code>https://shopify.dev/docs/apps/launch/billing/shopify-app-pricing</code></li>
-<li>Active Subscription API: <code>https://shopify.dev/docs/api/partner/2026-07/active-subscription</code></li>
-<li>Historical Events API: <code>https://shopify.dev/docs/api/partner/2026-07/historical-events</code></li>
-</ul>
-<p>Required Partner API permission:</p>
-<table>
-<thead>
-<tr>
-<th>Permission</th>
-<th style="text-align: right;">Required?</th>
-<th>Use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Manage apps</code></td>
-<td style="text-align: right;">Yes</td>
-<td>App resources, App Pricing <code>activeSubscription</code>, and Historical Events.</td>
-</tr>
-<tr>
-<td><code>View financials</code></td>
-<td style="text-align: right;">No</td>
-<td>Add only if a later approved task needs financial resources.</td>
-</tr>
-<tr>
-<td><code>Manage themes</code></td>
-<td style="text-align: right;">No</td>
-<td>Not used.</td>
-</tr>
-<tr>
-<td><code>Manage jobs</code></td>
-<td style="text-align: right;">No</td>
-<td>Not used.</td>
-</tr>
-</tbody>
-</table>
-<p>Create the Partner API client:</p>
-<ol>
-<li>Open <code>https://partners.shopify.com/&lt;org-id&gt;/settings</code>.</li>
-<li>Open <code>Partner API clients</code>.</li>
-<li>Click <code>Create API client</code>.</li>
-<li>Name it narrowly, for example <code>wishlist-stg app-pricing readiness</code>.</li>
-<li>Grant <code>Manage apps</code>.</li>
-<li>Create the client.</li>
-<li>Copy the token once into local secret storage.</li>
-</ol>
-<p>Local secret storage:</p>
-<pre><code class="language-bash">mkdir -p ~/.shopify
+            <p>Worker implementations should claim jobs atomically, mark terminal failures explicitly, and avoid
+                shop-scoped environment variables for global production workers.</p>
+            <hr />
+            <h2 id="app-pricing-and-partner-api-client-setup">15. App Pricing And Partner API Client Setup</h2>
+            <p>This project uses Shopify App Pricing as the source of truth for staging and production entitlements. The
+                Partner API client is needed for live billing verification and App Pricing sync.</p>
+            <p>Use these related docs together:</p>
+            <ul>
+                <li><code>doc/qa/shopify-app-pricing-testing.md</code></li>
+                <li><code>doc/qa/shopify-app-pricing-plan-setup.md</code></li>
+            </ul>
+            <p>Official docs:</p>
+            <ul>
+                <li>Partner API: <code>https://shopify.dev/docs/api/partner/2026-07</code></li>
+                <li>App Pricing: <code>https://shopify.dev/docs/apps/launch/billing/shopify-app-pricing</code></li>
+                <li>Active Subscription API:
+                    <code>https://shopify.dev/docs/api/partner/2026-07/active-subscription</code>
+                </li>
+                <li>Historical Events API: <code>https://shopify.dev/docs/api/partner/2026-07/historical-events</code>
+                </li>
+            </ul>
+            <p>Required Partner API permission:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Permission</th>
+                        <th style="text-align: right;">Required?</th>
+                        <th>Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Manage apps</code></td>
+                        <td style="text-align: right;">Yes</td>
+                        <td>App resources, App Pricing <code>activeSubscription</code>, and Historical Events.</td>
+                    </tr>
+                    <tr>
+                        <td><code>View financials</code></td>
+                        <td style="text-align: right;">No</td>
+                        <td>Add only if a later approved task needs financial resources.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Manage themes</code></td>
+                        <td style="text-align: right;">No</td>
+                        <td>Not used.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Manage jobs</code></td>
+                        <td style="text-align: right;">No</td>
+                        <td>Not used.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Create the Partner API client:</p>
+            <ol>
+                <li>Open <code>https://partners.shopify.com/&lt;org-id&gt;/settings</code>.</li>
+                <li>Open <code>Partner API clients</code>.</li>
+                <li>Click <code>Create API client</code>.</li>
+                <li>Name it narrowly, for example <code>wishlist-stg app-pricing readiness</code>.</li>
+                <li>Grant <code>Manage apps</code>.</li>
+                <li>Create the client.</li>
+                <li>Copy the token once into local secret storage.</li>
+            </ol>
+            <p>Local secret storage:</p>
+            <pre><code class="language-bash">mkdir -p ~/.shopify
 chmod 700 ~/.shopify
 touch ~/.shopify/config.env
 chmod 600 ~/.shopify/config.env
 </code></pre>
-<p>Recommended <code>~/.shopify/config.env</code>:</p>
-<pre><code class="language-bash">export SHOPIFY_PARTNER_ORG_ID=2971259
+            <p>Recommended <code>~/.shopify/config.env</code>:</p>
+            <pre><code class="language-bash">export SHOPIFY_PARTNER_ORG_ID=2971259
 export SHOPIFY_APP_PRICING_API_VERSION=2026-07
 export SHOPIFY_APP_ID=263500464129
 export SHOPIFY_APP_GID=&quot;gid://shopify/App/263500464129&quot;
@@ -1320,58 +1392,59 @@ export SHOPIFY_SHOP=your-dev-store.myshopify.com
 export SHOPIFY_SHOP_GID=&quot;gid://shopify/Shop/...&quot;
 export SHOPIFY_PARTNER_API_ACCESS_TOKEN=&quot;paste-token-here&quot;
 </code></pre>
-<p>Optional Partner metadata lookup:</p>
-<pre><code class="language-bash">export SHOPIFY_PARTNER_APP_GID=&quot;gid://partners/App/...&quot;
+            <p>Optional Partner metadata lookup:</p>
+            <pre><code class="language-bash">export SHOPIFY_PARTNER_APP_GID=&quot;gid://partners/App/...&quot;
 </code></pre>
-<p>App ID namespace rule:</p>
-<pre><code class="language-text">activeSubscription appId: gid://shopify/App/&lt;SHOPIFY_APP_ID&gt;
+            <p>App ID namespace rule:</p>
+            <pre><code class="language-text">activeSubscription appId: gid://shopify/App/&lt;SHOPIFY_APP_ID&gt;
 Partner app(id:) metadata: gid://partners/App/&lt;partner-app-id&gt;
 </code></pre>
-<p>These IDs are not interchangeable.</p>
-<p>Get the shop GID from Admin GraphQL on the target store:</p>
-<pre><code class="language-graphql">query {
+            <p>These IDs are not interchangeable.</p>
+            <p>Get the shop GID from Admin GraphQL on the target store:</p>
+            <pre><code class="language-graphql">query {
   shop {
     id
     myshopifyDomain
   }
 }
 </code></pre>
-<p>Run readiness from the repository root:</p>
-<pre><code class="language-bash">python3 scripts/shopify-app-pricing-readiness-check.py
+            <p>Run readiness from the repository root:</p>
+            <pre><code class="language-bash">python3 scripts/shopify-app-pricing-readiness-check.py
 </code></pre>
-<p>Useful options:</p>
-<pre><code class="language-bash">python3 scripts/shopify-app-pricing-readiness-check.py --json
+            <p>Useful options:</p>
+            <pre><code class="language-bash">python3 scripts/shopify-app-pricing-readiness-check.py --json
 python3 scripts/shopify-app-pricing-readiness-check.py --config ~/.shopify/config
 </code></pre>
-<p>Exit codes:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Code</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;"><code>0</code></td>
-<td>Partner API works and live <code>activeSubscription</code> smoke completed.</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>1</code></td>
-<td>Partner API, GraphQL, or active subscription query error.</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>2</code></td>
-<td>Missing config file or required variables.</td>
-</tr>
-<tr>
-<td style="text-align: right;"><code>3</code></td>
-<td>Partner API works, but live smoke input such as <code>SHOPIFY_SHOP_GID</code> is missing.</td>
-</tr>
-</tbody>
-</table>
-<p>Record only redacted evidence:</p>
-<pre><code class="language-text">Command: python3 scripts/shopify-app-pricing-readiness-check.py
+            <p>Exit codes:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: right;">Code</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: right;"><code>0</code></td>
+                        <td>Partner API works and live <code>activeSubscription</code> smoke completed.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;"><code>1</code></td>
+                        <td>Partner API, GraphQL, or active subscription query error.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;"><code>2</code></td>
+                        <td>Missing config file or required variables.</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;"><code>3</code></td>
+                        <td>Partner API works, but live smoke input such as <code>SHOPIFY_SHOP_GID</code> is missing.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Record only redacted evidence:</p>
+            <pre><code class="language-text">Command: python3 scripts/shopify-app-pricing-readiness-check.py
 API version: 2026-07
 Config permissions: pass
 Required variables: pass
@@ -1380,8 +1453,8 @@ Schema fields: activeSubscription=yes, events=yes
 Live smoke: active handle=test-starter, billingPeriod=EVERY_30_DAYS, currentBillingCycle=present, pendingUpdate=absent
 IDs and token redacted.
 </code></pre>
-<p>Example Partner API <code>activeSubscription</code> query:</p>
-<pre><code class="language-graphql">query ActiveSubscription($appId: ID!, $shopId: ID!) {
+            <p>Example Partner API <code>activeSubscription</code> query:</p>
+            <pre><code class="language-graphql">query ActiveSubscription($appId: ID!, $shopId: ID!) {
   activeSubscription(appId: $appId, shopId: $shopId) {
     billingPeriod
     cancelAtEndOfCycle
@@ -1402,14 +1475,14 @@ IDs and token redacted.
   }
 }
 </code></pre>
-<p>Example variables:</p>
-<pre><code class="language-json">{
+            <p>Example variables:</p>
+            <pre><code class="language-json">{
   &quot;appId&quot;: &quot;gid://shopify/App/263500464129&quot;,
   &quot;shopId&quot;: &quot;gid://shopify/Shop/123456789&quot;
 }
 </code></pre>
-<p>Example minimal <code>fetch</code> helper for local debugging only:</p>
-<pre><code class="language-ts">type PartnerGraphqlResponse&lt;T&gt; = {
+            <p>Example minimal <code>fetch</code> helper for local debugging only:</p>
+            <pre><code class="language-ts">type PartnerGraphqlResponse&lt;T&gt; = {
   data?: T;
   errors?: Array&lt;{ message: string }&gt;;
 };
@@ -1441,43 +1514,44 @@ export async function partnerGraphql&lt;T&gt;(
   return response.json() as Promise&lt;PartnerGraphqlResponse&lt;T&gt;&gt;;
 }
 </code></pre>
-<p>Do not log <code>variables</code>, headers, or raw responses from Partner API calls in committed code. Use the readiness script for normal checks because it handles redaction.</p>
-<p>Security rules:</p>
-<ul>
-<li>never commit Partner API tokens</li>
-<li>never print the token in terminal output or chat</li>
-<li>keep <code>~/.shopify</code> at mode <code>700</code></li>
-<li>keep <code>~/.shopify/config.env</code> at mode <code>600</code></li>
-<li>grant <code>Manage apps</code> only unless a later approved task requires more</li>
-<li>rotate tokens after exposure or offboarding</li>
-</ul>
-<hr />
-<h2 id="plan-gates-and-entitlements">16. Plan Gates And Entitlements</h2>
-<p>Plan and entitlement services live in:</p>
-<ul>
-<li><code>src/app/services/plans.server.ts</code></li>
-<li><code>src/app/services/plan-entitlements.server.ts</code></li>
-<li><code>src/app/services/plan-sync.server.ts</code></li>
-<li><code>src/app/services/app-pricing-reconciliation.server.ts</code></li>
-<li><code>src/app/services/app-pricing-subscription-state.server.ts</code></li>
-<li><code>src/app/services/shopify-app-pricing-client.server.ts</code></li>
-</ul>
-<p>Rules:</p>
-<ul>
-<li>Shopify is the billing source of truth in staging and production</li>
-<li>fixture tests are required but do not prove live billing behavior</li>
-<li>local plan overrides are developer-only convenience</li>
-<li>unknown Shopify App Pricing handles fail closed</li>
-<li>private test handles map only to canonical internal launch entitlements</li>
-<li>pending updates must not grant future entitlements early</li>
-<li>public pricing claims must match implemented code and gates</li>
-</ul>
-<p>Feature claim tracking:</p>
-<pre><code class="language-text">doc/feature-readiness-matrix.md
+            <p>Do not log <code>variables</code>, headers, or raw responses from Partner API calls in committed code.
+                Use the readiness script for normal checks because it handles redaction.</p>
+            <p>Security rules:</p>
+            <ul>
+                <li>never commit Partner API tokens</li>
+                <li>never print the token in terminal output or chat</li>
+                <li>keep <code>~/.shopify</code> at mode <code>700</code></li>
+                <li>keep <code>~/.shopify/config.env</code> at mode <code>600</code></li>
+                <li>grant <code>Manage apps</code> only unless a later approved task requires more</li>
+                <li>rotate tokens after exposure or offboarding</li>
+            </ul>
+            <hr />
+            <h2 id="plan-gates-and-entitlements">16. Plan Gates And Entitlements</h2>
+            <p>Plan and entitlement services live in:</p>
+            <ul>
+                <li><code>src/app/services/plans.server.ts</code></li>
+                <li><code>src/app/services/plan-entitlements.server.ts</code></li>
+                <li><code>src/app/services/plan-sync.server.ts</code></li>
+                <li><code>src/app/services/app-pricing-reconciliation.server.ts</code></li>
+                <li><code>src/app/services/app-pricing-subscription-state.server.ts</code></li>
+                <li><code>src/app/services/shopify-app-pricing-client.server.ts</code></li>
+            </ul>
+            <p>Rules:</p>
+            <ul>
+                <li>Shopify is the billing source of truth in staging and production</li>
+                <li>fixture tests are required but do not prove live billing behavior</li>
+                <li>local plan overrides are developer-only convenience</li>
+                <li>unknown Shopify App Pricing handles fail closed</li>
+                <li>private test handles map only to canonical internal launch entitlements</li>
+                <li>pending updates must not grant future entitlements early</li>
+                <li>public pricing claims must match implemented code and gates</li>
+            </ul>
+            <p>Feature claim tracking:</p>
+            <pre><code class="language-text">doc/feature-readiness-matrix.md
 </code></pre>
-<p>Only mark a feature implemented after code, gates, tests, and required verification are complete.</p>
-<p>Example plan handle mapping:</p>
-<pre><code class="language-ts">type InternalPlan = &quot;free&quot; | &quot;starter&quot; | &quot;growth&quot; | &quot;scale&quot;;
+            <p>Only mark a feature implemented after code, gates, tests, and required verification are complete.</p>
+            <p>Example plan handle mapping:</p>
+            <pre><code class="language-ts">type InternalPlan = &quot;free&quot; | &quot;starter&quot; | &quot;growth&quot; | &quot;scale&quot;;
 
 const SHOPIFY_APP_PRICING_PLAN_HANDLES: Record&lt;InternalPlan, string[]&gt; = {
   free: [&quot;free&quot;, &quot;test-free&quot;],
@@ -1496,8 +1570,8 @@ export function mapShopifyHandleToInternalPlan(handle: string): InternalPlan | n
   return null;
 }
 </code></pre>
-<p>Example fail-closed guard:</p>
-<pre><code class="language-ts">const internalPlan = mapShopifyHandleToInternalPlan(activeHandle);
+            <p>Example fail-closed guard:</p>
+            <pre><code class="language-ts">const internalPlan = mapShopifyHandleToInternalPlan(activeHandle);
 
 if (!internalPlan) {
   await recordBillingDrift({
@@ -1512,30 +1586,31 @@ if (!internalPlan) {
   };
 }
 </code></pre>
-<hr />
-<h2 id="notifications-klaviyo-and-alerts">17. Notifications, Klaviyo, And Alerts</h2>
-<p>Notification and integration services live in:</p>
-<ul>
-<li><code>src/app/services/notifications.server.ts</code></li>
-<li><code>src/app/services/notifications-admin.server.ts</code></li>
-<li><code>src/app/services/notification-providers.server.ts</code></li>
-<li><code>src/app/services/alert-subscriptions.enforcement-check.ts</code></li>
-<li><code>src/app/services/klaviyo-client.server.ts</code></li>
-<li><code>src/app/services/klaviyo-integration.server.ts</code></li>
-<li><code>src/app/services/klaviyo-replay.server.ts</code></li>
-<li><code>src/app/services/klaviyo-payloads.server.ts</code></li>
-<li><code>src/app/services/wishlist-reminders.enforcement-check.ts</code></li>
-</ul>
-<p>Rules:</p>
-<ul>
-<li>never log email addresses, phone numbers, access tokens, webhook secrets, or provider credentials without redaction</li>
-<li>use queued jobs for retry-prone external calls</li>
-<li>classify transient versus permanent provider errors</li>
-<li>keep notification opt-in, unsubscribe, suppression, and consent flows intact</li>
-<li>test template variables when changing notification copy or payload shape</li>
-</ul>
-<p>Example notification job claim shape:</p>
-<pre><code class="language-ts">const job = await db.alertJob.findFirst({
+            <hr />
+            <h2 id="notifications-klaviyo-and-alerts">17. Notifications, Klaviyo, And Alerts</h2>
+            <p>Notification and integration services live in:</p>
+            <ul>
+                <li><code>src/app/services/notifications.server.ts</code></li>
+                <li><code>src/app/services/notifications-admin.server.ts</code></li>
+                <li><code>src/app/services/notification-providers.server.ts</code></li>
+                <li><code>src/app/services/alert-subscriptions.enforcement-check.ts</code></li>
+                <li><code>src/app/services/klaviyo-client.server.ts</code></li>
+                <li><code>src/app/services/klaviyo-integration.server.ts</code></li>
+                <li><code>src/app/services/klaviyo-replay.server.ts</code></li>
+                <li><code>src/app/services/klaviyo-payloads.server.ts</code></li>
+                <li><code>src/app/services/wishlist-reminders.enforcement-check.ts</code></li>
+            </ul>
+            <p>Rules:</p>
+            <ul>
+                <li>never log email addresses, phone numbers, access tokens, webhook secrets, or provider credentials
+                    without redaction</li>
+                <li>use queued jobs for retry-prone external calls</li>
+                <li>classify transient versus permanent provider errors</li>
+                <li>keep notification opt-in, unsubscribe, suppression, and consent flows intact</li>
+                <li>test template variables when changing notification copy or payload shape</li>
+            </ul>
+            <p>Example notification job claim shape:</p>
+            <pre><code class="language-ts">const job = await db.alertJob.findFirst({
   where: {
     status: &quot;queued&quot;,
     nextAttemptAt: { lte: new Date() },
@@ -1555,8 +1630,8 @@ await db.alertJob.update({
   },
 });
 </code></pre>
-<p>Example Klaviyo event payload shape:</p>
-<pre><code class="language-ts">const event = {
+            <p>Example Klaviyo event payload shape:</p>
+            <pre><code class="language-ts">const event = {
   type: &quot;added_to_wishlist&quot;,
   shop,
   customerEmail,
@@ -1570,35 +1645,36 @@ await db.alertJob.update({
   },
 };
 </code></pre>
-<p>Redact or omit PII in logs. Keep provider-specific payload construction inside service modules so routes stay thin.</p>
-<hr />
-<h2 id="analytics-and-exports">18. Analytics And Exports</h2>
-<p>Analytics services:</p>
-<ul>
-<li><code>src/app/services/analytics-events.server.ts</code></li>
-<li><code>src/app/services/analytics-rollup.server.ts</code></li>
-<li><code>src/app/services/analytics-dashboard.server.ts</code></li>
-<li><code>src/app/services/analytics-queries.server.ts</code></li>
-<li><code>src/app/services/analytics-retention.server.ts</code></li>
-</ul>
-<p>Export services:</p>
-<ul>
-<li><code>src/app/services/exports/</code></li>
-<li><code>src/app/routes/app.analytics.exports.tsx</code></li>
-<li><code>src/app/routes/app.analytics.exports.$jobId.download.tsx</code></li>
-<li><code>src/app/routes/api.export-jobs.tsx</code></li>
-</ul>
-<p>Rules:</p>
-<ul>
-<li>keep event writes shop-isolated</li>
-<li>keep rollups idempotent and cursor-safe</li>
-<li>avoid exporting data across shop boundaries</li>
-<li>store export artifacts in configured object storage</li>
-<li>apply retention policy behavior consistently</li>
-<li>do not place generated reports or export payloads in source control</li>
-</ul>
-<p>Example analytics event write:</p>
-<pre><code class="language-ts">await recordAnalyticsEvent({
+            <p>Redact or omit PII in logs. Keep provider-specific payload construction inside service modules so routes
+                stay thin.</p>
+            <hr />
+            <h2 id="analytics-and-exports">18. Analytics And Exports</h2>
+            <p>Analytics services:</p>
+            <ul>
+                <li><code>src/app/services/analytics-events.server.ts</code></li>
+                <li><code>src/app/services/analytics-rollup.server.ts</code></li>
+                <li><code>src/app/services/analytics-dashboard.server.ts</code></li>
+                <li><code>src/app/services/analytics-queries.server.ts</code></li>
+                <li><code>src/app/services/analytics-retention.server.ts</code></li>
+            </ul>
+            <p>Export services:</p>
+            <ul>
+                <li><code>src/app/services/exports/</code></li>
+                <li><code>src/app/routes/app.analytics.exports.tsx</code></li>
+                <li><code>src/app/routes/app.analytics.exports.$jobId.download.tsx</code></li>
+                <li><code>src/app/routes/api.export-jobs.tsx</code></li>
+            </ul>
+            <p>Rules:</p>
+            <ul>
+                <li>keep event writes shop-isolated</li>
+                <li>keep rollups idempotent and cursor-safe</li>
+                <li>avoid exporting data across shop boundaries</li>
+                <li>store export artifacts in configured object storage</li>
+                <li>apply retention policy behavior consistently</li>
+                <li>do not place generated reports or export payloads in source control</li>
+            </ul>
+            <p>Example analytics event write:</p>
+            <pre><code class="language-ts">await recordAnalyticsEvent({
   shop,
   type: &quot;wishlist_item_added&quot;,
   occurredAt: new Date(),
@@ -1611,8 +1687,8 @@ await db.alertJob.update({
   },
 });
 </code></pre>
-<p>Example CSV export renderer shape:</p>
-<pre><code class="language-ts">export function renderWishlistCsv(rows: Array&lt;{
+            <p>Example CSV export renderer shape:</p>
+            <pre><code class="language-ts">export function renderWishlistCsv(rows: Array&lt;{
   productName: string;
   productId: string;
   savedCount: number;
@@ -1629,28 +1705,29 @@ await db.alertJob.update({
     .join(&quot;\n&quot;);
 }
 </code></pre>
-<p>Use the existing export helpers in <code>src/app/services/exports/</code> before adding a new CSV escaping implementation.</p>
-<hr />
-<h2 id="testing-commands">19. Testing Commands</h2>
-<p>Run app commands from <code>src/</code> unless the command is a root Makefile target.</p>
-<p>Core checks:</p>
-<pre><code class="language-bash">cd src
+            <p>Use the existing export helpers in <code>src/app/services/exports/</code> before adding a new CSV
+                escaping implementation.</p>
+            <hr />
+            <h2 id="testing-commands">19. Testing Commands</h2>
+            <p>Run app commands from <code>src/</code> unless the command is a root Makefile target.</p>
+            <p>Core checks:</p>
+            <pre><code class="language-bash">cd src
 yarn lint
 yarn build
 yarn test:components
 </code></pre>
-<p>Storefront build:</p>
-<pre><code class="language-bash">cd src
+            <p>Storefront build:</p>
+            <pre><code class="language-bash">cd src
 yarn build:storefront
 </code></pre>
-<p>Plan and billing:</p>
-<pre><code class="language-bash">cd src
+            <p>Plan and billing:</p>
+            <pre><code class="language-bash">cd src
 yarn test:plan-sync
 yarn test:package-restrictions
 yarn test:plan-gate-coverage
 </code></pre>
-<p>Storefront and app-proxy:</p>
-<pre><code class="language-bash">cd src
+            <p>Storefront and app-proxy:</p>
+            <pre><code class="language-bash">cd src
 yarn test:storefront-wishlist
 yarn test:storefront-config-compliance
 yarn test:app-proxy-compliance
@@ -1658,8 +1735,8 @@ yarn test:save-for-later
 yarn test:cart-event-auth
 yarn test:bulk-list-items
 </code></pre>
-<p>Appearance and Theme App Extension:</p>
-<pre><code class="language-bash">cd src
+            <p>Appearance and Theme App Extension:</p>
+            <pre><code class="language-bash">cd src
 yarn test:appearance-tokens
 yarn test:appearance-contrast
 yarn test:appearance-uninstall
@@ -1668,8 +1745,8 @@ yarn test:custom-css-warnings
 yarn test:svg-sanitize
 yarn test:icon-upload-rate-limit
 </code></pre>
-<p>Notifications and integrations:</p>
-<pre><code class="language-bash">cd src
+            <p>Notifications and integrations:</p>
+            <pre><code class="language-bash">cd src
 yarn test:notifications
 yarn test:notifications-config-compliance
 yarn test:notification-template-selection
@@ -1680,28 +1757,29 @@ yarn test:klaviyo-config
 yarn test:klaviyo-config-compliance
 yarn test:wishlist-reminders
 </code></pre>
-<p>Analytics and exports:</p>
-<pre><code class="language-bash">cd src
+            <p>Analytics and exports:</p>
+            <pre><code class="language-bash">cd src
 yarn test:analytics-events
 yarn test:analytics-rollup
 yarn test:analytics-dashboard
 yarn test:export-worker
 yarn test:export-permissions
 </code></pre>
-<p>Workers:</p>
-<pre><code class="language-bash">cd src
+            <p>Workers:</p>
+            <pre><code class="language-bash">cd src
 yarn test:worker-supervisor
 </code></pre>
-<p>Performance:</p>
-<pre><code class="language-bash">cd src
+            <p>Performance:</p>
+            <pre><code class="language-bash">cd src
 yarn perf:lighthouse
 </code></pre>
-<p>Docs-only validation:</p>
-<pre><code class="language-bash">git diff --check
+            <p>Docs-only validation:</p>
+            <pre><code class="language-bash">git diff --check
 </code></pre>
-<p>Use targeted checks for the touched surface. Broaden verification when a change affects shared services, billing, storefront bootstrapping, privacy, migrations, or worker behavior.</p>
-<p>Example Node enforcement check:</p>
-<pre><code class="language-ts">import assert from &quot;node:assert/strict&quot;;
+            <p>Use targeted checks for the touched surface. Broaden verification when a change affects shared services,
+                billing, storefront bootstrapping, privacy, migrations, or worker behavior.</p>
+            <p>Example Node enforcement check:</p>
+            <pre><code class="language-ts">import assert from &quot;node:assert/strict&quot;;
 import test from &quot;node:test&quot;;
 import { mapShopifyHandleToInternalPlan } from &quot;./plans.server&quot;;
 
@@ -1715,8 +1793,8 @@ test(&quot;unknown plan handles fail closed&quot;, () =&gt; {
   assert.equal(mapShopifyHandleToInternalPlan(&quot;enterprise-preview&quot;), null);
 });
 </code></pre>
-<p>Example Web Test Runner component test:</p>
-<pre><code class="language-ts">import { expect, fixture, html } from &quot;@open-wc/testing&quot;;
+            <p>Example Web Test Runner component test:</p>
+            <pre><code class="language-ts">import { expect, fixture, html } from &quot;@open-wc/testing&quot;;
 import &quot;../lonigma-wl-empty-state&quot;;
 
 it(&quot;renders the configured headline&quot;, async () =&gt; {
@@ -1727,47 +1805,49 @@ it(&quot;renders the configured headline&quot;, async () =&gt; {
   expect(element.textContent).to.contain(&quot;No saved items&quot;);
 });
 </code></pre>
-<hr />
-<h2 id="browser-e2e-and-storefront-qa">20. Browser E2E And Storefront QA</h2>
-<p>Browser QA is required for storefront, Theme App Extension, app proxy, metafield, and shopper UX changes.</p>
-<p>Project skills:</p>
-<table>
-<thead>
-<tr>
-<th>Skill</th>
-<th>Use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>setup-e2e-env</code></td>
-<td>Prepare browser driver, Shopify auth, app embed, and dev server.</td>
-</tr>
-<tr>
-<td><code>shopify-storefront-verify</code></td>
-<td>Multi-theme storefront verification with screenshots and a Markdown report.</td>
-</tr>
-<tr>
-<td><code>shopify-wishlist-flow-test</code></td>
-<td>Rerun wishlist/cart shopper flows against a running storefront.</td>
-</tr>
-</tbody>
-</table>
-<p>Core principle:</p>
-<pre><code class="language-text">Reuse a human-authenticated browser session. Do not automate Shopify admin login.
+            <hr />
+            <h2 id="browser-e2e-and-storefront-qa">20. Browser E2E And Storefront QA</h2>
+            <p>Browser QA is required for storefront, Theme App Extension, app proxy, metafield, and shopper UX changes.
+            </p>
+            <p>Project skills:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>setup-e2e-env</code></td>
+                        <td>Prepare browser driver, Shopify auth, app embed, and dev server.</td>
+                    </tr>
+                    <tr>
+                        <td><code>shopify-storefront-verify</code></td>
+                        <td>Multi-theme storefront verification with screenshots and a Markdown report.</td>
+                    </tr>
+                    <tr>
+                        <td><code>shopify-wishlist-flow-test</code></td>
+                        <td>Rerun wishlist/cart shopper flows against a running storefront.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Core principle:</p>
+            <pre><code class="language-text">Reuse a human-authenticated browser session. Do not automate Shopify admin login.
 </code></pre>
-<p>Shared setup:</p>
-<ol>
-<li>Start the dev server with <code>cd src &amp;&amp; yarn dev</code>.</li>
-<li>Authenticate once in the browser driver.</li>
-<li>Enable the theme app embed and required blocks in the test theme.</li>
-<li>Load the storefront through the Shopify CLI tunnel.</li>
-<li>Run the appropriate browser QA skill.</li>
-<li>Save reports under <code>test-report/</code>.</li>
-</ol>
-<p>For Windows + WSL2, keep the code and server in WSL2, but use Windows Chrome when an authenticated browser is required.</p>
-<p>Example storefront QA note format:</p>
-<pre><code class="language-text">Theme: Dawn
+            <p>Shared setup:</p>
+            <ol>
+                <li>Start the dev server with <code>cd src &amp;&amp; yarn dev</code>.</li>
+                <li>Authenticate once in the browser driver.</li>
+                <li>Enable the theme app embed and required blocks in the test theme.</li>
+                <li>Load the storefront through the Shopify CLI tunnel.</li>
+                <li>Run the appropriate browser QA skill.</li>
+                <li>Save reports under <code>test-report/</code>.</li>
+            </ol>
+            <p>For Windows + WSL2, keep the code and server in WSL2, but use Windows Chrome when an authenticated
+                browser is required.</p>
+            <p>Example storefront QA note format:</p>
+            <pre><code class="language-text">Theme: Dawn
 Surface: PDP heart
 Browser: Chrome stable
 Storefront URL: redacted tunnel URL
@@ -1775,8 +1855,8 @@ Result: pass
 Evidence: screenshot path under test-report/&lt;timestamp&gt;/
 Notes: heart toggles saved/unsaved state, toast appears, wishlist drawer opens, no console errors.
 </code></pre>
-<p>Example Playwright smoke shape for a public storefront page:</p>
-<pre><code class="language-ts">import { expect, test } from &quot;@playwright/test&quot;;
+            <p>Example Playwright smoke shape for a public storefront page:</p>
+            <pre><code class="language-ts">import { expect, test } from &quot;@playwright/test&quot;;
 
 test(&quot;wishlist heart is visible on PDP&quot;, async ({ page }) =&gt; {
   await page.goto(process.env.E2E_PRODUCT_URL!);
@@ -1787,49 +1867,51 @@ test(&quot;wishlist heart is visible on PDP&quot;, async ({ page }) =&gt; {
   await expect(page.locator(&quot;lonigma-wl-toast&quot;)).toBeVisible();
 });
 </code></pre>
-<p>Do not automate Shopify admin login in Playwright. Use saved authenticated state or a human-authenticated browser driver when admin access is required.</p>
-<hr />
-<h2 id="deployment-and-release">21. Deployment And Release</h2>
-<p>Predeploy builds the storefront bundle:</p>
-<pre><code class="language-bash">cd src
+            <p>Do not automate Shopify admin login in Playwright. Use saved authenticated state or a human-authenticated
+                browser driver when admin access is required.</p>
+            <hr />
+            <h2 id="deployment-and-release">21. Deployment And Release</h2>
+            <p>Predeploy builds the storefront bundle:</p>
+            <pre><code class="language-bash">cd src
 yarn predeploy
 </code></pre>
-<p>Deploy with Shopify CLI:</p>
-<pre><code class="language-bash">cd src
+            <p>Deploy with Shopify CLI:</p>
+            <pre><code class="language-bash">cd src
 yarn deploy
 </code></pre>
-<p>Recommended production services:</p>
-<table>
-<thead>
-<tr>
-<th>Service</th>
-<th>Start command</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Web</td>
-<td><code>yarn docker-start</code></td>
-<td>Prisma setup and React Router server.</td>
-</tr>
-<tr>
-<td>Worker</td>
-<td><code>yarn worker:supervisor</code></td>
-<td>Background jobs.</td>
-</tr>
-</tbody>
-</table>
-<p>Release rules:</p>
-<ul>
-<li>run the release checklist in <code>doc/qa/release-checklist.md</code></li>
-<li>record App Pricing evidence in <code>doc/qa/shopify-app-pricing-testing.md</code></li>
-<li>update <code>doc/feature-readiness-matrix.md</code> when public pricing or feature claims change</li>
-<li>update <code>doc/implementation-backlog.md</code> when an approved spec creates deferred work</li>
-<li>do not deploy unverified storefront changes without browser evidence</li>
-</ul>
-<p>Example release evidence block:</p>
-<pre><code class="language-text">Release candidate: &lt;commit-sha&gt;
+            <p>Recommended production services:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Start command</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Web</td>
+                        <td><code>yarn docker-start</code></td>
+                        <td>Prisma setup and React Router server.</td>
+                    </tr>
+                    <tr>
+                        <td>Worker</td>
+                        <td><code>yarn worker:supervisor</code></td>
+                        <td>Background jobs.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Release rules:</p>
+            <ul>
+                <li>run the release checklist in <code>doc/qa/release-checklist.md</code></li>
+                <li>record App Pricing evidence in <code>doc/qa/shopify-app-pricing-testing.md</code></li>
+                <li>update <code>doc/feature-readiness-matrix.md</code> when public pricing or feature claims change
+                </li>
+                <li>update <code>doc/implementation-backlog.md</code> when an approved spec creates deferred work</li>
+                <li>do not deploy unverified storefront changes without browser evidence</li>
+            </ul>
+            <p>Example release evidence block:</p>
+            <pre><code class="language-text">Release candidate: &lt;commit-sha&gt;
 App config: src/shopify.app.wishlist-stg.toml
 Build: yarn build pass
 Storefront build: yarn build:storefront pass
@@ -1839,144 +1921,159 @@ Storefront QA: test-report/&lt;timestamp&gt;-storefront-verify pass
 App Pricing smoke: redacted Partner API activeSubscription pass
 Known limits: none for changed surface
 </code></pre>
-<hr />
-<h2 id="security-and-privacy-checklist">22. Security And Privacy Checklist</h2>
-<p>Before shipping changes, confirm:</p>
-<ul>
-<li>no secrets are committed</li>
-<li>no tokens are printed in logs</li>
-<li>app proxy routes do not expose admin-only data</li>
-<li>Partner API token stays server-side</li>
-<li>webhook handlers validate authenticity</li>
-<li>customer PII redaction paths still pass tests</li>
-<li>shop data access is always scoped by <code>shop</code></li>
-<li>generated reports and screenshots do not expose secrets or private customer data</li>
-<li><code>.aiignore</code> paths are not read or summarized by agents unless explicitly overridden</li>
-</ul>
-<hr />
-<h2 id="common-troubleshooting">23. Common Troubleshooting</h2>
-<table>
-<thead>
-<tr>
-<th>Symptom</th>
-<th>Start here</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Embedded app iframe is blank after <code>yarn dev</code> restart</td>
-<td>Reopen the app from Partners or merchant apps list to refresh the quick tunnel URL.</td>
-</tr>
-<tr>
-<td>Database connection fails</td>
-<td>Confirm <code>make env-up</code>, root <code>.env</code> ports, and <code>SHOPIFY_DATABASE_URL</code>.</td>
-</tr>
-<tr>
-<td>Prisma client errors</td>
-<td>Run <code>make prisma-generate</code>, then <code>make migrate</code>.</td>
-</tr>
-<tr>
-<td>Theme block renders but styles are missing</td>
-<td>Check <code>wishlist.css</code>, app embed token output, and generated assets in <code>src/extensions/wishlist/assets/</code>.</td>
-</tr>
-<tr>
-<td>Storefront API returns unauthorized</td>
-<td>Check app-proxy HMAC handling and <code>src/app/utils/request-identity.server.ts</code>.</td>
-</tr>
-<tr>
-<td>Admin storefront save fails</td>
-<td>Check appearance validation, contrast, custom CSS validation, and SVG sanitization.</td>
-</tr>
-<tr>
-<td>Hosted plan selection fails</td>
-<td>Confirm <code>SHOPIFY_APP_HANDLE</code>, Partner Dashboard plan setup, and private test store authorization.</td>
-</tr>
-<tr>
-<td>Partner API readiness exits <code>2</code></td>
-<td>Fix <code>~/.shopify/config.env</code> and permissions.</td>
-</tr>
-<tr>
-<td>Partner API rejects app ID</td>
-<td>Use <code>gid://shopify/App/&lt;id&gt;</code> for <code>activeSubscription</code>.</td>
-</tr>
-<tr>
-<td>Notification jobs do not send</td>
-<td>Check worker process, provider config, suppression, and queued job status.</td>
-</tr>
-<tr>
-<td>Export download fails</td>
-<td>Check object storage config, MinIO buckets locally, and export worker status.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="ai-agent-development-rules">24. AI-Agent Development Rules</h2>
-<p>Agents working in this repo must:</p>
-<ul>
-<li>read relevant files before patching</li>
-<li>respect <code>.aiignore</code></li>
-<li>keep changes localized</li>
-<li>preserve user changes in the working tree</li>
-<li>avoid destructive git operations</li>
-<li>use <code>python3</code>, never <code>python</code></li>
-<li>update docs/backlog/readiness matrices when the requested work changes public claims or creates deferred implementation work</li>
-<li>ask for explicit confirmation before implementation plans when backward compatibility or data migration could matter</li>
-<li>apply Shopify Storefront / Theme App Extension policy for storefront, app-proxy, metafield, and compliance changes</li>
-<li>apply Polaris admin UI policy for admin UI changes</li>
-<li>verify with the narrowest reliable test set, then broaden for shared/high-risk changes</li>
-</ul>
-<p>Available project skills:</p>
-<table>
-<thead>
-<tr>
-<th>Skill</th>
-<th>Use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>setup-agent-dev-env</code></td>
-<td>Set up AI-agent-assisted development tooling.</td>
-</tr>
-<tr>
-<td><code>setup-e2e-env</code></td>
-<td>Prepare browser E2E environment.</td>
-</tr>
-<tr>
-<td><code>shopify-storefront-verify</code></td>
-<td>Multi-theme storefront verification.</td>
-</tr>
-<tr>
-<td><code>shopify-wishlist-flow-test</code></td>
-<td>Wishlist/cart browser flow testing.</td>
-</tr>
-<tr>
-<td><code>pricing-feature-readiness-audit</code></td>
-<td>Audit pricing/public feature claims against code, gates, tests, and docs.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="developer-workflow-checklist">25. Developer Workflow Checklist</h2>
-<p>Use this checklist for most feature work:</p>
-<ol>
-<li>Read the relevant route, service, schema, extension, and QA docs.</li>
-<li>Confirm whether backward compatibility and data migration are required when the change affects persisted data or existing merchants.</li>
-<li>Make the smallest coherent code change.</li>
-<li>Add or update focused enforcement checks/tests.</li>
-<li>Run targeted tests for the touched surface.</li>
-<li>Run <code>yarn lint</code> and <code>yarn build</code> when shared app code changes.</li>
-<li>Run storefront build and browser QA when Theme App Extension or storefront UX changes.</li>
-<li>Update <code>doc/implementation-backlog.md</code> for approved deferred work.</li>
-<li>Update <code>doc/feature-readiness-matrix.md</code> when public plan or feature claims change.</li>
-<li>Summarize changed files, verification, and known limits.</li>
-</ol>
-<p>For docs-only changes, <code>git diff --check</code> plus file review is enough unless the doc changes release claims or QA evidence.</p>
+            <hr />
+            <h2 id="security-and-privacy-checklist">22. Security And Privacy Checklist</h2>
+            <p>Before shipping changes, confirm:</p>
+            <ul>
+                <li>no secrets are committed</li>
+                <li>no tokens are printed in logs</li>
+                <li>app proxy routes do not expose admin-only data</li>
+                <li>Partner API token stays server-side</li>
+                <li>webhook handlers validate authenticity</li>
+                <li>customer PII redaction paths still pass tests</li>
+                <li>shop data access is always scoped by <code>shop</code></li>
+                <li>generated reports and screenshots do not expose secrets or private customer data</li>
+                <li><code>.aiignore</code> paths are not read or summarized by agents unless explicitly overridden</li>
+            </ul>
+            <hr />
+            <h2 id="common-troubleshooting">23. Common Troubleshooting</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symptom</th>
+                        <th>Start here</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Embedded app iframe is blank after <code>yarn dev</code> restart</td>
+                        <td>Reopen the app from Partners or merchant apps list to refresh the quick tunnel URL.</td>
+                    </tr>
+                    <tr>
+                        <td>Database connection fails</td>
+                        <td>Confirm <code>make env-up</code>, root <code>.env</code> ports, and
+                            <code>SHOPIFY_DATABASE_URL</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Prisma client errors</td>
+                        <td>Run <code>make prisma-generate</code>, then <code>make migrate</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>Theme block renders but styles are missing</td>
+                        <td>Check <code>wishlist.css</code>, app embed token output, and generated assets in
+                            <code>src/extensions/wishlist/assets/</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Storefront API returns unauthorized</td>
+                        <td>Check app-proxy HMAC handling and <code>src/app/utils/request-identity.server.ts</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Admin storefront save fails</td>
+                        <td>Check appearance validation, contrast, custom CSS validation, and SVG sanitization.</td>
+                    </tr>
+                    <tr>
+                        <td>Hosted plan selection fails</td>
+                        <td>Confirm <code>SHOPIFY_APP_HANDLE</code>, Partner Dashboard plan setup, and private test
+                            store authorization.</td>
+                    </tr>
+                    <tr>
+                        <td>Partner API readiness exits <code>2</code></td>
+                        <td>Fix <code>~/.shopify/config.env</code> and permissions.</td>
+                    </tr>
+                    <tr>
+                        <td>Partner API rejects app ID</td>
+                        <td>Use <code>gid://shopify/App/&lt;id&gt;</code> for <code>activeSubscription</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>Notification jobs do not send</td>
+                        <td>Check worker process, provider config, suppression, and queued job status.</td>
+                    </tr>
+                    <tr>
+                        <td>Export download fails</td>
+                        <td>Check object storage config, MinIO buckets locally, and export worker status.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h2 id="ai-agent-development-rules">24. AI-Agent Development Rules</h2>
+            <p>Agents working in this repo must:</p>
+            <ul>
+                <li>read relevant files before patching</li>
+                <li>respect <code>.aiignore</code></li>
+                <li>keep changes localized</li>
+                <li>preserve user changes in the working tree</li>
+                <li>avoid destructive git operations</li>
+                <li>use <code>python3</code>, never <code>python</code></li>
+                <li>update docs/backlog/readiness matrices when the requested work changes public claims or creates
+                    deferred implementation work</li>
+                <li>ask for explicit confirmation before implementation plans when backward compatibility or data
+                    migration could matter</li>
+                <li>apply Shopify Storefront / Theme App Extension policy for storefront, app-proxy, metafield, and
+                    compliance changes</li>
+                <li>apply Polaris admin UI policy for admin UI changes</li>
+                <li>verify with the narrowest reliable test set, then broaden for shared/high-risk changes</li>
+            </ul>
+            <p>Available project skills:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>setup-agent-dev-env</code></td>
+                        <td>Set up AI-agent-assisted development tooling.</td>
+                    </tr>
+                    <tr>
+                        <td><code>setup-e2e-env</code></td>
+                        <td>Prepare browser E2E environment.</td>
+                    </tr>
+                    <tr>
+                        <td><code>shopify-storefront-verify</code></td>
+                        <td>Multi-theme storefront verification.</td>
+                    </tr>
+                    <tr>
+                        <td><code>shopify-wishlist-flow-test</code></td>
+                        <td>Wishlist/cart browser flow testing.</td>
+                    </tr>
+                    <tr>
+                        <td><code>pricing-feature-readiness-audit</code></td>
+                        <td>Audit pricing/public feature claims against code, gates, tests, and docs.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h2 id="developer-workflow-checklist">25. Developer Workflow Checklist</h2>
+            <p>Use this checklist for most feature work:</p>
+            <ol>
+                <li>Read the relevant route, service, schema, extension, and QA docs.</li>
+                <li>Confirm whether backward compatibility and data migration are required when the change affects
+                    persisted data or existing merchants.</li>
+                <li>Make the smallest coherent code change.</li>
+                <li>Add or update focused enforcement checks/tests.</li>
+                <li>Run targeted tests for the touched surface.</li>
+                <li>Run <code>yarn lint</code> and <code>yarn build</code> when shared app code changes.</li>
+                <li>Run storefront build and browser QA when Theme App Extension or storefront UX changes.</li>
+                <li>Update <code>doc/implementation-backlog.md</code> for approved deferred work.</li>
+                <li>Update <code>doc/feature-readiness-matrix.md</code> when public plan or feature claims change.</li>
+                <li>Summarize changed files, verification, and known limits.</li>
+            </ol>
+            <p>For docs-only changes, <code>git diff --check</code> plus file review is enough unless the doc changes
+                release claims or QA evidence.</p>
 
 
-    </article>
-    <footer class="dev-footer"><p>Need merchant-facing setup instructions?</p><a href="index.html#introduction">Open the Lonigma Wishlist Help Centre →</a></footer>
-  </main>
-  <script src="assets/js/developer-guide.js"></script>
+        </article>
+        <footer class="dev-footer">
+            <p>Need merchant-facing setup instructions?</p><a href="index.html#introduction">Open the Lonigma Wishlist
+                Help Centre →</a>
+        </footer>
+    </main>
+    <script src="assets/js/developer-guide.js"></script>
 </body>
+
 </html>
