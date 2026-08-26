@@ -12,6 +12,8 @@
 
 <body>
     <header class="dev-header">
+        <button class="dev-menu-toggle" type="button" aria-label="Open navigation"
+            aria-controls="developer-sidebar" aria-expanded="false"><span aria-hidden="true">☰</span></button>
         <a class="dev-brand" href="developer-guide.html" aria-label="Lonigma Wishlist Developer Guide home"><span
                 class="dev-logo">L</span><span>Lonigma Wishlist <small>Developer Guide</small></span></a>
         <nav class="header-actions" aria-label="Guide actions"><button class="theme-toggle" type="button"
@@ -19,7 +21,8 @@
                 class="secondary-link" href="index.html#introduction">Merchant Help Centre</a><a class="primary-link"
                 href="#first-time-setup">Start setup</a></nav>
     </header>
-    <aside class="dev-sidebar" aria-label="Developer guide navigation">
+    <aside class="dev-sidebar" id="developer-sidebar" aria-label="Developer guide navigation">
+        <button class="dev-sidebar-close" type="button" aria-label="Close navigation">×</button>
         <p class="nav-label">Developer runbook</p>
         <a href="#project-overview">Project Overview</a>
         <a href="#repository-layout">Repository Layout</a>
@@ -47,6 +50,7 @@
         <a href="#ai-agent-development-rules">AI-Agent Development Rules</a>
         <a href="#developer-workflow-checklist">Developer Workflow Checklist</a>
     </aside>
+    <button class="dev-sidebar-backdrop" type="button" aria-label="Close navigation"></button>
     <details class="dev-mobile-nav">
         <summary>Browse developer guide</summary>
         <nav><a href="#project-overview">Project Overview</a>

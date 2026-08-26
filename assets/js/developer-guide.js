@@ -2,8 +2,11 @@
     const root = document.documentElement;
     const themeToggle = document.querySelector('.theme-toggle');
     const guide = document.querySelector('.dev-guide');
-    const main = document.querySelector('.dev-main');
     const mobileNav = document.querySelector('.dev-mobile-nav');
+    const sidebar = document.querySelector('.dev-sidebar');
+    const menuToggle = document.querySelector('.dev-menu-toggle');
+    const menuClose = document.querySelector('.dev-sidebar-close');
+    const menuBackdrop = document.querySelector('.dev-sidebar-backdrop');
     let savedTheme = null;
     try { savedTheme = localStorage.getItem('developer-guide-theme'); } catch {}
     if (savedTheme === 'light' || savedTheme === 'dark') root.dataset.theme = savedTheme;
@@ -24,9 +27,29 @@
     updateThemeButton();
     if (!guide) return;
 
-    if (main && mobileNav) {
-        main.prepend(mobileNav);
-    }
+    const closeNavigation = () => {
+        document.body.classList.remove('dev-nav-open');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+    };
+    menuToggle?.addEventListener('click', () => {
+        document.body.classList.add('dev-nav-open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        menuClose?.focus();
+    });
+    menuClose?.addEventListener('click', closeNavigation);
+    menuBackdrop?.addEventListener('click', closeNavigation);
+    sidebar?.addEventListener('click', (event) => {
+        if (event.target.closest('a[href^="#"]')) closeNavigation();
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && document.body.classList.contains('dev-nav-open')) {
+            closeNavigation();
+            menuToggle?.focus();
+        }
+    });
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1000) closeNavigation();
+    });
 
     const descriptions = {
         'project-overview': 'Understand the application surfaces, runtimes, authentication boundaries, and core technology choices before changing the codebase.',
@@ -236,6 +259,7 @@
             if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
         });
         mobileNav?.removeAttribute('open');
+        closeNavigation();
         document.title = id === 'guide-overview' ? 'Lonigma Wishlist Developer Guide' : `${pageById.get(id).querySelector('h2')?.textContent || 'Developer Guide'} | Lonigma Wishlist`;
         window.scrollTo(0, 0);
     };
