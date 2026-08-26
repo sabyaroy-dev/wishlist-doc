@@ -257,9 +257,13 @@ html[data-theme="dark"] .dev-guide blockquote { border-color: #443965; color: #d
     .dev-guide pre { padding: 17px 16px; }
     .dev-guide pre code { font-size: 12px; }
     .dev-footer { padding: 22px 16px; }
-    .section-pager { grid-template-columns: 1fr; }
-    .pager-link.is-disabled { display: none; }
-    .pager-next { align-items: flex-start; text-align: left; }
+    .section-pager { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 38px; padding-top: 18px; }
+    .pager-link { min-height: 46px; padding: 10px 12px; border-radius: 9px; box-shadow: none; }
+    .pager-link:hover, .pager-link:focus-visible { transform: none; box-shadow: none; }
+    .pager-link small { margin: 0; font-size: 9px; letter-spacing: .06em; }
+    .pager-link strong { display: none; }
+    .pager-link.is-disabled { display: flex; visibility: hidden; }
+    .pager-next { align-items: flex-end; text-align: right; }
 }
 @media (max-width: 420px) {
     .dev-header { padding: 0 10px; }
