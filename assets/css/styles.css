@@ -406,6 +406,70 @@ figcaption {
     max-width: 760px
 }
 
+#custom-css .custom-css-visual {
+    margin: 26px 0 46px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 14px 40px rgba(31, 35, 48, .08)
+}
+
+#custom-css .custom-css-visual img {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: none
+}
+
+#custom-css .custom-css-visual figcaption {
+    margin: 14px auto 0;
+    max-width: 760px
+}
+
+#custom-css .css-recipes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 24px 0 42px
+}
+
+#custom-css .css-recipes section {
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface)
+}
+
+#custom-css .css-recipes section:last-child {
+    grid-column: 1 / -1
+}
+
+#custom-css .css-recipes h3 {
+    margin: 0 0 12px
+}
+
+#custom-css .css-recipes pre {
+    margin: 0;
+    padding: 16px;
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #f7f7fa;
+    color: #202124;
+    font-size: 13px;
+    line-height: 1.65
+}
+
+#custom-css .css-recipes code {
+    padding: 0;
+    background: transparent;
+    color: #202124;
+    -webkit-text-fill-color: #202124
+}
+
 @media (max-width: 760px) {
     #branding .branding-visual {
         margin: 20px 0 36px;
@@ -439,6 +503,20 @@ figcaption {
         margin: 20px 0 36px;
         padding: 10px;
         border-radius: 12px
+    }
+
+    #custom-css .custom-css-visual {
+        margin: 20px 0 36px;
+        padding: 10px;
+        border-radius: 12px
+    }
+
+    #custom-css .css-recipes {
+        grid-template-columns: 1fr
+    }
+
+    #custom-css .css-recipes section:last-child {
+        grid-column: auto
     }
 }
 
@@ -543,6 +621,7 @@ body:has(#theme-setup:target) .sidebar a[href="#theme-setup"],
 body:has(#display-modes:target) .sidebar a[href="#display-modes"],
 body:has(#branding:target) .sidebar a[href="#branding"],
 body:has(#cart-save-later:target) .sidebar a[href="#cart-save-later"],
+body:has(#custom-css:target) .sidebar a[href="#custom-css"],
 body:has(#sharing:target) .sidebar a[href="#sharing"],
 body:has(#alerts:target) .sidebar a[href="#alerts"],
 body:has(#analytics:target) .sidebar a[href="#analytics"],

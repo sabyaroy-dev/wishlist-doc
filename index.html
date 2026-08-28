@@ -48,6 +48,8 @@
             <span>◉</span>Match it to your brand</a>
         <a href="#cart-save-later">
             <span>▱</span>Cart &amp; save for later</a>
+        <a href="#custom-css">
+            <span>&lt;/&gt;</span>Custom CSS</a>
         <a href="#sharing">
             <span>↗</span>Sharing and privacy</a>
         <p>GROWTH</p>
@@ -1015,7 +1017,53 @@
             <figure class="cart-settings-visual"><img src="assets/images/cart-behavior-guide-v2.png" alt="Comparison of Add to wishlist, Save for later, and Save cart to wishlist behavior"><figcaption>Three related actions preserve intent, but each changes the cart and wishlist differently.</figcaption></figure>
             <h2>Configuration reference</h2>
             <div class="table-wrap"><table><thead><tr><th>Action</th><th>Cart result</th><th>Saved destination</th><th>Typical placement</th></tr></thead><tbody><tr><td>Add to wishlist</td><td>Item stays in cart</td><td>Named wishlist</td><td>Cart line</td></tr><tr><td>Save for later</td><td>Item leaves cart</td><td>Private saved-for-later list</td><td>Cart line or remove prompt</td></tr><tr><td>Save cart to wishlist</td><td>Cart stays unchanged</td><td>Named wishlist</td><td>Cart summary</td></tr></tbody></table></div>
-            <nav class="next"><a href="#branding"><small>PREVIOUS</small><b>← Branding</b></a><a href="#sharing"><small>NEXT</small><b>Sharing →</b></a></nav>
+            <nav class="next"><a href="#branding"><small>PREVIOUS</small><b>← Branding</b></a><a href="#custom-css"><small>NEXT</small><b>Custom CSS →</b></a></nav>
+        </article>
+        <article class="guide" id="custom-css">
+            <div class="breadcrumb">WISHLIST SETTINGS <b>›</b> Custom CSS</div>
+            <div class="title"><span>&lt;/&gt;</span><h1>Custom CSS</h1></div>
+            <p class="lead">Add focused, brand-specific polish to Lonigma Wishlist surfaces without editing your Shopify theme code.</p>
+
+            <div class="callout"><strong>Use the visual controls first</strong><p>Presets, brand colours, icon choices, button styles, and placement settings are safer to maintain. Use Custom CSS only when those controls cannot produce the finish you need.</p></div>
+
+            <h2>Open Advanced (Custom CSS)</h2>
+            <p>In Lonigma Wishlist, open <strong>Storefront → Advanced (Custom CSS)</strong>. Add CSS in the editor, review the byte counter, and use the live preview to confirm that the Wishlist Appearance app embed is active.</p>
+            <figure class="custom-css-visual"><img src="assets/images/custom-css-editor-v2.png" alt="Lonigma Wishlist Custom CSS editor beside an app embed health preview"><figcaption>Keep rules small and scoped. Reset the field if an experiment causes unexpected storefront styling.</figcaption></figure>
+
+            <h2>Target stable wishlist selectors</h2>
+            <p>Style Lonigma-owned classes such as <code>.wl-heart</code>, <code>.wl-button</code>, <code>.wl-share-menu</code>, and <code>.wl-shell-page</code>. These selectors are designed for wishlist surfaces and are less likely to collide with the merchant theme.</p>
+            <p>Avoid broad theme selectors such as product-card, cart-item, or section wrappers. Those classes can be renamed by a theme update or unintentionally restyle unrelated storefront content.</p>
+            <figure class="custom-css-visual"><img src="assets/images/custom-css-selectors-v2.png" alt="Reference of stable Lonigma Wishlist selectors and a scoped starter CSS example"><figcaption>Scope every rule to a wishlist element instead of styling the surrounding Shopify theme.</figcaption></figure>
+
+            <h2>Know which properties are safe</h2>
+            <div class="table-wrap"><table><thead><tr><th>Category</th><th>Examples</th><th>Guidance</th></tr></thead><tbody><tr><td>Cosmetic</td><td>color, background, border, border-radius, font, opacity, padding</td><td>Generally safe for brand polish.</td></tr><tr><td>Motion</td><td>transition, transform</td><td>Use subtle values and preserve accessibility.</td></tr><tr><td>Structural</td><td>display, position, overflow, width, height, z-index, pointer-events</td><td>Use cautiously; these can hide, detach, or block wishlist controls.</td></tr></tbody></table></div>
+
+            <h2>Start with a small recipe</h2>
+            <p>Change one surface at a time, then test the unsaved, saved, hover, and keyboard-focus states. The following examples use only app-scoped selectors.</p>
+            <div class="css-recipes">
+                <section><h3>Rounded heart</h3><pre><code>.wl-heart {
+  border-radius: 999px;
+  transition: transform 150ms ease;
+}
+
+.wl-heart:hover {
+  transform: scale(1.04);
+}</code></pre></section>
+                <section><h3>Branded primary action</h3><pre><code>.wl-button[data-style="primary"] {
+  border-radius: 10px;
+  letter-spacing: .02em;
+}</code></pre></section>
+                <section><h3>Larger mobile target</h3><pre><code>@media (max-width: 640px) {
+  .wl-heart { padding: 10px; }
+}</code></pre></section>
+            </div>
+
+            <h2>Validate before saving</h2>
+            <p>Check product pages, collection cards, the wishlist drawer or page, cart actions, sharing menus, and saved-state messages on desktop and mobile. If the editor warns about a risky property, confirm that the rule cannot hide a functional control before keeping it.</p>
+            <figure class="custom-css-visual"><img src="assets/images/custom-css-validation-v2.png" alt="Custom CSS safety reference with cosmetic and structural properties, recipes, and a pre-save checklist"><figcaption>Test every affected surface and interaction state before publishing the CSS to shoppers.</figcaption></figure>
+            <div class="callout"><strong>Keep a recovery path</strong><p>Save a copy of working CSS before a larger change. If the storefront layout breaks, remove the newest rule or use <strong>Reset custom CSS</strong>, then rebuild in smaller steps.</p></div>
+
+            <nav class="next"><a href="#cart-save-later"><small>PREVIOUS</small><b>← Cart &amp; save for later</b></a><a href="#sharing"><small>NEXT</small><b>Sharing →</b></a></nav>
         </article>
         <article class="guide" id="sharing">
             <div class="breadcrumb">WISHLIST SETTINGS <b>›</b> Sharing</div>
@@ -1140,9 +1188,9 @@
                 </table>
             </div>
             <nav class="next">
-                <a href="#cart-save-later">
+                <a href="#custom-css">
                     <small>PREVIOUS</small>
-                    <b>← Cart &amp; save for later</b>
+                    <b>← Custom CSS</b>
                 </a>
                 <a href="#alerts">
                     <small>NEXT</small>
@@ -1839,6 +1887,7 @@
         <a href="#display-modes">Display modes</a>
         <a href="#branding">Brand styling</a>
         <a href="#cart-save-later">Cart &amp; save for later</a>
+        <a href="#custom-css">Custom CSS</a>
         <a href="#sharing">Sharing</a>
         <a href="#alerts">Alerts</a>
         <a href="#analytics">Analytics</a>
