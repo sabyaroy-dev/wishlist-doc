@@ -46,6 +46,8 @@
             <span>▣</span>Choose how the wishlist opens</a>
         <a href="#branding">
             <span>◉</span>Match it to your brand</a>
+        <a href="#cart-save-later">
+            <span>▱</span>Cart &amp; save for later</a>
         <a href="#sharing">
             <span>↗</span>Sharing and privacy</a>
         <p>GROWTH</p>
@@ -547,10 +549,65 @@
                 <figcaption>The app embed loads the storefront foundation.</figcaption>
             </figure>
             <h2>Product pages</h2>
-            <p>Add the Wishlist Product Button block exactly where you want it.</p>
-            <figure>
-                <img src="assets/images/introduction-product-block.png" alt="Wishlist product page app block">
-                <figcaption>Place the product block inside Product information.</figcaption>
+            <p>Open <strong>Storefront → Product page</strong> to control whether the wishlist action appears, where it is placed, and what shoppers see before and after saving a product.</p>
+            <figure class="product-settings-visual product-settings-wide">
+                <img src="assets/images/product-navigation-v2.png" alt="Storefront configuration tabs with Product page selected">
+                <figcaption>Use the Product page tab for product-detail-page visibility, placement, and button labels.</figcaption>
+            </figure>
+            <h3>1. Choose visibility and placement</h3>
+            <p>Enable <strong>Show Add to wishlist on product pages</strong> to make the action available. If your theme does not contain the Lonigma product-page app block, enable <strong>Auto-render</strong> and choose whether the button appears before or after Add to cart or near the price.</p>
+            <p>The preview updates as you change placement. Review both Desktop and Mobile to confirm the wishlist action is visible without interrupting variant selection or checkout controls.</p>
+            <figure class="product-settings-visual">
+                <img src="assets/images/product-visibility-placement-v2.png" alt="Product page visibility, automatic rendering, placement controls, and live preview">
+                <figcaption>Enable the action, choose a fallback placement, and verify the result in the live preview.</figcaption>
+            </figure>
+            <h3>2. Set the button presentation</h3>
+            <p>Choose whether the action displays an icon, a label, or both. Write short labels for the two states: the invitation shown before saving and the confirmation shown after the product is added.</p>
+            <p>For most stores, <strong>Icon + label</strong>, <strong>Add to wishlist</strong>, and <strong>Added</strong> provide the clearest experience. The global colours and icon selected under Brand &amp; visual style are applied automatically.</p>
+            <figure class="product-settings-visual">
+                <img src="assets/images/product-button-presentation-v2.png" alt="Product page wishlist style and before and after button text controls">
+                <figcaption>Keep labels concise and make the saved state visibly different from the initial action.</figcaption>
+            </figure>
+            <h3>3. Select one placement mode</h3>
+            <p><strong>App block</strong> is recommended because it gives you visual placement control in Shopify’s theme editor. Use <strong>Auto-render</strong> only when the block is not installed and the theme uses a standard product form. Reserve the <strong>Developer hook</strong> for custom templates that need exact code-level positioning.</p>
+            <div class="callout">
+                <strong>Avoid duplicate buttons</strong>
+                <p>When the product-page app block is present, turn off Auto-render. Using both placement methods can display two wishlist actions.</p>
+            </div>
+            <figure class="product-settings-visual">
+                <img src="assets/images/product-placement-modes-v2.png" alt="Comparison of product page app block, automatic rendering, and developer hook placement modes">
+                <figcaption>Choose the simplest placement method supported by the active product template.</figcaption>
+            </figure>
+            <h2>Collection and browse (PLP)</h2>
+            <p>Open <strong>Storefront → Collection &amp; browse</strong> to configure wishlist controls on product-listing pages. These settings apply to product cards rather than the full product-detail page.</p>
+            <figure class="collection-settings-visual collection-settings-wide">
+                <img src="assets/images/collection-navigation-v2.png" alt="Storefront configuration tabs with Collection and browse selected">
+                <figcaption>Use Collection &amp; browse for product-card wishlist actions across browsing surfaces.</figcaption>
+            </figure>
+            <h3>1. Select the storefront surfaces</h3>
+            <p>Enable the product-card heart independently for collection pages, the home page, search results, product recommendations, and cart recommendations. Turn on only the surfaces your theme actually uses so the storefront stays consistent.</p>
+            <h3>2. Set desktop and mobile placement</h3>
+            <p>Choose where the action appears on desktop product cards. Overlay placements sit on the product image; below-title and below-price placements use the card’s content area. Leave Mobile placement on <strong>Inherit desktop placement</strong>, or override it when a corner control feels crowded in a two-column mobile grid.</p>
+            <figure class="collection-settings-visual">
+                <img src="assets/images/collection-surfaces-placement-v2.png" alt="Collection surfaces, desktop and mobile wishlist placement controls, and live preview">
+                <figcaption>Enable the required surfaces, choose desktop placement, then check whether mobile needs an override.</figcaption>
+            </figure>
+            <h3>3. Choose the card action and variant behavior</h3>
+            <p>Select an icon-only, label-only, or icon-and-label presentation for product cards. Compact grids usually benefit from an icon, while wider cards can support a short label without competing with product information.</p>
+            <p>When variant selection is enabled, saving a multi-variant product opens a small picker so the shopper can choose a size or colour. Disable it when you prefer a faster one-tap save that does not select a particular variant.</p>
+            <figure class="collection-settings-visual">
+                <img src="assets/images/collection-button-variants-v2.png" alt="Product-card wishlist presentation and collection variant picker settings">
+                <figcaption>Choose the card treatment and decide whether shoppers select a variant before saving.</figcaption>
+            </figure>
+            <h3>4. Choose the right collection mode</h3>
+            <p>Use an overlay for image-led grids, or place the action below the title or price when badges and quick-add controls already occupy the image. Custom product-card snippets can use the developer hook for exact placement.</p>
+            <div class="callout">
+                <strong>No separate collection app block is required</strong>
+                <p>Collection actions are rendered by the Wishlist Appearance app embed using the surface and placement settings above.</p>
+            </div>
+            <figure class="collection-settings-visual">
+                <img src="assets/images/collection-placement-guide-v2.png" alt="Overlay, below-content, and developer-hook collection placement options">
+                <figcaption>Match the placement mode to the card layout and use a mobile override when the grid becomes crowded.</figcaption>
             </figure>
             <h2>Wishlist page</h2>
             <p>Create <code>/pages/wishlist</code> and add the Wishlist Full Page app block.</p>
@@ -658,10 +715,19 @@
                 <span>▣</span>
                 <h1>Choose how the wishlist opens</h1>
             </div>
-            <p class="lead">Choose the experience that best fits your theme and your shoppers.</p>
-            <figure>
-                <img src="assets/images/wishlist-display-mode.png" alt="Wishlist display controls">
-                <figcaption>Wishlist display mode and shell settings.</figcaption>
+            <p class="lead">Configure how shoppers open, name, organise, and act on their saved products across every wishlist surface.</p>
+            <h2>Name the wishlist experience</h2>
+            <p>Open <strong>Storefront → Wishlist</strong>. Choose the shopper-facing noun used in labels, then set the page title, first-list name, and initial sort order. These values should use the same language your store already uses for favourites or saved products.</p>
+            <p>The shopper noun changes action labels such as “Add to wishlist.” The default list name is separate and is used when a customer’s first list is created.</p>
+            <figure class="display-settings-visual">
+                <img src="assets/images/display-naming-v2.png" alt="Wishlist naming, default list name, sorting controls, and live preview">
+                <figcaption>Set consistent shopper-facing terminology, default names, and the first-open sort order.</figcaption>
+            </figure>
+            <h2>Choose the wishlist shell</h2>
+            <p>Select Side drawer, Modal, or Dedicated page. For a dedicated page, confirm the storefront path, choose the initial Tiles, List, or Compact layout, and decide whether shoppers may switch layouts themselves.</p>
+            <figure class="display-settings-visual">
+                <img src="assets/images/display-shell-layout-v2.png" alt="Side drawer, modal, and dedicated page display modes with page layout controls">
+                <figcaption>Choose the shell first, then configure the settings that apply to that display mode.</figcaption>
             </figure>
             <h2>Side drawer</h2>
             <p>Recommended for most stores. It keeps shoppers on the current page while giving fast access to saved
@@ -683,7 +749,23 @@
                 <figcaption>The dedicated page gives larger wishlists room for list navigation, search, layout controls, and product actions.</figcaption>
             </figure>
             <h2>Launcher and naming</h2>
-            <p>Choose where the launcher appears and rename Wishlist to Favorites or Saved items.</p>
+            <p>Enable multiple named lists when shoppers need separate collections for occasions, people, or projects. Use the plan default for the maximum list count unless your store needs a stricter limit.</p>
+            <p>Place success and undo messages with the Toast position setting. Configure the floating launcher independently, including its corner, icon/label treatment, and optional custom label.</p>
+            <figure class="display-settings-visual">
+                <img src="assets/images/display-multilist-launcher-v2.png" alt="Wishlist multi-list limits, toast position, floating launcher settings, and preview">
+                <figcaption>Control list limits and make wishlist entry points and confirmation messages easy to find.</figcaption>
+            </figure>
+            <h2>Configure item actions and retention</h2>
+            <p>Choose whether Add to cart keeps the product in the wishlist or moves it out. Style the primary cart action separately from secondary controls such as Remove and the alert bell.</p>
+            <p>Inactive-list cleanup is optional. Set the number of inactive days after which lists are removed, or use <code>0</code> to keep saved lists indefinitely.</p>
+            <div class="callout">
+                <strong>Review retention before enabling cleanup</strong>
+                <p>Automatic cleanup affects wishlist and save-for-later lists. Choose a period that matches your store’s customer-service and retention policies.</p>
+            </div>
+            <figure class="display-settings-visual">
+                <img src="assets/images/display-actions-cleanup-v2.png" alt="Wishlist cart behavior, utility action styles, inactive-list cleanup, and guidance">
+                <figcaption>Define item-level actions and keep cleanup disabled until a retention period has been agreed.</figcaption>
+            </figure>
             <h2>Display mode comparison</h2>
             <div class="table-wrap">
                 <table>
@@ -764,19 +846,39 @@
                 <span>◉</span>
                 <h1>Match the wishlist to your brand</h1>
             </div>
-            <p class="lead">Control colours, presets, button shapes, and icons from Brand &amp; visual style.</p>
-            <figure>
-                <img src="assets/images/brand-visual-style.png" alt="Lonigma brand and visual style controls">
-                <figcaption>Brand settings with a live storefront preview.</figcaption>
+            <p class="lead">Create one consistent visual system for every wishlist surface. Work through the controls below in order, checking the live preview before you save.</p>
+            <h2>Open Brand &amp; visual style</h2>
+            <p>From the Lonigma Wishlist app, open <strong>Storefront</strong>, then select <strong>Brand &amp; visual style</strong>. The other tabs control individual storefront surfaces; this tab sets the shared colours, button treatment, and icons used across all of them.</p>
+            <figure class="branding-visual branding-visual-wide">
+                <img src="assets/images/brand-navigation-v2.png" alt="Storefront configuration tabs with Brand and visual style selected">
+                <figcaption>Start in Brand &amp; visual style to define the shared storefront design.</figcaption>
             </figure>
             <h2>Start with a preset</h2>
-            <p>Choose Minimal, Balanced, Bold, or Custom. Balanced suits most stores.</p>
+            <p>Select <strong>Minimal</strong>, <strong>Balanced</strong>, <strong>Bold</strong>, or <strong>Custom</strong> as your starting point. A preset applies a coordinated group of defaults; you can then adjust individual values without rebuilding the design from scratch.</p>
             <h2>Set brand colours</h2>
-            <p>Configure button background, text, icon, and link colours.</p>
-            <h2>Choose shapes and icons</h2>
-            <p>Select solid, outline, or text buttons and choose the icon that fits your store.</p>
+            <p>Enter your button background, button text, icon, and link colours as hexadecimal values. Use the live preview to check contrast, hover states, and how the design reads beside your product content.</p>
+            <div class="callout">
+                <strong>Preview before saving</strong>
+                <p>Check both Desktop and Mobile previews. Make sure text remains readable and the primary wishlist action is easy to identify.</p>
+            </div>
+            <figure class="branding-visual">
+                <img src="assets/images/brand-presets-colors-v2.png" alt="Style presets, brand colour fields, and storefront live preview">
+                <figcaption>Choose a preset, fine-tune the four colour tokens, then confirm the result in the live preview.</figcaption>
+            </figure>
+            <h2>Choose button and icon shapes</h2>
+            <p>Match the wishlist controls to your theme by choosing a button style and corner radius. Then assign different symbols to <strong>Wishlist</strong> and <strong>Save for later</strong> so shoppers can distinguish the two actions immediately.</p>
+            <p>Heart is the most familiar wishlist symbol. Bookmark, Pin, or Clock work well for save-for-later because they communicate a separate action without competing with the wishlist heart.</p>
+            <figure class="branding-visual">
+                <img src="assets/images/brand-buttons-icons-v2.png" alt="Button shape controls and separate wishlist and save-for-later icon choices">
+                <figcaption>Keep button styling aligned with the theme and use distinct icons for the two saving actions.</figcaption>
+            </figure>
             <h2>Advanced customisation</h2>
-            <p>Eligible plans can upload custom SVG icons and add scoped custom CSS.</p>
+            <p>Starter and higher plans can upload separate custom SVG icons for Wishlist and Save for later. Upload a small, single-colour SVG; Lonigma sanitises and optimises it, then uses the configured icon colour so it stays consistent across the storefront.</p>
+            <p>Use scoped custom CSS only when the standard controls cannot produce the required result. Keep those overrides narrow so theme changes do not unexpectedly affect wishlist components.</p>
+            <figure class="branding-visual">
+                <img src="assets/images/brand-custom-svg-v2.png" alt="Custom SVG upload controls and brand setup guidance">
+                <figcaption>Upload distinct SVGs when needed, keep the appearance app embed enabled, and save to publish the design.</figcaption>
+            </figure>
             <h2>Style presets</h2>
             <div class="table-wrap">
                 <table>
@@ -886,11 +988,34 @@
                     <small>PREVIOUS</small>
                     <b>← Display modes</b>
                 </a>
-                <a href="#sharing">
+                <a href="#cart-save-later">
                     <small>NEXT</small>
-                    <b>Sharing →</b>
+                    <b>Cart &amp; save for later →</b>
                 </a>
             </nav>
+        </article>
+        <article class="guide" id="cart-save-later">
+            <div class="breadcrumb">WISHLIST SETTINGS <b>›</b> Cart &amp; save for later</div>
+            <div class="title"><span>▱</span><h1>Cart and save for later</h1></div>
+            <p class="lead">Give shoppers several ways to preserve purchase intent without losing the contents of their cart.</p>
+            <h2>Add cart items to a wishlist</h2>
+            <p>Open <strong>Storefront → Cart &amp; save for later</strong>. Enable the per-line Add to wishlist action to copy an individual cart item into a named wishlist while leaving the original item in the cart.</p>
+            <p>Enable Save cart to wishlist when shoppers should be able to copy every current cart item in one action. Choose Auto placement for standard themes, or use the cart app block or developer hook for exact positioning.</p>
+            <figure class="cart-settings-visual"><img src="assets/images/cart-wishlist-actions-v2.png" alt="Cart line Add to wishlist and cart summary Save cart to wishlist settings with preview"><figcaption>Per-line actions save one item; the cart-summary action copies the complete cart.</figcaption></figure>
+            <h2>Enable Save for later</h2>
+            <p>Save for later moves the item out of the cart and into a private system-managed list. Enable the feature switch before configuring its cart-line controls.</p>
+            <p>The remove-flow option intercepts deletion and offers a lower-friction alternative: shoppers can remove the item permanently or move it to Save for later instead.</p>
+            <figure class="cart-settings-visual"><img src="assets/images/cart-save-for-later-v2.png" alt="Save for later feature switch, cart-line controls, remove interception, and preview"><figcaption>Offer Save for later directly on cart rows and optionally during item removal.</figcaption></figure>
+            <h2>Configure the cart page and drawer</h2>
+            <p>The full cart page can show saved items as a horizontal strip beneath cart lines. The cart drawer uses a compact module that can remain collapsed so it does not compete with checkout. Configure and preview these surfaces independently.</p>
+            <figure class="cart-settings-visual"><img src="assets/images/cart-page-drawer-v2.png" alt="Full cart page saved-for-later strip and compact cart drawer module settings"><figcaption>Use a roomy strip on the cart page and a compact expandable module inside the cart drawer.</figcaption></figure>
+            <h2>Understand what each action does</h2>
+            <p>Add to wishlist copies one item and keeps the cart unchanged. Save for later moves one item out of the cart. Save cart to wishlist copies every cart item and leaves quantities and cart contents unchanged.</p>
+            <div class="callout"><strong>Choose labels that make the difference clear</strong><p>Shoppers should understand whether an action copies or moves an item before they select it.</p></div>
+            <figure class="cart-settings-visual"><img src="assets/images/cart-behavior-guide-v2.png" alt="Comparison of Add to wishlist, Save for later, and Save cart to wishlist behavior"><figcaption>Three related actions preserve intent, but each changes the cart and wishlist differently.</figcaption></figure>
+            <h2>Configuration reference</h2>
+            <div class="table-wrap"><table><thead><tr><th>Action</th><th>Cart result</th><th>Saved destination</th><th>Typical placement</th></tr></thead><tbody><tr><td>Add to wishlist</td><td>Item stays in cart</td><td>Named wishlist</td><td>Cart line</td></tr><tr><td>Save for later</td><td>Item leaves cart</td><td>Private saved-for-later list</td><td>Cart line or remove prompt</td></tr><tr><td>Save cart to wishlist</td><td>Cart stays unchanged</td><td>Named wishlist</td><td>Cart summary</td></tr></tbody></table></div>
+            <nav class="next"><a href="#branding"><small>PREVIOUS</small><b>← Branding</b></a><a href="#sharing"><small>NEXT</small><b>Sharing →</b></a></nav>
         </article>
         <article class="guide" id="sharing">
             <div class="breadcrumb">WISHLIST SETTINGS <b>›</b> Sharing</div>
@@ -1015,9 +1140,9 @@
                 </table>
             </div>
             <nav class="next">
-                <a href="#branding">
+                <a href="#cart-save-later">
                     <small>PREVIOUS</small>
-                    <b>← Branding</b>
+                    <b>← Cart &amp; save for later</b>
                 </a>
                 <a href="#alerts">
                     <small>NEXT</small>
@@ -1713,6 +1838,7 @@
         <a href="#theme-setup">Theme setup</a>
         <a href="#display-modes">Display modes</a>
         <a href="#branding">Brand styling</a>
+        <a href="#cart-save-later">Cart &amp; save for later</a>
         <a href="#sharing">Sharing</a>
         <a href="#alerts">Alerts</a>
         <a href="#analytics">Analytics</a>
